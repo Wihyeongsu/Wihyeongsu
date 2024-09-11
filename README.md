@@ -3,7 +3,7 @@
 <details open>
 	<summary>rust
 	</summary>
-	```rust
+```rust
 #[derive(Config, Debug)]
 pub struct ModelConfig {
     num_classes: usize,
@@ -28,6 +28,7 @@ impl ModelConfig {
 }
 ```
 </details>
+
 ```toml title:'Cargo.toml'
 [package]
 name = "guide"
