@@ -1,5 +1,8 @@
 # Rust Burn
 
+> [!NOTE] sdf
+> sdf
+
 ```toml title:'Cargo.toml'
 [package]
 name = "guide"
