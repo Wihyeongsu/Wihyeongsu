@@ -1,3 +1,5 @@
+# Rust Burn
+
 ```toml title:'Cargo.toml'
 [package]
 name = "guide"
