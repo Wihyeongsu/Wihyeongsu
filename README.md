@@ -1,5 +1,7 @@
 # Rust Burn 독파하기
 
+- obsidian을 기반으로 작성
+
 참고한 자료
 	- [burn.docs](https://burn.dev/docs/burn)
 	- [burn-book](https://burn.dev/burn-book)
