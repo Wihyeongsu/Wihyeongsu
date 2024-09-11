@@ -3,6 +3,7 @@
 <details open>
 	<summary>rust
 	</summary>
+	
 ```rust
 #[derive(Config, Debug)]
 pub struct ModelConfig {
