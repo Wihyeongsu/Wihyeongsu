@@ -40,9 +40,8 @@ class AnimatedTurtle(turtle.Turtle):
     def run_animation(self):
         for frame in self.gif_frames:
             self.shape(frame)
-            # time.sleep(0.1)  # 각 프레임 사이에 0.1초 지연
-        # self.shape(self.gif_frames[self.current_frame])
-        # self.current_frame = (self.current_frame + 1) % len(self.gif_frames)
+            time.sleep(0.1)  # 각 프레임 사이에 0.1초 지연
+        
 
     def start_animation(self):
         self.change_frames()
@@ -177,9 +176,11 @@ class Enemy(AnimatedTurtle):
             self.current_state = 0
             self.shape(self.gif_frames[0]) # 정지 시 첫 번째 frame으로 설정
 
-        
         self.last_position = current_position
-        self.screen.ontimer(self.animate, self.animation_speed)
+        if self.current_state != 4:
+            self.screen.ontimer(self.animate, self.animation_speed)
+        else:
+            self.shape(self.gif_frames[3])
 
     def start_animation(self):
         self.change_frames()
@@ -251,14 +252,14 @@ class RunawayGame:
             self.is_catched_drawer.undo()
             self.is_catched_drawer.penup()
             self.is_catched_drawer.setpos(-300, 300)
-            self.is_catched_drawer.write(f'Is catched? {is_catched}')
+            self.is_catched_drawer.write(f'Is catched? {is_catched}',font=('Arial', 12, 'normal'))
 
             # draw time
             self.elapsed_time = time.time() - self.start_time
             self.time_drawer.undo()
             self.time_drawer.penup()
-            self.time_drawer.setpos(-300, 290)
-            self.time_drawer.write(f'time: {self.elapsed_time:.2f}')
+            self.time_drawer.setpos(-300, 280)
+            self.time_drawer.write(f'time: {self.elapsed_time:.2f}', font=('Arial', 12, 'normal'))
 
             # coin 충돌 검사
             if self.coin_factory.check_collision(player):
@@ -290,10 +291,16 @@ class RunawayGame:
             self.enemy.clear()
             self.player.clear()
             self.coin_factory.clear()
+
+            # player hit animation
             self.player.current_state = 2
             self.player.change_frames()
             self.player.run_animation()
 
+            # enemy death animation
+            self.enemy.current_state = 4
+            self.enemy.change_frames()
+            self.enemy.run_animation()
 
             # calculate score
             self.score = self.elapsed_time * (100 + self.coin_cnt) / 100
@@ -321,36 +328,10 @@ class ManualMover(Player):
 
         # Register event handlers
         canvas.onkeypress(lambda: self.forward(self.step_move), 'Up')
-        # canvas.onkeypress(lambda: self.start_move_forward(), 'Up')
-        # canvas.onkeyrelease(lambda: self.stop_move(), 'Up')
         canvas.onkeypress(lambda: self.backward(self.step_move), 'Down')
-        # canvas.onkeypress(lambda: self.start_move_backward(), 'Down')
-        # canvas.onkeyrelease(lambda: self.stop_move(), 'Down')
         canvas.onkeypress(lambda: self.left(self.step_turn), 'Left')
         canvas.onkeypress(lambda: self.right(self.step_turn), 'Right')
-        # canvas.onkey(lambda: self.forward(50), 'space')
         canvas.listen()
-
-    # def start_move_forward(self):
-    #     self.is_moving = True
-    #     self.move_forward()
-
-    # def start_move_backward(self):
-    #     self.is_moving = True
-    #     self.move_backward()
-    
-    # def stop_move(self):
-    #     self.is_moving = False
-
-    # def move_forward(self):
-    #     if self.is_moving:
-    #         self.forward(self.step_move)
-    #         self.screen.ontimer(self.move_forward, 50)
-
-    # def move_backward(self):
-    #     if self.is_moving:
-    #         self.backward(self.step_move)
-    #         self.screen.ontimer(self.move_backward, 50)
 
     def run_ai(self, opp_pos, opp_heading):
         pass
@@ -406,7 +387,7 @@ if __name__ == '__main__':
     screen = turtle.Screen()
     screen.setup(700, 700)
     screen.title("turtle runaway")
-    # screen.bgcolor("")
+    screen.bgcolor("#136D15")
     images = "assets/images/"
 
     # coin gif
@@ -441,6 +422,7 @@ if __name__ == '__main__':
     # register gif
     for frame in coin + slime_green + knight:
         screen.register_shape(frame)
+
 
     # TODO) Change the follows to your turtle if necessary
     enemy = RandomMover(screen, knight)
