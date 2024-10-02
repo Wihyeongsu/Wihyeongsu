@@ -57,7 +57,6 @@ class Coin(AnimatedTurtle):
         self.run_animation()     
         self.screen.ontimer(self.animate, self.animation_speed)
 
-    
 
 # coin manager
 class CoinFactory:
