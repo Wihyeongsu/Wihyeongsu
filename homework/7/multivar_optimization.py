@@ -5,14 +5,18 @@ from scipy.optimize import minimize
 if __name__ == '__main__':
     # Define a cost function and its gradient
     f   = lambda x: (1 - x[0])**2 + 100*(x[1] - x[0]**2)**2
+    # fd = lambda x: np.array(
+    #     -2 * (1-x[0]) - 400*x[0]*(x[1] - x[0]**2),
+    #     200*(x[1] - x[0]**2)
+    # )
     fd  = lambda x: np.array(
         (f([x[0] + 1e-6, x[1]]) - f([x[0] - 1e-6, x[1]])) / (2 * 1e-6),
         (f([x[0], x[1] + 1e-6]) - f([x[0], x[1] - 1e-6])) / (2 * 1e-6)
-    ) # TODO: Fill the gradient vector as [df / dx[0], df / dx[1]]
+        ) # TODO: Fill the gradient vector as [df / dx[0], df / dx[1]]
 
     # Define configuration
     x_init = [1, 2]   # Please try other initial points
-    learn_rate = 0.001 # Please try 0.01, 0.005, and 0.0001
+    learn_rate = 0.0001 # Please try 0.01, 0.005, and 0.0001
     max_iter = 10000   # Please try 100, 1000, and 100000
     min_tol = 1e-6
 
@@ -26,8 +30,8 @@ if __name__ == '__main__':
         gd_xs.append(x)
 
         # Check the terminal condition
-        if np.linalg.norm(x - xp) < min_tol:
-            break
+        # if np.linalg.norm(x - xp) < min_tol:
+        #     break
     gd_xs = np.array(gd_xs)
 
     # Optimize the cost function using SciPy
