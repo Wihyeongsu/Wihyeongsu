@@ -1,14 +1,14 @@
-import { useState } from "react";
 import "./App.css";
-import Flow from "./components/test1";
-import Counter from "./components/test2";
+import CustomNodeFlow from "./components/CustomNodesFlow";
+import Flow from "./components/Flow";
+import Sidebar from "./components/Sidebar";
+import { Demo } from "./components/test";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <Counter initialCount={count} onCountUpdate={setCount} />
+      <Flow />
+      {/* <CustomNodeFlow /> */}
     </div>
   );
 }
