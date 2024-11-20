@@ -1,8 +1,9 @@
+import { DenseLayerNodeProps } from "@/types/DenseLayerNode.types";
 import { Handle, Position } from "@xyflow/react";
 
-const DensecLayerNode = ({ data, isConnectable }) => {
+const DensecLayerNode = ({ data, isConnectable }: DenseLayerNodeProps) => {
   return (
-    <div className="FC-Layer">
+    <div className="DenseLayer">
       {/* 입력 핸들 정의 */}
       <Handle
         type="target"
@@ -11,7 +12,15 @@ const DensecLayerNode = ({ data, isConnectable }) => {
       />
 
       <div>
-        <label htmlFor="text">fcLayer</label>
+        <div>{data.label}</div>
+        <div>
+          <label htmlFor="inputShape">Input Shape:</label>
+          <input type="number" id="inputShape" />
+        </div>
+        <div>
+          <label htmlFor="outputShape">Output Shape:</label>
+          <input type="number" id="outputShape" />
+        </div>
       </div>
 
       <Handle

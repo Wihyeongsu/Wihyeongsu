@@ -3,7 +3,7 @@ import { Handle, Position } from "@xyflow/react";
 
 const handleStyle = { left: 10 };
 
-function TextUpdaterNode({ data, isConnectable }) {
+const TextUpdaterNode = ({ data, isConnectable }) => {
   const onChange = useCallback((e) => {
     console.log(e.target.value);
   }, []);
@@ -34,6 +34,6 @@ function TextUpdaterNode({ data, isConnectable }) {
       />
     </div>
   );
-}
+};
 
 export default TextUpdaterNode;

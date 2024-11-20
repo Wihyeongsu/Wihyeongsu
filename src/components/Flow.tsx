@@ -17,8 +17,11 @@ const rfStyle = {
 
 const initialNodes = [
   {
-    id: "Fc",
-    type: "FcLayer",
+    id: "Dense",
+    type: "DenseLayer",
+    data: {
+      label: "Dense Layer",
+    },
     position: { x: 0, y: 0 },
   },
   {
@@ -39,11 +42,11 @@ const initialEdges = [
   {
     id: "Input",
     source: "Input",
-    target: "Fc",
+    target: "Dense",
   },
   {
     id: "Output",
-    source: "Fc",
+    source: "Dense",
     target: "Output",
   },
 ];
@@ -51,9 +54,8 @@ const initialEdges = [
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
 const nodeTypes = {
-  TextUpdater: TextUpdaterNode,
-  FcLayer: DenseLayerNode,
-  ColorSelector: ColorSelectorNode,
+  // TextUpdater: TextUpdaterNode,
+  DenseLayer: DenseLayerNode,
 };
 
 function Flow() {

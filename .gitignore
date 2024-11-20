@@ -40,3 +40,6 @@ dist-ssr
 
 # TypeScript
 *.tsbuildinfo
+
+# Others
+./src/components/ui
