@@ -1,5 +1,10 @@
 import { DenseLayerNodeProps } from "@/types/DenseLayerNode.types";
 import { Handle, Position } from "@xyflow/react";
+import {
+  NumberInputField,
+  NumberInputLabel,
+  NumberInputRoot,
+} from "@/components/ui/number-input";
 
 const DensecLayerNode = ({ data, isConnectable }: DenseLayerNodeProps) => {
   return (
@@ -13,13 +18,19 @@ const DensecLayerNode = ({ data, isConnectable }: DenseLayerNodeProps) => {
 
       <div>
         <div>{data.label}</div>
-        <div>
+        {/* <div>
           <label htmlFor="inputShape">Input Shape:</label>
           <input type="number" id="inputShape" />
         </div>
         <div>
           <label htmlFor="outputShape">Output Shape:</label>
           <input type="number" id="outputShape" />
+        </div> */}
+        <div>
+          <NumberInputRoot min={0} max={100}>
+            <NumberInputLabel>label</NumberInputLabel>
+            <NumberInputField />
+          </NumberInputRoot>
         </div>
       </div>
 

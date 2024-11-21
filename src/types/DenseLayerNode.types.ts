@@ -1,6 +1,6 @@
 import { Activation } from "./Activation.types";
 
-export type DenseLayerData = {
+export type LinearLayerData = {
   label: string;
   inputShape: number;
   outputShape: number;
@@ -8,6 +8,6 @@ export type DenseLayerData = {
 };
 
 export type DenseLayerNodeProps = {
-  data: DenseLayerData;
+  data: LinearLayerData;
   isConnectable: boolean;
 };

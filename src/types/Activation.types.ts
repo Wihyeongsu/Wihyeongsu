@@ -1,1 +1,1 @@
-export type Activation = "relu" | "sigmoid" | "tanh" | "softmax";
+export type Activation = "relu" | "sigmoid" | "tanh" | "softmax" | "leaky relu";
