@@ -1,15 +1,27 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
+  Background,
+  Controls,
   ReactFlow,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  useReactFlow,
 } from "@xyflow/react";
+
 import "@xyflow/react/dist/style.css";
 
-import TextUpdaterNode from "./TextUpdaterNode";
 import DenseLayerNode from "./DenseLayerNode";
-import ColorSelectorNode from "./ColorSelectorNode";
+import { InputNode } from "./InputNode";
+import { useDnD } from "./DnDContext";
+import Sidebar from "./Sidebar";
+
+// we define the nodeTypes outside of the component to prevent re-renderings
+// you could also use useMemo inside the component
+const nodeTypes = {
+  Input: InputNode,
+  DenseLayer: DenseLayerNode,
+};
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",
@@ -51,16 +63,48 @@ const initialEdges = [
   },
 ];
 
-// we define the nodeTypes outside of the component to prevent re-renderings
-// you could also use useMemo inside the component
-const nodeTypes = {
-  // TextUpdater: TextUpdaterNode,
-  DenseLayer: DenseLayerNode,
-};
+let id = 0;
+const getId = () => `node_${id++}`;
 
-function Flow() {
+const Flow = () => {
+  const reactFlowWrapper = useRef(null);
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
+  const { screenToFlowPosition } = useReactFlow();
+  const [type] = useDnD();
+
+  const onDragOver = useCallback((event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+  }, []);
+
+  const onDrop = useCallback(
+    (event) => {
+      event.preventDefault();
+
+      // check if the dropped element is valid
+      if (!type) {
+        return;
+      }
+
+      // project was renamed to screenToFlowPosition
+      // and you don't need to subtract the reactFlowBounds.left/top anymore
+      // details: https://reactflow.dev/whats-new/2023-11-10
+      const position = screenToFlowPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
+      const newNode = {
+        id: getId(),
+        type,
+        position,
+        data: { label: `${type} node` },
+      };
+
+      setNodes((nds) => nds.concat(newNode));
+    },
+    [screenToFlowPosition, type],
+  );
 
   const onNodesChange = useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -76,17 +120,26 @@ function Flow() {
   );
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      nodeTypes={nodeTypes}
-      fitView
-      style={rfStyle}
-    />
+    <div className="dndflow">
+      <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onDrop={onDrop}
+          onDragOver={onDragOver}
+          onConnect={onConnect}
+          nodeTypes={nodeTypes}
+          fitView
+          style={rfStyle}>
+          <Controls />
+          <Background />
+        </ReactFlow>
+      </div>
+      <Sidebar />
+    </div>
   );
-}
+};
 
 export default Flow;

@@ -6,7 +6,7 @@ import {
   NumberInputRoot,
 } from "@/components/ui/number-input";
 
-const DensecLayerNode = ({ data, isConnectable }: DenseLayerNodeProps) => {
+const DenseLayerNode = ({ data, isConnectable }: DenseLayerNodeProps) => {
   return (
     <div className="DenseLayer">
       {/* 입력 핸들 정의 */}
@@ -27,7 +27,7 @@ const DensecLayerNode = ({ data, isConnectable }: DenseLayerNodeProps) => {
           <input type="number" id="outputShape" />
         </div> */}
         <div>
-          <NumberInputRoot min={0} max={100}>
+          <NumberInputRoot defaultValue={"1"} min={1}>
             <NumberInputLabel>label</NumberInputLabel>
             <NumberInputField />
           </NumberInputRoot>
@@ -44,4 +44,4 @@ const DensecLayerNode = ({ data, isConnectable }: DenseLayerNodeProps) => {
   );
 };
 
-export default DensecLayerNode;
+export default DenseLayerNode;
