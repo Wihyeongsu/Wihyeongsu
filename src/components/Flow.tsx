@@ -10,18 +10,9 @@ import {
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
-
-import DenseLayerNode from "./DenseLayerNode";
-import { InputNode } from "./InputNode";
-import { useDnD } from "./DnDContext";
-import Sidebar from "./Sidebar";
-
-// we define the nodeTypes outside of the component to prevent re-renderings
-// you could also use useMemo inside the component
-const nodeTypes = {
-  Input: InputNode,
-  DenseLayer: DenseLayerNode,
-};
+import { useDnD } from "@/components/DnDContext";
+import Sidebar from "@/components/Sidebar";
+import { nodeTypes } from "@/types/NodeTypes";
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",
