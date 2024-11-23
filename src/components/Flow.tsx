@@ -24,12 +24,13 @@ const initialNodes = [
     type: "DenseLayer",
     data: {
       label: "Dense Layer",
+      activation: "relu",
     },
     position: { x: 0, y: 0 },
   },
   {
     id: "Input",
-    type: "input",
+    type: "Input",
     position: { x: 0, y: 200 },
     data: { label: "Input" },
   },

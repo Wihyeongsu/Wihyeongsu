@@ -11,6 +11,7 @@ export const InputNode = ({ data, isConnectable }: InputNodeProps) => {
         isConnectable={isConnectable}
       />
       <div>{data.label}</div>
+      <div>Shape: {(data.shape = 1)}</div>
     </>
   );
 };

@@ -2,8 +2,7 @@ import { Activation } from "./Activation.types";
 
 export type LinearLayerData = {
   label: string;
-  inputShape: number;
-  outputShape: number;
+  nNodes: number;
   activation: Activation;
 };
 

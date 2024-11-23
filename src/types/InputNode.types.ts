@@ -1,6 +1,6 @@
 export type InputData = {
   label: string;
-  dimesion: number;
+  shape: number;
 };
 
 export type InputNodeProps = {
