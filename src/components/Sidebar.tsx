@@ -1,26 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
-import { useDnD } from "./DnDContext";
 import { nodeTypesSidebar } from "@/types/NodeTypes";
 import { Button } from "./ui/Button";
+import { useReactFlow } from "@xyflow/react";
 
+// Rust 함수의 응답 타입을 정의합니다
 type CustomResponse = {
   message: string;
   other_val: number;
 };
 
-export default () => {
-  const [_, setType] = useDnD();
+// Sidebar 컴포넌트의 props 타입을 정의합니다
+type SidebarProps = {
+  className?: string;
+};
 
-  const onDragStart = (event, nodeType) => {
-    setType(nodeType);
-    event.dataTransfer.effectAllowed = "move";
+const Sidebar = ({ className }: SidebarProps) => {
+  // ReactFlow 인스턴스를 가져옵니다
+  const reactFlowInstance = useReactFlow();
+  // Rust API 응답을 위한 상태를 관리합니다
+  const [response, setResponse] = useState<CustomResponse | null>(null);
+
+  // 노드 생성을 처리하는 함수입니다
+  const handleNodeCreation = (nodeType: string) => {
+    // 현재 뷰포트의 정보를 가져옵니다
+    const { x, y, zoom } = reactFlowInstance.getViewport();
+
+    // 화면의 중앙 좌표를 계산합니다
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    // 뷰포트를 고려하여 노드의 위치를 계산합니다
+    // zoom 레벨과 뷰포트의 현재 위치를 반영하여 정확한 위치를 계산합니다
+    const position = {
+      x: (centerX - x) / zoom,
+      y: (centerY - y) / zoom,
+    };
+
+    // 새로운 노드를 생성합니다
+    const newNode = {
+      id: `${nodeType}-${Date.now()}`,
+      type: nodeType,
+      position,
+      data: { label: nodeType },
+    };
+
+    // ReactFlow 인스턴스를 통해 노드를 추가합니다
+    reactFlowInstance.addNodes(newNode);
   };
 
-  // Tauri api 테스트
-  // 응답을 저장할 상태 추가
-  const [response, setResponse] = useState<CustomResponse | null>(null);
-  // 컴포넌트가 마운트될 때 Rust 함수 호출
+  // Rust 함수를 호출하는 비동기 함수입니다
   const callRustFunction = async () => {
     try {
       const res = await invoke<CustomResponse>("my_custom_command", {
@@ -34,34 +63,35 @@ export default () => {
   };
 
   return (
-    <aside>
+    <aside className={`sidebar ${className || ""}`}>
       <div className="description">
         You can drag these nodes to the pane on the right.
       </div>
+
+      {/* 노드 타입 목록을 렌더링합니다 */}
       {nodeTypesSidebar.map((node) => (
-        <div
-          key={node.type}
-          className="dndnode"
-          onDragStart={(event) => onDragStart(event, node.type)}
-          draggable>
+        <Button key={node.type} onClick={() => handleNodeCreation(node.type)}>
           {node.label}
-        </div>
+        </Button>
       ))}
+
+      {/* Rust 함수 호출 버튼과 응답 표시 */}
       <Button
         variant="outline"
         color="primary"
-        style={{ marginTop: "20px" }}
-        onClick={() => {
-          callRustFunction();
-        }}>
+        className="mt-5"
+        onClick={callRustFunction}>
         Generate Code
       </Button>
+
       {response && (
-        <div>
-          <p>Message: {response.message}</p>
-          <p>Other Val: {response.other_val}</p>
+        <div className="response-container mt-3">
+          <p className="response-message">Message: {response.message}</p>
+          <p className="response-value">Other Val: {response.other_val}</p>
         </div>
       )}
     </aside>
   );
 };
+
+export default Sidebar;

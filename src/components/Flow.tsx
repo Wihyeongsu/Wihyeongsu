@@ -6,11 +6,9 @@ import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
-  useReactFlow,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
-import { useDnD } from "@/components/DnDContext";
 import Sidebar from "@/components/Sidebar";
 import { nodeTypes } from "@/types/NodeTypes";
 
@@ -55,48 +53,10 @@ const initialEdges = [
   },
 ];
 
-let id = 0;
-const getId = () => `node_${id++}`;
-
 const Flow = () => {
   const reactFlowWrapper = useRef(null);
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
-  const { screenToFlowPosition } = useReactFlow();
-  const [type] = useDnD();
-
-  const onDragOver = useCallback((event) => {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = "move";
-  }, []);
-
-  const onDrop = useCallback(
-    (event) => {
-      event.preventDefault();
-
-      // check if the dropped element is valid
-      if (!type) {
-        return;
-      }
-
-      // project was renamed to screenToFlowPosition
-      // and you don't need to subtract the reactFlowBounds.left/top anymore
-      // details: https://reactflow.dev/whats-new/2023-11-10
-      const position = screenToFlowPosition({
-        x: event.clientX,
-        y: event.clientY,
-      });
-      const newNode = {
-        id: getId(),
-        type,
-        position,
-        data: { label: `${type} node` },
-      };
-
-      setNodes((nds) => nds.concat(newNode));
-    },
-    [screenToFlowPosition, type],
-  );
 
   const onNodesChange = useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -119,8 +79,6 @@ const Flow = () => {
           edges={edges}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
-          onDrop={onDrop}
-          onDragOver={onDragOver}
           onConnect={onConnect}
           nodeTypes={nodeTypes}
           fitView
