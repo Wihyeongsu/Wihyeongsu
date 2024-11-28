@@ -1,17 +1,12 @@
 import { Activation, ActivationList } from "@/types/Activation.types";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { useState } from "react";
@@ -30,7 +25,7 @@ export const ActivationDropdownMenu = ({
       Activation
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="text-sm hover:bg-slate-400">
+          <Button variant="outline" className="text-sm hover:bg-slate-100">
             {activation}
           </Button>
         </DropdownMenuTrigger>
@@ -40,7 +35,7 @@ export const ActivationDropdownMenu = ({
           {ActivationList.map((act: Activation) => (
             <DropdownMenuItem
               key={act}
-              className="focus:bg-slate-400 focus:text-white cursor-pointer data-[highlighted]:bg-slate-400 data-[highlighted]:text-white"
+              className="focus:bg-slate-100 focus:text-white cursor-pointer data-[highlighted]:bg-slate-400 data-[highlighted]:text-white"
               onClick={() => setActivation(act)}>
               {act}
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>

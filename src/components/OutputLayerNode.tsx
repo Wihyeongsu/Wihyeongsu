@@ -11,7 +11,7 @@ import {
   LinearLayerNode,
 } from "@/types/LinearLayerNode.types";
 
-const OutputLayerNodeComponent = () => {
+const OutputLayerNodeComponent = ({ data }) => {
   const connections = useHandleConnections({
     type: "target",
   });
@@ -24,7 +24,7 @@ const OutputLayerNodeComponent = () => {
     <div>
       <Handle type="target" position={Position.Left} />
       <div>
-        Output
+        {data.label}
         {LinearNodes.map(({ data }: LinearLayerNode, i) => (
           <div key={i}>Shape: {data.nNodes > 0 ? data.nNodes : 0}</div>
         ))}

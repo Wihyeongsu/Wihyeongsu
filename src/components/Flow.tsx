@@ -9,11 +9,7 @@ import {
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
-import Sidebar from "@/components/Sidebar";
-
 import { nodeTypes } from "@/types/NodeTypes";
-import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
-import { AppSidebar } from "./AppSidebar";
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",
@@ -33,7 +29,10 @@ const initialNodes = [
     id: "Input",
     type: "InputLayer",
     position: { x: 0, y: 0 },
-    data: { label: "Input" },
+    data: {
+      label: "Input Layer",
+      shape: 0,
+    },
   },
   {
     id: "Output",

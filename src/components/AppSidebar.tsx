@@ -45,7 +45,7 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar className="w-1/5 max-w-250px border-r border-[#eeeeee] px-2.5 py-4 text-xs bg-[#fcfcfc]">
+    <Sidebar className=" max-w-250px border-r border-[#eeeeee] px-2.5 py-4 text-xs bg-[#fcfcfc]">
       <SidebarHeader className="mb-2">
         {response && (
           <div className="mt-3">
