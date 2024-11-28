@@ -17,16 +17,3 @@ export type LinearLayerNode = Node<LinearLayerData, "LinearLayer">;
 export const isLinearLayerNode = (node: any) => {
   return !node ? false : node.type === "LinearLayer";
 };
-
-export const createLinearLayerNode = (id: string, position: any) => {
-  return {
-    id,
-    position,
-    type: "LinearLayer",
-    data: {
-      label: "Linear Layer",
-      nNodes: 1,
-      activation: "none",
-    },
-  };
-};

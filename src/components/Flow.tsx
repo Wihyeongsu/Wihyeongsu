@@ -10,8 +10,10 @@ import {
 
 import "@xyflow/react/dist/style.css";
 import Sidebar from "@/components/Sidebar";
+
 import { nodeTypes } from "@/types/NodeTypes";
-import LinearLayerNode from "./LinearLayerNode";
+import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
+import { AppSidebar } from "./AppSidebar";
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",
@@ -73,8 +75,8 @@ const Flow = () => {
   );
 
   return (
-    <div className="dndflow">
-      <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+    <div className="flex-col flex-grow h-full flex">
+      <div className="flex-grow h-full" ref={reactFlowWrapper}>
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -88,7 +90,6 @@ const Flow = () => {
           <Background />
         </ReactFlow>
       </div>
-      <Sidebar />
     </div>
   );
 };

@@ -9,7 +9,7 @@ const LinearLayerNodeComponent = ({
   isConnectable,
 }: LinearLayerNodeProps) => {
   return (
-    <div className="DenseLayer">
+    <div>
       <Handle
         type="target"
         position={Position.Left}

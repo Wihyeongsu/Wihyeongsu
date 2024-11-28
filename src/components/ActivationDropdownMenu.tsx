@@ -13,7 +13,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "./ui/DropdownMenu";
+} from "./ui/dropdown-menu";
 import { useState } from "react";
 
 export const ActivationDropdownMenu = ({
@@ -30,21 +30,19 @@ export const ActivationDropdownMenu = ({
       Activation
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="text-sm">
+          <Button variant="outline" className="text-sm hover:bg-slate-400">
             {activation}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
+        <DropdownMenuContent className="w-56 bg-zinc-50">
           <DropdownMenuLabel>Activation function</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {ActivationList.map((act: Activation) => (
             <DropdownMenuItem
               key={act}
-              className="hover:bg-gray-50"
-              onClick={() => {
-                setActivation(act);
-              }}>
-              <span>{act}</span>
+              className="focus:bg-slate-400 focus:text-white cursor-pointer data-[highlighted]:bg-slate-400 data-[highlighted]:text-white"
+              onClick={() => setActivation(act)}>
+              {act}
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
           ))}
