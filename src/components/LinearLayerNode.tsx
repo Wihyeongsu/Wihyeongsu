@@ -1,14 +1,15 @@
-import { DenseLayerNodeProps } from "@/types/DenseLayerNode.types";
+import { LinearLayerNodeProps } from "@/types/LinearLayerNode.types";
 import { Handle, Position } from "@xyflow/react";
 
 import { useState } from "react";
+import { ActivationDropdownMenu } from "./ActivationDropdownMenu";
 
-const DenseLayerNode = ({ data, isConnectable }: DenseLayerNodeProps) => {
-  const [activation, setActivation] = useState(data.activation);
-
+const LinearLayerNodeComponent = ({
+  data,
+  isConnectable,
+}: LinearLayerNodeProps) => {
   return (
     <div className="DenseLayer">
-      {/* 입력 핸들 정의 */}
       <Handle
         type="target"
         position={Position.Left}
@@ -16,6 +17,7 @@ const DenseLayerNode = ({ data, isConnectable }: DenseLayerNodeProps) => {
       />
 
       <div>{data.label}</div>
+      <div>{data.nNodes}</div>
 
       <Handle
         type="source"
@@ -23,8 +25,10 @@ const DenseLayerNode = ({ data, isConnectable }: DenseLayerNodeProps) => {
         id="a"
         isConnectable={isConnectable}
       />
+
+      <ActivationDropdownMenu initialActivation={data.activation} />
     </div>
   );
 };
 
-export default DenseLayerNode;
+export default LinearLayerNodeComponent;

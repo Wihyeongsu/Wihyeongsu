@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
-import { nodeTypesSidebar } from "@/types/NodeTypes";
+import { LayerNode, nodeTypesSidebar } from "@/types/NodeTypes";
 import { Button } from "./ui/Button";
 import { useReactFlow } from "@xyflow/react";
+import { create } from "domain";
+import { createLinearLayerNode } from "@/types/LinearLayerNode.types";
 
 // Rust 함수의 응답 타입을 정의합니다
 type CustomResponse = {
@@ -38,12 +40,34 @@ const Sidebar = ({ className }: SidebarProps) => {
     };
 
     // 새로운 노드를 생성합니다
-    const newNode = {
-      id: `${nodeType}-${Date.now()}`,
-      type: nodeType,
-      position,
-      data: { label: nodeType },
-    };
+    let newNode: LayerNode;
+    switch (nodeType) {
+      case "InputLayer":
+        newNode = {
+          id: `${nodeType}-${Date.now()}`,
+          type: nodeType,
+          position,
+          data: { label: nodeType, shape: 1 },
+        };
+        break;
+      case "LinearLayer":
+        newNode = {
+          id: `${nodeType}-${Date.now()}`,
+          type: nodeType,
+          position,
+          data: { label: nodeType, nNodes: 1, activation: "none" },
+        };
+        break;
+      case "OutputLayer":
+        newNode = {
+          id: `${nodeType}-${Date.now()}`,
+          type: nodeType,
+          position,
+          data: { label: nodeType, shape: 1 },
+        };
+        break;
+      default:
+    }
 
     // ReactFlow 인스턴스를 통해 노드를 추가합니다
     reactFlowInstance.addNodes(newNode);

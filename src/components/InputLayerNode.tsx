@@ -1,7 +1,10 @@
-import { InputNodeProps } from "@/types/InputNode.types";
+import { InputLayerNodeProps } from "@/types/InputLayerNode.types";
 import { Handle, Position } from "@xyflow/react";
 
-export const InputNode = ({ data, isConnectable }: InputNodeProps) => {
+const InputLayerNodeComponent = ({
+  data,
+  isConnectable,
+}: InputLayerNodeProps) => {
   return (
     <>
       <Handle
@@ -15,3 +18,5 @@ export const InputNode = ({ data, isConnectable }: InputNodeProps) => {
     </>
   );
 };
+
+export default InputLayerNodeComponent;

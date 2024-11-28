@@ -1,4 +1,4 @@
-import { ActivationList } from "@/types/Activation.types";
+import { Activation, ActivationList } from "@/types/Activation.types";
 import { Button } from "./ui/Button";
 import {
   DropdownMenu,
@@ -14,8 +14,17 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/DropdownMenu";
+import { useState } from "react";
 
-const ActivationDropdownMenu = () => {
+export const ActivationDropdownMenu = ({
+  initialActivation,
+}: {
+  initialActivation: Activation;
+}) => {
+  const [activation, setActivation] = useState(
+    initialActivation ? initialActivation : ActivationList[0],
+  );
+
   return (
     <div>
       Activation
@@ -28,13 +37,14 @@ const ActivationDropdownMenu = () => {
         <DropdownMenuContent className="w-56">
           <DropdownMenuLabel>Activation function</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {ActivationList.map((activation) => (
+          {ActivationList.map((act: Activation) => (
             <DropdownMenuItem
+              key={act}
               className="hover:bg-gray-50"
               onClick={() => {
-                setActivation(activation);
+                setActivation(act);
               }}>
-              <span>{activation}</span>
+              <span>{act}</span>
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
           ))}

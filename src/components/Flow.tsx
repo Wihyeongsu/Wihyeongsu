@@ -11,6 +11,7 @@ import {
 import "@xyflow/react/dist/style.css";
 import Sidebar from "@/components/Sidebar";
 import { nodeTypes } from "@/types/NodeTypes";
+import LinearLayerNode from "./LinearLayerNode";
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",
@@ -18,23 +19,23 @@ const rfStyle = {
 
 const initialNodes = [
   {
-    id: "Dense",
-    type: "DenseLayer",
+    id: "node_1",
+    type: "LinearLayer",
     data: {
-      label: "Dense Layer",
-      activation: "relu",
+      label: "Linear Layer",
+      nNodes: 4,
     },
-    position: { x: 0, y: 0 },
+    position: { x: 0, y: 200 },
   },
   {
     id: "Input",
-    type: "Input",
-    position: { x: 0, y: 200 },
+    type: "InputLayer",
+    position: { x: 0, y: 0 },
     data: { label: "Input" },
   },
   {
     id: "Output",
-    type: "output",
+    type: "OutputLayer",
     position: { x: 200, y: 200 },
     data: { label: "Output" },
   },
