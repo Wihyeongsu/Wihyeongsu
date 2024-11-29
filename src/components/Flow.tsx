@@ -6,11 +6,14 @@ import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  useEdgesState,
+  useNodesState,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/base.css";
 // import "@xyflow/react/dist/style.css";
 import { nodeTypes } from "@/types/Nodes.types";
+import ContextMenu from "./ContextMenu";
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",
@@ -58,17 +61,9 @@ const initialEdges = [
 
 const Flow = () => {
   const reactFlowWrapper = useRef(null);
-  const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  const onNodesChange = useCallback(
-    (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
-    [setNodes],
-  );
-  const onEdgesChange = useCallback(
-    (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
-    [setEdges],
-  );
   const onConnect = useCallback(
     (connection) => setEdges((eds) => addEdge(connection, eds)),
     [setEdges],

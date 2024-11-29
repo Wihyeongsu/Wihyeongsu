@@ -1,9 +1,7 @@
 import { LinearLayerNodeProps } from "@/types/LinearLayerNode.types";
-import { Handle, Position, useReactFlow } from "@xyflow/react";
+import { Handle, Position } from "@xyflow/react";
 
 import { ActivationDropdownMenu } from "./ActivationDropdownMenu";
-import { useEffect } from "react";
-import { useInput } from "@/hooks/useInput";
 import ShapePopover from "./ShapePopover";
 
 const LinearLayerNodeComponent = ({
