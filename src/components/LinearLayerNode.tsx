@@ -3,6 +3,7 @@ import { Handle, Position } from "@xyflow/react";
 
 import { ActivationDropdownMenu } from "./ActivationDropdownMenu";
 import ShapePopover from "./ShapePopover";
+import NodeContextMenu from "./NodeContextMenu";
 
 const LinearLayerNodeComponent = ({
   id,
@@ -10,7 +11,7 @@ const LinearLayerNodeComponent = ({
   isConnectable,
 }: LinearLayerNodeProps) => {
   return (
-    <div>
+    <NodeContextMenu id={id}>
       <div>Linear</div>
       <div>
         Input shape:
@@ -38,7 +39,7 @@ const LinearLayerNodeComponent = ({
         id="a"
         isConnectable={isConnectable}
       />
-    </div>
+    </NodeContextMenu>
   );
 };
 

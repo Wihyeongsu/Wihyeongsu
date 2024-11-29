@@ -13,7 +13,7 @@ import {
 import "@xyflow/react/dist/base.css";
 // import "@xyflow/react/dist/style.css";
 import { nodeTypes } from "@/types/Nodes.types";
-import ContextMenu from "./ContextMenu";
+import ContextMenu from "./NodeContextMenu";
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",

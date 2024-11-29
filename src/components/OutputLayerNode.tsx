@@ -8,8 +8,9 @@ import {
 import { LayerNode } from "@/types/Nodes.types";
 import { isLinearLayerNode } from "@/types/LinearLayerNode.types";
 import { isInputLayerNode } from "@/types/InputLayerNode.types";
+import NodeContextMenu from "./NodeContextMenu";
 
-const OutputLayerNodeComponent = ({ data }) => {
+const OutputLayerNodeComponent = ({ id }) => {
   const connections = useHandleConnections({
     type: "target",
   });
@@ -19,7 +20,7 @@ const OutputLayerNodeComponent = ({ data }) => {
   ).filter((node) => isLinearLayerNode(node) || isInputLayerNode(node));
 
   return (
-    <div>
+    <NodeContextMenu id={id}>
       <Handle type="target" position={Position.Left} />
       <div>
         Output
@@ -27,7 +28,7 @@ const OutputLayerNodeComponent = ({ data }) => {
           <div key={i}>Shape: {data.outputShape}</div>
         ))}
       </div>
-    </div>
+    </NodeContextMenu>
   );
 };
 
