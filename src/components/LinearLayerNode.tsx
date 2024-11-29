@@ -1,32 +1,45 @@
 import { LinearLayerNodeProps } from "@/types/LinearLayerNode.types";
-import { Handle, Position } from "@xyflow/react";
+import { Handle, Position, useReactFlow } from "@xyflow/react";
 
-import { useState } from "react";
 import { ActivationDropdownMenu } from "./ActivationDropdownMenu";
+import { useEffect } from "react";
+import { useInput } from "@/hooks/useInput";
+import ShapePopover from "./ShapePopover";
 
 const LinearLayerNodeComponent = ({
+  id,
   data,
   isConnectable,
 }: LinearLayerNodeProps) => {
   return (
     <div>
+      <div>Linear</div>
+      <div>
+        Input shape:
+        <ShapePopover initialShape={data.inputShape} id={id} type="input" />
+      </div>
+
+      <div>
+        Output shape:
+        <ShapePopover initialShape={data.outputShape} id={id} type="output" />
+      </div>
+
+      <div>
+        Activation:
+        <ActivationDropdownMenu initialActivation={data.activation} id={id} />
+      </div>
+
       <Handle
         type="target"
         position={Position.Left}
         isConnectable={isConnectable}
       />
-
-      <div>{data.label}</div>
-      <div>{data.nNodes}</div>
-
       <Handle
         type="source"
         position={Position.Right}
         id="a"
         isConnectable={isConnectable}
       />
-
-      <ActivationDropdownMenu initialActivation={data.activation} />
     </div>
   );
 };

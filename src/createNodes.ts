@@ -1,5 +1,5 @@
 import React from "react";
-import { AvailableNodeTypes, LayerNode } from "./types/NodeTypes";
+import { AvailableNodeTypes, LayerNode } from "./types/Nodes.types";
 import { ReactFlowInstance } from "@xyflow/react";
 
 export const createNodes = (
@@ -28,7 +28,7 @@ export const createNodes = (
         id: `${nodeType}-${Date.now()}`,
         type: nodeType,
         position,
-        data: { label: nodeType, shape: 1 },
+        data: { outputShape: 1 },
       };
       break;
     case "LinearLayer":
@@ -36,7 +36,11 @@ export const createNodes = (
         id: `${nodeType}-${Date.now()}`,
         type: nodeType,
         position,
-        data: { label: nodeType, nNodes: 1, activation: "none" },
+        data: {
+          inputShape: 1,
+          outputShape: 1,
+          activation: "none",
+        },
       };
       break;
     case "OutputLayer":
@@ -44,7 +48,7 @@ export const createNodes = (
         id: `${nodeType}-${Date.now()}`,
         type: nodeType,
         position,
-        data: { label: nodeType, shape: 1 },
+        data: { inputShape: 1 },
       };
       break;
     default:

@@ -1,11 +1,11 @@
 import { Node } from "@xyflow/react";
 
 export type InputLayerData = {
-  label: string;
-  shape: number;
+  outputShape: number;
 };
 
 export type InputLayerNodeProps = {
+  id: string;
   data: InputLayerData;
   isConnectable: boolean;
 };

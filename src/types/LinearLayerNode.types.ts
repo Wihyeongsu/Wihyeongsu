@@ -2,12 +2,13 @@ import { Activation } from "./Activation.types";
 import { Node } from "@xyflow/react";
 
 export type LinearLayerData = {
-  label: string;
-  nNodes: number;
+  inputShape: number;
+  outputShape: number;
   activation: Activation;
 };
 
 export type LinearLayerNodeProps = {
+  id: string;
   data: LinearLayerData;
   isConnectable: boolean;
 };

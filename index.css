@@ -68,7 +68,7 @@ body {
   margin-bottom: 10px;
 } */
 
-.flow .node {
+/* .flow .node {
   height: 20px;
   padding: 4px;
   border: 1px solid #1a192b;
@@ -78,7 +78,7 @@ body {
   justify-content: center;
   align-items: center;
   cursor: grab;
-}
+} */
 
 /* .flow .reactflow-wrapper {
   flex-grow: 1;

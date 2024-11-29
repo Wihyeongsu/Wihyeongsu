@@ -8,8 +8,9 @@ import {
   applyNodeChanges,
 } from "@xyflow/react";
 
-import "@xyflow/react/dist/style.css";
-import { nodeTypes } from "@/types/NodeTypes";
+import "@xyflow/react/dist/base.css";
+// import "@xyflow/react/dist/style.css";
+import { nodeTypes } from "@/types/Nodes.types";
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",
@@ -20,8 +21,9 @@ const initialNodes = [
     id: "node_1",
     type: "LinearLayer",
     data: {
-      label: "Linear Layer",
-      nNodes: 4,
+      inputShape: 1,
+      outputShape: 1,
+      activation: "none",
     },
     position: { x: 0, y: 200 },
   },
@@ -30,15 +32,14 @@ const initialNodes = [
     type: "InputLayer",
     position: { x: 0, y: 0 },
     data: {
-      label: "Input Layer",
-      shape: 0,
+      outputShape: 1,
     },
   },
   {
     id: "Output",
     type: "OutputLayer",
     position: { x: 200, y: 200 },
-    data: { label: "Output" },
+    data: { inputShape: 1 },
   },
 ];
 

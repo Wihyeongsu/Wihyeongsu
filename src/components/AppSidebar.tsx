@@ -12,7 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { nodeTypesSidebar } from "@/types/NodeTypes";
+import { nodeTypesSidebar } from "@/types/Nodes.types";
 import { useReactFlow } from "@xyflow/react";
 import { createNodes } from "@/createNodes";
 import { useState } from "react";

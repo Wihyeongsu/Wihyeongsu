@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
-import { LayerNode, nodeTypesSidebar } from "@/types/NodeTypes";
+import { LayerNode, nodeTypesSidebar } from "@/types/Nodes.types";
 import { Button } from "./ui/Button";
 import { useReactFlow } from "@xyflow/react";
 import { createNodes } from "@/createNodes";
