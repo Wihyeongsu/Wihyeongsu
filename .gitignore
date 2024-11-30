@@ -42,4 +42,4 @@ dist-ssr
 *.tsbuildinfo
 
 # Others
-./src/components/ui
+/src-tauri/src/api/api_key.rs

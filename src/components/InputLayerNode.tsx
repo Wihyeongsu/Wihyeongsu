@@ -9,8 +9,8 @@ const InputLayerNodeComponent = ({
   isConnectable,
 }: InputLayerNodeProps) => {
   return (
-    <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200">
-      <NodeContextMenu id={id}>
+    <NodeContextMenu id={id}>
+      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200">
         <div>Input</div>
         <ShapePopover initialShape={data.outputShape} id={id} type={"output"} />
 
@@ -21,8 +21,8 @@ const InputLayerNodeComponent = ({
           isConnectable={isConnectable}
           className="w-16 !bg-teal-500"
         />
-      </NodeContextMenu>
-    </div>
+      </div>
+    </NodeContextMenu>
   );
 };
 

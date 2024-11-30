@@ -6,8 +6,11 @@ import {
   useNodesData,
 } from "@xyflow/react";
 import { LayerNode } from "@/types/Nodes.types";
-import { isLinearLayerNode } from "@/types/LinearLayerNode.types";
-import { isInputLayerNode } from "@/types/InputLayerNode.types";
+import {
+  isLinearLayerNode,
+  LinearLayerNode,
+} from "@/types/LinearLayerNode.types";
+import { InputLayerNode, isInputLayerNode } from "@/types/InputLayerNode.types";
 import NodeContextMenu from "./NodeContextMenu";
 
 const OutputLayerNodeComponent = ({ id }) => {
@@ -17,7 +20,9 @@ const OutputLayerNodeComponent = ({ id }) => {
 
   const nodesData = useNodesData<LayerNode>(
     connections.map((connection) => connection.source),
-  ).filter((node) => isLinearLayerNode(node) || isInputLayerNode(node));
+  ).filter(
+    (node) => isLinearLayerNode(node) || isInputLayerNode(node),
+  ) as Array<InputLayerNode | LinearLayerNode>;
 
   return (
     <NodeContextMenu id={id}>
@@ -25,7 +30,9 @@ const OutputLayerNodeComponent = ({ id }) => {
       <div>
         Output
         {nodesData.map(({ data }, i) => (
-          <div key={i}>Shape: {data.outputShape}</div>
+          <div key={i}>
+            Shape: {"outputShape" in data ? data.outputShape : "N/A"}
+          </div>
         ))}
       </div>
     </NodeContextMenu>

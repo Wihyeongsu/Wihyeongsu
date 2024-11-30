@@ -1,11 +1,8 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import {
-  Background,
   Controls,
   ReactFlow,
   addEdge,
-  applyEdgeChanges,
-  applyNodeChanges,
   useEdgesState,
   useNodesState,
 } from "@xyflow/react";
@@ -13,10 +10,9 @@ import {
 import "@xyflow/react/dist/base.css";
 // import "@xyflow/react/dist/style.css";
 import { nodeTypes } from "@/types/Nodes.types";
-import ContextMenu from "./NodeContextMenu";
 
 const rfStyle = {
-  backgroundColor: "#B8CEFF",
+  backgroundColor: "#fed7aa",
 };
 
 const initialNodes = [
@@ -61,7 +57,7 @@ const initialEdges = [
 
 const Flow = () => {
   const reactFlowWrapper = useRef(null);
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [nodes, _, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const onConnect = useCallback(
@@ -82,7 +78,7 @@ const Flow = () => {
           fitView
           style={rfStyle}>
           <Controls />
-          <Background />
+          {/* <Background /> */}
         </ReactFlow>
       </div>
     </div>

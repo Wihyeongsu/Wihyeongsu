@@ -1,9 +1,6 @@
 import { ReactFlowProvider } from "@xyflow/react";
 import "./App.css";
-import CustomNodeFlow from "./components/CustomNodesFlow";
 import Flow from "./components/Flow";
-import Sidebar from "./components/Sidebar";
-import { Demo } from "./components/test";
 import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
 import { AppSidebar } from "./components/AppSidebar";
 

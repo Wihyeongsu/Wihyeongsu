@@ -1,6 +1,7 @@
 // src/api/mod.rs
 pub mod anthropic;
 pub mod api_key;
+pub mod apikey_manager;
 pub mod error;
 pub mod types;
 
