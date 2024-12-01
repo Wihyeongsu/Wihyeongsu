@@ -5,7 +5,7 @@ import {
   useHandleConnections,
 } from "@xyflow/react";
 
-const ConnectionLimitHandle = ({
+const ShapeValidationHandle = ({
   type,
   position,
   connectionCount,
@@ -27,4 +27,4 @@ const ConnectionLimitHandle = ({
   );
 };
 
-export default ConnectionLimitHandle;
+export default ShapeValidationHandle;

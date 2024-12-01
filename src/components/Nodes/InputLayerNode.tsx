@@ -17,7 +17,11 @@ const InputLayerNodeComponent = ({
         <div>Input</div>
 
         <Separator className="bg-slate-300" />
-        <ShapePopover initialShape={data.outputShape} id={id} type={"output"} />
+        <ShapePopover
+          initialShape={data.outputShape}
+          id={id}
+          shapeType={"output"}
+        />
 
         <Handle
           type="source"

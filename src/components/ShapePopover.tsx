@@ -2,37 +2,47 @@ import { useInput } from "@/hooks/useInput";
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useEffect } from "react";
-import { useReactFlow } from "@xyflow/react";
+import { HandleType, useReactFlow } from "@xyflow/react";
 
 type shapeType = "input" | "output";
 const ShapePopover = ({
   initialShape,
   id,
-  type,
+  shapeType,
 }: {
   initialShape: number;
   id: string;
-  type: shapeType;
+  shapeType: shapeType;
 }) => {
-  const { updateNodeData } = useReactFlow();
-
+  const { updateNodeData, getNode, getEdges, setEdges } = useReactFlow();
   const [Shape, onShapeChange] = useInput<number>(initialShape, (value) => {
     return value >= 0 && value < 10000;
   });
 
   useEffect(() => {
     let updatedData = {};
-    switch (type) {
+    let updatedHandleType: HandleType;
+    switch (shapeType) {
       case "input":
         updatedData = { inputShape: Shape };
+        updatedHandleType = "target";
         break;
       case "output":
         updatedData = { outputShape: Shape };
+        updatedHandleType = "source";
         break;
       default:
         break;
     }
+
     updateNodeData(id, updatedData);
+
+    setEdges(
+      getEdges().filter((edge) => {
+        getNode(edge.source).data.outputShape ===
+          getNode(edge.target).data.inputShape;
+      }),
+    );
   }, [Shape]);
 
   return (

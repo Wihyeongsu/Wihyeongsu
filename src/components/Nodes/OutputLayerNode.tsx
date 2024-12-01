@@ -1,10 +1,5 @@
 import { memo } from "react";
-import {
-  Handle,
-  Position,
-  useHandleConnections,
-  useNodesData,
-} from "@xyflow/react";
+import { Position, useHandleConnections, useNodesData } from "@xyflow/react";
 import { LayerNode } from "@/types/Nodes.types";
 import {
   isLinearLayerNode,

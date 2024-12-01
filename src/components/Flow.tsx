@@ -1,10 +1,12 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {
+  addEdge,
+  Connection,
   Controls,
   ReactFlow,
-  addEdge,
   useEdgesState,
   useNodesState,
+  useReactFlow,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/base.css";
@@ -46,8 +48,22 @@ const initialEdges = [];
 
 const Flow = () => {
   const reactFlowWrapper = useRef(null);
-  const [nodes, _, onNodesChange] = useNodesState(initialNodes);
+  const [nodes, , onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const { getNode } = useReactFlow();
+
+  // Validate connection between nodes
+  const isValidConnection = (connection: Connection) => {
+    const { source, target } = connection;
+    const sourceNode = getNode(source);
+    const targetNode = getNode(target);
+
+    if (targetNode.type === "OutputLayer") return true;
+    if (sourceNode.data.outputShape === targetNode.data.inputShape) {
+      return true;
+    }
+    return false;
+  };
 
   const onConnect = useCallback(
     (connection) => setEdges((eds) => addEdge(connection, eds)),
@@ -64,6 +80,7 @@ const Flow = () => {
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
           nodeTypes={nodeTypes}
+          isValidConnection={isValidConnection}
           fitView
           style={rfStyle}>
           <Controls />
