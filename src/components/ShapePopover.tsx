@@ -39,10 +39,10 @@ const ShapePopover = ({
     <Popover>
       <PopoverTrigger
         asChild
-        className="hover:bg-slate-100 rounded-xl w-14 h-4 text-xs">
+        className="hover:bg-slate-100 rounded-xl h-4 text-xs">
         <Button
           variant="ghost"
-          className="border  border-gray-200 hover:border-gray-300">
+          className="border  border-gray-200 hover:border-slate-300">
           Shape: {Shape}
         </Button>
       </PopoverTrigger>

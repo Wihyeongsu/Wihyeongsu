@@ -14,6 +14,7 @@ import { InputLayerNode, isInputLayerNode } from "@/types/InputLayerNode.types";
 import NodeContextMenu from "../NodeContextMenu";
 import BaseNode from "./BaseNode";
 import { Separator } from "../ui/separator";
+import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
 
 const OutputLayerNodeComponent = ({ id, selected }) => {
   const connections = useHandleConnections({
@@ -29,7 +30,11 @@ const OutputLayerNodeComponent = ({ id, selected }) => {
   return (
     <NodeContextMenu id={id}>
       <BaseNode selected={selected}>
-        <Handle type="target" position={Position.Left} />
+        <ConnectionLimitHandle
+          type="target"
+          position={Position.Left}
+          connectionCount={1}
+        />
         <div>Output</div>
 
         <Separator className="bg-slate-300" />

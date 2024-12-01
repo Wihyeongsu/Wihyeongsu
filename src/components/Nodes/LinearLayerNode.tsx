@@ -19,10 +19,15 @@ const LinearLayerNodeComponent = ({
         <div className="grid-flow-row">
           <div>Linear</div>
           <Separator className="bg-slate-300" />
+          <div>
+            <ShapePopover initialShape={data.inputShape} id={id} type="input" />
 
-          <ShapePopover initialShape={data.inputShape} id={id} type="input" />
-
-          <ShapePopover initialShape={data.outputShape} id={id} type="output" />
+            <ShapePopover
+              initialShape={data.outputShape}
+              id={id}
+              type="output"
+            />
+          </div>
 
           <div>
             Activation:

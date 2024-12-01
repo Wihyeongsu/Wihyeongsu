@@ -25,7 +25,7 @@ export function AppSidebar() {
     // 외부 컨테이너에 상대적 위치 지정을 추가합니다
     <div className="relative bg-[#00062E32]">
       {/* Sidebar를 왼쪽에 고정합니다 */}
-      <Sidebar className="max-w-[250px] border-r border-[#eeeeee] px-2.5 py-4 text-xs bg-[#fcfcfc]">
+      <Sidebar className="max-w-[500px] border-r border-slate-50 px-2.5 py-4 text-xs bg-[#fcfcfc]">
         <SidebarHeader className="mb-2">
           {response && <div className="mt-3">{response}</div>}
         </SidebarHeader>

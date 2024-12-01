@@ -30,18 +30,24 @@ export const ActivationDropdownMenu = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="text-sm hover:bg-slate-100">
+      <DropdownMenuTrigger
+        asChild
+        className="hover:bg-slate-100 rounded-xl h-4 text-xs">
+        <Button
+          variant="ghost"
+          className="border  border-gray-200 hover:border-slate-300">
           {activation}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 bg-zinc-50">
-        <DropdownMenuLabel>Activation function</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+      <DropdownMenuContent className="w-56 bg-slate-50 rounded-xl">
+        <DropdownMenuLabel className="text-xs">
+          Activation function
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator className="bg-slate-300" />
         {ActivationList.map((act: Activation) => (
           <DropdownMenuItem
             key={act}
-            className="focus:bg-slate-100 focus:text-white cursor-pointer data-[highlighted]:bg-slate-400 data-[highlighted]:text-white"
+            className="focus:bg-slate-100 focus:text-white cursor-pointer data-[highlighted]:bg-slate-400 data-[highlighted]:text-white rounded-xl"
             onClick={() => setActivation(act)}>
             {act}
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
