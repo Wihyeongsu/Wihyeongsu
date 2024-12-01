@@ -8,6 +8,7 @@ export type OutputLayerNodeProps = {
   id: string;
   data: OutputLayerData;
   isConnectable: boolean;
+  selected?: boolean;
 };
 
 export type OutputLayerNode = Node<OutputLayerData, "OutputLayer">;

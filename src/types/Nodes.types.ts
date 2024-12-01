@@ -1,9 +1,9 @@
 import { LinearLayerNode } from "./LinearLayerNode.types";
 import { InputLayerNode } from "./InputLayerNode.types";
 import { OutputLayerNode } from "./OutputLayerNode.types";
-import InputLayerNodeComponent from "@/components/InputLayerNode";
-import LinearLayerNodeComponent from "@/components/LinearLayerNode";
-import OutputLayerNodeComponent from "@/components/OutputLayerNode";
+import InputLayerNodeComponent from "@/components/Nodes/InputLayerNode";
+import LinearLayerNodeComponent from "@/components/Nodes/LinearLayerNode";
+import OutputLayerNodeComponent from "@/components/Nodes/OutputLayerNode";
 
 // 먼저 사용 가능한 노드 타입들을 유니온 타입으로 정의합니다
 export type AvailableNodeTypes = "InputLayer" | "LinearLayer" | "OutputLayer";

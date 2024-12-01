@@ -1,17 +1,22 @@
 import { InputLayerNodeProps } from "@/types/InputLayerNode.types";
 import { Handle, Position } from "@xyflow/react";
-import ShapePopover from "./ShapePopover";
-import NodeContextMenu from "./NodeContextMenu";
+import ShapePopover from "../ShapePopover";
+import NodeContextMenu from "../NodeContextMenu";
+import BaseNode from "./BaseNode";
+import { Separator } from "../ui/separator";
 
 const InputLayerNodeComponent = ({
   id,
   data,
   isConnectable,
+  selected,
 }: InputLayerNodeProps) => {
   return (
     <NodeContextMenu id={id}>
-      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200">
+      <BaseNode selected={selected}>
         <div>Input</div>
+
+        <Separator className="bg-slate-300" />
         <ShapePopover initialShape={data.outputShape} id={id} type={"output"} />
 
         <Handle
@@ -19,9 +24,9 @@ const InputLayerNodeComponent = ({
           position={Position.Right}
           onConnect={(params) => console.log("handle onConnect", params)}
           isConnectable={isConnectable}
-          className="w-16 !bg-teal-500"
+          className=" !bg-teal-500 w-2 h-2 rounded-full"
         />
-      </div>
+      </BaseNode>
     </NodeContextMenu>
   );
 };

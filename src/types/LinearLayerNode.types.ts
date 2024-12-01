@@ -11,6 +11,7 @@ export type LinearLayerNodeProps = {
   id: string;
   data: LinearLayerData;
   isConnectable: boolean;
+  selected?: boolean;
 };
 
 export type LinearLayerNode = Node<LinearLayerData, "LinearLayer">;

@@ -11,9 +11,11 @@ import {
   LinearLayerNode,
 } from "@/types/LinearLayerNode.types";
 import { InputLayerNode, isInputLayerNode } from "@/types/InputLayerNode.types";
-import NodeContextMenu from "./NodeContextMenu";
+import NodeContextMenu from "../NodeContextMenu";
+import BaseNode from "./BaseNode";
+import { Separator } from "../ui/separator";
 
-const OutputLayerNodeComponent = ({ id }) => {
+const OutputLayerNodeComponent = ({ id, selected }) => {
   const connections = useHandleConnections({
     type: "target",
   });
@@ -26,15 +28,17 @@ const OutputLayerNodeComponent = ({ id }) => {
 
   return (
     <NodeContextMenu id={id}>
-      <Handle type="target" position={Position.Left} />
-      <div>
-        Output
+      <BaseNode selected={selected}>
+        <Handle type="target" position={Position.Left} />
+        <div>Output</div>
+
+        <Separator className="bg-slate-300" />
         {nodesData.map(({ data }, i) => (
           <div key={i}>
             Shape: {"outputShape" in data ? data.outputShape : "N/A"}
           </div>
         ))}
-      </div>
+      </BaseNode>
     </NodeContextMenu>
   );
 };

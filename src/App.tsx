@@ -1,7 +1,7 @@
 import { ReactFlowProvider } from "@xyflow/react";
 import "./App.css";
 import Flow from "./components/Flow";
-import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
+import { SidebarProvider } from "./components/ui/sidebar";
 import { AppSidebar } from "./components/AppSidebar";
 
 function App() {
@@ -9,7 +9,6 @@ function App() {
     <ReactFlowProvider>
       <SidebarProvider>
         <AppSidebar />
-        <SidebarTrigger className="bg-red-700" />
         <div
           style={{
             width: "100vw",

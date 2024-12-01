@@ -8,11 +8,10 @@ import {
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/base.css";
-// import "@xyflow/react/dist/style.css";
 import { nodeTypes } from "@/types/Nodes.types";
 
 const rfStyle = {
-  backgroundColor: "#fed7aa",
+  backgroundColor: "#00062E32",
 };
 
 const initialNodes = [
@@ -33,6 +32,7 @@ const initialNodes = [
     data: {
       outputShape: 1,
     },
+    selected: false,
   },
   {
     id: "Output",
@@ -42,18 +42,7 @@ const initialNodes = [
   },
 ];
 
-const initialEdges = [
-  {
-    id: "Input",
-    source: "Input",
-    target: "Dense",
-  },
-  {
-    id: "Output",
-    source: "Dense",
-    target: "Output",
-  },
-];
+const initialEdges = [];
 
 const Flow = () => {
   const reactFlowWrapper = useRef(null);
@@ -78,7 +67,6 @@ const Flow = () => {
           fitView
           style={rfStyle}>
           <Controls />
-          {/* <Background /> */}
         </ReactFlow>
       </div>
     </div>

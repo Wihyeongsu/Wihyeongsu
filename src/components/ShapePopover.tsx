@@ -37,14 +37,16 @@ const ShapePopover = ({
 
   return (
     <Popover>
-      <PopoverTrigger asChild className="hover:bg-slate-100 ">
+      <PopoverTrigger
+        asChild
+        className="hover:bg-slate-100 rounded-xl w-14 h-4 text-xs">
         <Button
           variant="ghost"
-          className="border  border-gray-200 hover:border-gray-300 hover:rounded-2xl">
+          className="border  border-gray-200 hover:border-gray-300">
           Shape: {Shape}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="bg-[#eeeeee] w-1/2">
+      <PopoverContent className="bg-slate-200 w-1/2 rounded-xl">
         <div className="max-w-full">
           <label htmlFor="output-shape">Output shape</label>
           <input
@@ -55,7 +57,7 @@ const ShapePopover = ({
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
               onShapeChange(e);
             }}
-            className=" no-spinner max-w-full bg-[#eeeeee]"
+            className=" no-spinner max-w-full bg-slate-200"
           />
         </div>
       </PopoverContent>

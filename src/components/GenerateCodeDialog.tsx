@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,24 +13,25 @@ import { Label } from "@/components/ui/label";
 import { Toggle } from "./ui/toggle";
 import { Eye, EyeOff } from "lucide-react";
 import { Separator } from "./ui/separator";
+import AnimatedSubmitButton from "./AnimatedSubmitButton";
+import ClimbingBoxLoader from "./ClimbingBoxLoader";
+
+const buttonStyle =
+  "rounded-xl bg-slate-80 border-2 border-slate-50 text-slate-950 hover:bg-slate-50 hover:border-slate-950 active:bg-slate-950 active:text-slate-50 transition-color duration-200 shadow-sm";
 
 export function GenerateCodeDialog({}) {
   const [apikey, setApikey] = useState("");
   const [show, setShow] = useState(false);
-
-  // 다이얼로그의 열림/닫힘 상태를 관리합니다
   const [open, setOpen] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger
-        asChild
-        className="bg-slate-100 hover:bg-slate-950 transition-colors duration-200">
-        <Button variant="outline" className="rounded-xl active:text-slate-50">
+      <DialogTrigger asChild className="bg-slate-100">
+        <Button variant="ghost" className={buttonStyle}>
           Generate code
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-slate-50">
+      <DialogContent className="sm:max-w-[425px] bg-slate-50 sm:rounded-2xl">
         <DialogHeader>
           <DialogTitle>Api Key</DialogTitle>
           <Separator className="my-4 bg-slate-300" />
@@ -52,13 +53,19 @@ export function GenerateCodeDialog({}) {
                 type={show ? "text" : "password"}
                 value={apikey}
                 onChange={(e) => setApikey(e.target.value)}
-                className="pr-10 rounded-xl" // Toggle 버튼을 위한 여백
+                className="
+                pr-10 
+                rounded-xl 
+                border-none
+                focus:ring-2
+              focus:ring-slate-700 
+              focus:border-slate-700 
+              transition-all
+              duration-150"
               />
-              {/* Toggle 버튼을 Input 필드 안쪽 오른쪽에 배치 */}
               <Toggle
                 aria-label="Show API key"
                 onPressedChange={() => setShow(!show)}
-                variant={show ? "outline" : "default"}
                 className="absolute right-2 h-7 w-7 p-0 hover:bg-slate-100">
                 {show ? (
                   <EyeOff className="h-4 w-4" />
@@ -66,15 +73,17 @@ export function GenerateCodeDialog({}) {
                   <Eye className="h-4 w-4" />
                 )}
               </Toggle>
+
+              <ClimbingBoxLoader />
             </div>
           </div>
         </div>
         <div className="flex justify-end">
-          <Button
-            variant="ghost"
-            className="rounded-xl bg-slate-950 text-slate-50 hover:text-slate-950">
+          {/* <Button variant="ghost" className={buttonStyle}>
             Next
-          </Button>
+          </Button> */}
+
+          <AnimatedSubmitButton />
         </div>
       </DialogContent>
     </Dialog>
