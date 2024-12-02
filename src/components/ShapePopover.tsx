@@ -15,42 +15,48 @@ const ShapePopover = ({
   shapeType: shapeType;
 }) => {
   const { updateNodeData, getNode, getEdges, setEdges } = useReactFlow();
-  const [Shape, onShapeChange] = useInput<number>(initialShape, (value) => {
+  const [shape, onShapeChange] = useInput<number>(initialShape, (value) => {
     return value >= 0 && value < 10000;
   });
 
   useEffect(() => {
-    let updatedData = {};
-    switch (shapeType) {
-      case "input":
-        updatedData = { inputShape: Shape };
-        break;
-      case "output":
-        updatedData = { outputShape: Shape };
-        break;
-      default:
-        break;
-    }
-
+    // 노드의 데이터를 업데이트합니다
+    const updatedData = {
+      [shapeType === "input" ? "inputShape" : "outputShape"]: shape,
+    };
     updateNodeData(id, updatedData);
 
-    // 연결된 노드의 shape이 변경되었을 때, edge를 삭제
+    // 현재 노드와 직접 연결된 edge들만 찾아서 검증합니다
     const edges = getEdges();
-    setEdges(
-      edges.filter((edge) => {
-        const sourceNode = getNode(edge.source);
+    const updatedEdges = edges.filter((edge) => {
+      // 현재 노드가 소스인 경우
+      if (edge.source === id) {
         const targetNode = getNode(edge.target);
+        // OutputLayer로 연결된 edge는 항상 유지
+        if (targetNode?.type === "OutputLayer") return true;
+        // 다른 노드로의 연결은 shape 일치 여부를 검사
+        return shape === targetNode?.data.inputShape;
+      }
 
-        if (targetNode.type === "outputLayer") {
-          return true;
-        }
-        if (sourceNode.data.outputShape === targetNode.data.inputShape)
-          return true;
+      // 현재 노드가 타겟인 경우
+      if (edge.target === id) {
+        const sourceNode = getNode(edge.source);
+        return sourceNode?.data.outputShape === shape;
+      }
 
-        return false;
-      }),
-    );
-  }, [Shape]);
+      return true;
+    });
+
+    // edge가 변경된 경우에만 업데이트
+    if (edges.length !== updatedEdges.length) {
+      setEdges(updatedEdges);
+      console.debug(
+        `Removed ${
+          edges.length - updatedEdges.length
+        } invalid edges for node ${id}`,
+      );
+    }
+  }, [shape, id, shapeType, updateNodeData, getNode, getEdges, setEdges]);
 
   return (
     <Popover>
@@ -60,7 +66,7 @@ const ShapePopover = ({
         <Button
           variant="ghost"
           className="border  border-gray-200 hover:border-slate-300">
-          Shape: {Shape}
+          Shape: {shape}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="bg-slate-200 w-1/2 rounded-xl">
@@ -69,7 +75,7 @@ const ShapePopover = ({
           <input
             id="output-shape"
             type="text"
-            value={Shape}
+            value={shape}
             onChange={(e) => {
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
               onShapeChange(e);

@@ -20,7 +20,7 @@ const OutputLayerNodeComponent = ({
   selected,
 }: OutputLayerNodeProps) => {
   const [inputShape, setInputShape] = useState<number>(data.inputShape);
-  const { updateNodeData, getNode } = useReactFlow();
+  const { updateNodeData } = useReactFlow();
 
   const connections = useHandleConnections({
     type: "target",
