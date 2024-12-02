@@ -20,13 +20,13 @@ const ShapePopover = ({
   });
 
   useEffect(() => {
-    // 노드의 데이터를 업데이트합니다
+    // 노드의 데이터를 업데이트
     const updatedData = {
       [shapeType === "input" ? "inputShape" : "outputShape"]: shape,
     };
     updateNodeData(id, updatedData);
 
-    // 현재 노드와 직접 연결된 edge들만 찾아서 검증합니다
+    // 현재 노드와 직접 연결된 edge들만 찾아서 검증
     const edges = getEdges();
     const updatedEdges = edges.filter((edge) => {
       // 현재 노드가 소스인 경우

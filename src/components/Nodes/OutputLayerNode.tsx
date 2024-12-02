@@ -26,12 +26,12 @@ const OutputLayerNodeComponent = ({
     type: "target",
   });
 
-  // 연결된 노드들의 데이터를 구독합니다
+  // 연결된 노드들의 데이터를 구독
   const nodesData = useNodesData<LayerNode>(
     connections.map((connection) => connection.source),
   ) as Array<InputLayerNode | LinearLayerNode>;
 
-  // 연결된 노드의 outputShape 변화를 감지하고 inputShape를 업데이트합니다
+  // 연결된 노드의 outputShape 변화를 감지하고 inputShape를 업데이트
   useEffect(() => {
     // 연결된 노드가 있는 경우
     if (nodesData.length > 0) {
@@ -47,7 +47,7 @@ const OutputLayerNodeComponent = ({
     }
   }, [nodesData, data.inputShape, inputShape]);
 
-  // inputShape가 변경될 때 노드 데이터를 업데이트합니다
+  // inputShape가 변경될 때 노드 데이터를 업데이트
   useEffect(() => {
     updateNodeData(id, {
       inputShape: inputShape,
