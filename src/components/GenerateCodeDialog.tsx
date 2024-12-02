@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -26,27 +26,35 @@ export function GenerateCodeDialog({}) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild className="bg-slate-100">
+      <DialogTrigger asChild className="bg-slate-100 font-semibold">
         <Button variant="ghost" className={buttonStyle}>
           Generate code
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-slate-50 sm:rounded-2xl">
+      <DialogContent
+        className="
+        w-1/4 h-1/3 
+        min-w-[480px] min-h-[300px]
+        max-w-[800px] max-h-[500px]
+      bg-slate-50 sm:rounded-2xl">
         <DialogHeader>
-          <DialogTitle>Api Key</DialogTitle>
+          <DialogTitle asChild className="text-2xl">
+            <div>Api Key</div>
+          </DialogTitle>
           <Separator className="my-4 bg-slate-300" />
-          <DialogDescription>
+          <DialogDescription className="text-2xl">
             Enter your Anthropic API key to generate code.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="apikey" className="text-right">
-              Api Key
-            </Label>
-
+          <div className="grid grid-cols-4 items-center">
+            <div className="flex items-center justify-center">
+              <Label htmlFor="apikey" className="text-xl text-center h-full">
+                Api Key
+              </Label>
+            </div>
             {/* Input과 Toggle을 감싸는 컨테이너 */}
-            <div className="col-span-3 relative flex items-center">
+            <div className="col-span-3 relative flex items-center h-2/3">
               {/* Input 필드에 오른쪽 패딩을 추가하여 Toggle 버튼을 위한 공간 확보 */}
               <Input
                 id="apikey"
@@ -54,12 +62,9 @@ export function GenerateCodeDialog({}) {
                 value={apikey}
                 onChange={(e) => setApikey(e.target.value)}
                 className="
+                h-full
                 pr-10 
-                rounded-xl 
-                border-none
-                focus:ring-2
-              focus:ring-slate-700 
-              focus:border-slate-700 
+                rounded-full 
               transition-all
               duration-150"
               />
@@ -74,16 +79,14 @@ export function GenerateCodeDialog({}) {
                 )}
               </Toggle>
 
-              <ClimbingBoxLoader />
+              {/* <ClimbingBoxLoader /> */}
             </div>
           </div>
         </div>
-        <div className="flex justify-end">
-          {/* <Button variant="ghost" className={buttonStyle}>
-            Next
-          </Button> */}
-
-          <AnimatedSubmitButton />
+        <div className="flex flex-row justify-end items-center">
+          <div className="flex flex-col justify-center h-2/3 w-full min-h-[40px]">
+            <AnimatedSubmitButton />
+          </div>
         </div>
       </DialogContent>
     </Dialog>

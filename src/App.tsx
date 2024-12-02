@@ -17,7 +17,7 @@ function App() {
           }}>
           <Flow />
         </div>
-        <Toaster className="bg-slate-150" />
+        <Toaster richColors className="bg-slate-150" />
       </SidebarProvider>
     </ReactFlowProvider>
   );

@@ -1,9 +1,38 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const AnimatedSubmitButton = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isTextVisible, setIsTextVisible] = useState(true);
   const [isImageVisible, setIsImageVisible] = useState(false);
+  const [length, setLength] = useState(40);
+
+  // 실제 DOM 요소를 참조하기 위한 ref
+  const buttonContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (buttonContainerRef.current) {
+        const height = buttonContainerRef.current.clientHeight;
+        console.log("Container height measured:", height); // 디버깅을 위한 로그
+        setLength(height);
+      }
+    };
+
+    // 초기 측정
+    updateHeight();
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateHeight();
+    });
+
+    if (buttonContainerRef.current) {
+      resizeObserver.observe(buttonContainerRef.current);
+    }
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   const handleClick = () => {
     // 이미 애니메이션 중이라면 추가 클릭을 무시합니다
@@ -21,20 +50,22 @@ const AnimatedSubmitButton = () => {
   };
 
   return (
-    <div className="relative w-40 h-[40px] flex items-end justify-end">
+    <div
+      ref={buttonContainerRef}
+      className="w-full h-full flex items-center justify-end">
       <button
         onClick={handleClick}
+        style={{
+          height: `${length}px`,
+          width: isAnimating ? `${length}px` : `${length * 3}px`,
+        }}
         className={`
           relative overflow-hidden
-          h-[40px] rounded-full
+          rounded-full
         border-slate-50
           hover:border-2 hover:border-slate-950 
-          transition-all ease-in-out 
-          ${
-            isAnimating
-              ? "w-[40px] bg-slate-950 duration-500"
-              : "w-[120px] bg-slate-50"
-          }
+          transition-all duration-0 hover:duration-500 ease-in-out 
+          ${isAnimating ? "bg-slate-950" : "bg-slate-50"}
           focus:outline-none
         `}>
         <span
@@ -44,6 +75,15 @@ const AnimatedSubmitButton = () => {
             text-sm font-medium
             transition-all duration-300 ease-in-out
             ${isTextVisible ? "opacity-100 text-slate-950" : "opacity-0"}
+            ${
+              length < 45
+                ? "text-sm"
+                : length < 50
+                ? "text-md"
+                : length < 55
+                ? "text-lg"
+                : "text-xl"
+            }
           `}>
           Generate code
         </span>
@@ -52,7 +92,7 @@ const AnimatedSubmitButton = () => {
           className={`
             absolute inset-0
             flex items-center justify-center
-            transition-all duration-500 ease-in-out
+            transition-all duration-300 ease-in-out
             ${isImageVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"}
           `}>
           <svg

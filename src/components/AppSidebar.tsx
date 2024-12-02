@@ -37,19 +37,20 @@ export function AppSidebar() {
               <SidebarMenu>
                 {nodeTypesSidebar.map((node, i) => (
                   <SidebarMenuItem
+                    className="font-semibold"
                     key={i}
                     onClick={() => {
                       createNodes(node.type, reactFlowInstance);
-                      toast(`${node.type} has been created`, {
-                        description:
-                          "By clicking the undo button, you can undo the action.",
+                      toast.success(`${node.type} has been created`, {
                         action: {
                           label: "Undo",
                           onClick: () => console.log("Undo"),
                         },
                       });
                     }}>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton
+                      asChild
+                      className="rounded-xl hover:bg-slate-200 justify-center">
                       <div>{node.label}</div>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
