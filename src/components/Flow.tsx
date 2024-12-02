@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import {
   addEdge,
   Connection,
@@ -58,11 +58,11 @@ const Flow = () => {
     const sourceNode = getNode(source);
     const targetNode = getNode(target);
 
-    if (targetNode.type === "OutputLayer") return true;
-    if (sourceNode.data.outputShape === targetNode.data.inputShape) {
-      return true;
+    if (target === source) return false;
+    if (sourceNode.data.outputShape !== targetNode.data.inputShape) {
+      return false;
     }
-    return false;
+    return true;
   };
 
   const onConnect = useCallback(

@@ -6,6 +6,7 @@ import ShapePopover from "../ShapePopover";
 import NodeContextMenu from "../NodeContextMenu";
 import BaseNode from "./BaseNode";
 import { Separator } from "../ui/separator";
+import { FastForward } from "lucide-react";
 
 const LinearLayerNodeComponent = ({
   id,
@@ -18,14 +19,14 @@ const LinearLayerNodeComponent = ({
       <BaseNode selected={selected}>
         <div className="grid-flow-row">
           <div>Linear</div>
-          <Separator className="bg-slate-300" />
-          <div>
+          <Separator className="bg-slate-300 mb-1" />
+          <div className="flex flex-row items-center">
             <ShapePopover
               initialShape={data.inputShape}
               id={id}
               shapeType="input"
             />
-
+            <FastForward className="h-4" />
             <ShapePopover
               initialShape={data.outputShape}
               id={id}

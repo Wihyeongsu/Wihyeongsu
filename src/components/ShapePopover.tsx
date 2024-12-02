@@ -2,7 +2,7 @@ import { useInput } from "@/hooks/useInput";
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useEffect } from "react";
-import { HandleType, useReactFlow } from "@xyflow/react";
+import { useReactFlow } from "@xyflow/react";
 
 type shapeType = "input" | "output";
 const ShapePopover = ({
@@ -21,15 +21,12 @@ const ShapePopover = ({
 
   useEffect(() => {
     let updatedData = {};
-    let updatedHandleType: HandleType;
     switch (shapeType) {
       case "input":
         updatedData = { inputShape: Shape };
-        updatedHandleType = "target";
         break;
       case "output":
         updatedData = { outputShape: Shape };
-        updatedHandleType = "source";
         break;
       default:
         break;
@@ -37,10 +34,20 @@ const ShapePopover = ({
 
     updateNodeData(id, updatedData);
 
+    // 연결된 노드의 shape이 변경되었을 때, edge를 삭제
+    const edges = getEdges();
     setEdges(
-      getEdges().filter((edge) => {
-        getNode(edge.source).data.outputShape ===
-          getNode(edge.target).data.inputShape;
+      edges.filter((edge) => {
+        const sourceNode = getNode(edge.source);
+        const targetNode = getNode(edge.target);
+
+        if (targetNode.type === "outputLayer") {
+          return true;
+        }
+        if (sourceNode.data.outputShape === targetNode.data.inputShape)
+          return true;
+
+        return false;
       }),
     );
   }, [Shape]);
