@@ -1,6 +1,7 @@
+import { fetchAnthropicResponse } from "@/utils/fetchAnthropic";
 import { useEffect, useRef, useState } from "react";
 
-const AnimatedSubmitButton = () => {
+const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isTextVisible, setIsTextVisible] = useState(true);
   const [isImageVisible, setIsImageVisible] = useState(false);
@@ -38,6 +39,8 @@ const AnimatedSubmitButton = () => {
     // 이미 애니메이션 중이라면 추가 클릭을 무시합니다
     if (isAnimating) return;
 
+    fetchAnthropicResponse("Explain about Pytorch.", apikey);
+
     setIsAnimating(true);
 
     // 텍스트 페이드아웃을 버튼 축소 시작과 함께 진행합니다
@@ -54,6 +57,7 @@ const AnimatedSubmitButton = () => {
       ref={buttonContainerRef}
       className="w-full h-full flex items-center justify-end">
       <button
+        disabled={!apikey}
         onClick={handleClick}
         style={{
           height: `${length}px`,
@@ -63,8 +67,8 @@ const AnimatedSubmitButton = () => {
           relative overflow-hidden
           rounded-full
         border-slate-50
-          hover:border-2 hover:border-slate-950 
           transition-all duration-0 hover:duration-500 ease-in-out 
+          ${apikey ? "hover:border-2 hover:border-slate-950" : ""} 
           ${isAnimating ? "bg-slate-950" : "bg-slate-50"}
           focus:outline-none
         `}>
@@ -72,8 +76,9 @@ const AnimatedSubmitButton = () => {
           className={`
             absolute inset-0
             flex items-center justify-center
-            text-sm font-medium
+            font-medium
             transition-all duration-300 ease-in-out
+            ${apikey ? "text-slate-950" : "text-slate-300"}
             ${isTextVisible ? "opacity-100 text-slate-950" : "opacity-0"}
             ${
               length < 45

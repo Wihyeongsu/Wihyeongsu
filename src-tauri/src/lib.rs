@@ -30,9 +30,17 @@ struct CommandResponse {
     usage: Usage,
 }
 
+#[derive(Serialize, Deserialize)]
+struct Payload {
+    prompt: String,
+    api_key: String,
+}
+
 #[tauri::command]
-async fn anthropic_request(prompt: String) -> Result<CommandResponse, String> {
-    let api_key = ANTHROPIC_API_KEY.to_owned();
+async fn anthropic_request(payload: Payload) -> Result<CommandResponse, String> {
+    // let api_key = ANTHROPIC_API_KEY.to_owned();
+    let api_key = payload.api_key;
+    let prompt = payload.prompt;
 
     let headers = HeadersBuilder::new().api_key(api_key).build()?;
     let client = AnthropicClientBuilder::new()

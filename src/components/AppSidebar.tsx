@@ -67,12 +67,13 @@ export function AppSidebar() {
       {/* Trigger를 Sidebar 바깥쪽에 위치 */}
       <div className="absolute -right-10 top-4 z-50">
         <SidebarTrigger
-          className="bg-transparent
-                    rounded-full 
-                    hover:bg-gray-100 
-                    transition-colors
-                    w-9 h-9
-                    "
+          className="
+          bg-transparent
+          rounded-full 
+          hover:bg-gray-100 
+          transition-colors
+          w-9 h-9
+          "
         />
       </div>
     </div>
