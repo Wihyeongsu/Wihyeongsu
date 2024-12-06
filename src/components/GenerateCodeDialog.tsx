@@ -35,7 +35,7 @@ export function GenerateCodeDialog() {
         className="
         w-1/4 h-1/3 
         min-w-[480px] min-h-[300px]
-        max-w-[800px] max-h-[500px]
+        max-w-[640px] max-h-[400px]
       bg-slate-50 sm:rounded-2xl">
         <DialogHeader>
           <DialogTitle asChild className="text-2xl">

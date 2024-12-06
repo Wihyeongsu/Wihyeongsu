@@ -1,4 +1,3 @@
-// src/api/error.rs
 use serde::Deserialize;
 use thiserror::Error;
 

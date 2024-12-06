@@ -17,6 +17,8 @@ import { createNodes } from "@/utils/createNodes";
 import { useState } from "react";
 import { GenerateCodeDialog } from "./GenerateCodeDialog";
 import { toast } from "sonner";
+import { Button } from "./ui/button";
+import exportToJson from "@/utils/flowExporter";
 
 export function AppSidebar() {
   const reactFlowInstance = useReactFlow();
@@ -60,6 +62,20 @@ export function AppSidebar() {
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>
+          <Button
+            variant="ghost"
+            onClick={() => {
+              exportToJson(reactFlowInstance);
+            }}
+            className="
+            rounded-xl bg-slate-80 border-2 
+            border-slate-50 text-slate-950 
+            hover:bg-slate-50 hover:border-slate-950 
+            active:bg-slate-950 active:text-slate-50 
+            transition-color duration-200 
+            shadow-sm">
+            Download
+          </Button>
           <GenerateCodeDialog />
         </SidebarFooter>
       </Sidebar>

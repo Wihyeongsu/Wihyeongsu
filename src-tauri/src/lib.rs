@@ -1,11 +1,11 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-pub mod api;
+pub mod Anthropic_api;
 
-use api::{
-    anthropic::AnthropicClientBuilder, HeadersBuilder, Message, MessageRequest, Usage,
-    ANTHROPIC_API_KEY,
-};
 use serde::{Deserialize, Serialize};
+use Anthropic_api::{
+    anthropic::AnthropicClientBuilder, message_request::MessageRequestBuilder, HeadersBuilder,
+    Message, Usage, ANTHROPIC_API_KEY,
+};
 
 #[derive(serde::Serialize)]
 struct CustomResponse {
@@ -42,24 +42,27 @@ async fn anthropic_request(payload: Payload) -> Result<CommandResponse, String> 
     let api_key = payload.api_key;
     let prompt = payload.prompt;
 
+    let request = MessageRequestBuilder::new()
+        .model("claude-3-5-sonnet-latest")
+        .max_tokens(1024)
+        .messages(vec![Message {
+            role: "user".to_owned(),
+            content: prompt,
+        }])
+        .temperature(0.7)
+        .seal()
+        .build()?;
+
     let headers = HeadersBuilder::new().api_key(api_key).build()?;
+
     let client = AnthropicClientBuilder::new()
         .headers(headers)
         .seal()
         .build()?;
 
-    let request = MessageRequest {
-        model: "claude-3-5-sonnet-latest".to_owned(),
-        messages: vec![Message {
-            role: "user".to_owned(),
-            content: prompt,
-        }],
-        max_tokens: Some(1024),
-        temperature: Some(0.7),
-        system: None,
-    };
+    let response = client.create_message(request).await;
 
-    match client.create_message(request).await {
+    match response {
         Ok(response) => {
             // 응답의 첫 번째 텍스트 콘텐츠를 가져옵니다
             let content = response

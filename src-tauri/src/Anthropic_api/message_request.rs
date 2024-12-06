@@ -53,13 +53,16 @@ impl MessageRequestBuilder<NoModel, NoMaxTokens, NoMessages, NotSealed> {
             messages: NoMessages,
             temperature: None,
             system: None,
-            marker_seal: std::marker::PhantomData,
+            marker_seal: PhantomData,
         }
     }
 }
 
-impl<M, T, MSGS, S> MessageRequestBuilder<M, T, MSGS, S> {
-    pub fn model(self, model: impl Into<String>) -> MessageRequestBuilder<Model, T, MSGS, S> {
+impl<M, T, MSGS> MessageRequestBuilder<M, T, MSGS, NotSealed> {
+    pub fn model(
+        self,
+        model: impl Into<String>,
+    ) -> MessageRequestBuilder<Model, T, MSGS, NotSealed> {
         MessageRequestBuilder {
             model: Model(model.into()),
             max_tokens: self.max_tokens,
@@ -70,7 +73,7 @@ impl<M, T, MSGS, S> MessageRequestBuilder<M, T, MSGS, S> {
         }
     }
 
-    pub fn max_tokens(self, tokens: i32) -> MessageRequestBuilder<M, MaxTokens, MSGS, S> {
+    pub fn max_tokens(self, tokens: i32) -> MessageRequestBuilder<M, MaxTokens, MSGS, NotSealed> {
         MessageRequestBuilder {
             model: self.model,
             max_tokens: MaxTokens(tokens),
@@ -81,7 +84,10 @@ impl<M, T, MSGS, S> MessageRequestBuilder<M, T, MSGS, S> {
         }
     }
 
-    pub fn messages(self, messages: Vec<Message>) -> MessageRequestBuilder<M, T, Messages, S> {
+    pub fn messages(
+        self,
+        messages: Vec<Message>,
+    ) -> MessageRequestBuilder<M, T, Messages, NotSealed> {
         MessageRequestBuilder {
             model: self.model,
             max_tokens: self.max_tokens,
@@ -101,9 +107,7 @@ impl<M, T, MSGS, S> MessageRequestBuilder<M, T, MSGS, S> {
         self.system = Some(system.into());
         self
     }
-}
 
-impl<M, T, MSGS> MessageRequestBuilder<M, T, MSGS, NotSealed> {
     pub fn seal(self) -> MessageRequestBuilder<M, T, MSGS, Sealed> {
         MessageRequestBuilder {
             model: self.model,

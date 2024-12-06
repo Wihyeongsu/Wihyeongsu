@@ -1,5 +1,5 @@
 use reqwest::{header::HeaderMap, Client};
-use std::{f32::consts::TAU, marker::PhantomData};
+use std::marker::PhantomData;
 
 use super::{ApiError, ErrorResponse, MessageRequest, MessageResponse};
 
@@ -123,16 +123,14 @@ impl AnthropicClientBuilder<NoHeaders, NotSealed> {
     }
 }
 
-impl<H, S> AnthropicClientBuilder<H, S> {
-    pub fn headers(self, headers: HeaderMap) -> AnthropicClientBuilder<Headers, S> {
+impl<H> AnthropicClientBuilder<H, NotSealed> {
+    pub fn headers(self, headers: HeaderMap) -> AnthropicClientBuilder<Headers, NotSealed> {
         AnthropicClientBuilder {
             headers: Headers(headers),
             marker_seal: PhantomData,
         }
     }
-}
 
-impl<H> AnthropicClientBuilder<H, NotSealed> {
     pub fn seal(self) -> AnthropicClientBuilder<H, Sealed> {
         AnthropicClientBuilder {
             headers: self.headers,
