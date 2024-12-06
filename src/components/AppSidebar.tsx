@@ -66,6 +66,7 @@ export function AppSidebar() {
             variant="ghost"
             onClick={() => {
               exportToJson(reactFlowInstance);
+              toast.success("Flow data has been exported to JSON");
             }}
             className="
             rounded-xl bg-slate-80 border-2 

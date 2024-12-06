@@ -1,7 +1,12 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 pub mod Anthropic_api;
 
+use std::path::PathBuf;
+
 use serde::{Deserialize, Serialize};
+use tauri::AppHandle;
+use tauri_plugin_fs::FsExt;
+use tokio::fs;
 use Anthropic_api::{
     anthropic::AnthropicClientBuilder, message_request::MessageRequestBuilder, HeadersBuilder,
     Message, Usage, ANTHROPIC_API_KEY,
@@ -30,7 +35,7 @@ struct CommandResponse {
     usage: Usage,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 struct Payload {
     prompt: String,
     api_key: String,
@@ -39,21 +44,25 @@ struct Payload {
 #[tauri::command]
 async fn anthropic_request(payload: Payload) -> Result<CommandResponse, String> {
     // let api_key = ANTHROPIC_API_KEY.to_owned();
-    let api_key = payload.api_key;
-    let prompt = payload.prompt;
+    println!("{payload:#?}");
+
+    // System prompt 읽기
+    let system_prompt = include_str!("./Anthropic_api/Prompt/system_prompt.txt");
+    println!("{system_prompt:#?}");
 
     let request = MessageRequestBuilder::new()
         .model("claude-3-5-sonnet-latest")
-        .max_tokens(1024)
+        .max_tokens(2048)
         .messages(vec![Message {
             role: "user".to_owned(),
-            content: prompt,
+            content: payload.prompt,
         }])
         .temperature(0.7)
+        .system(system_prompt)
         .seal()
         .build()?;
 
-    let headers = HeadersBuilder::new().api_key(api_key).build()?;
+    let headers = HeadersBuilder::new().api_key(payload.api_key).build()?;
 
     let client = AnthropicClientBuilder::new()
         .headers(headers)
@@ -83,6 +92,15 @@ async fn anthropic_request(payload: Payload) -> Result<CommandResponse, String> 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
+        .setup(|app| {
+            // allowed the given directory
+            let scope = app.fs_scope();
+            scope.allow_directory("/path/to/directory", false);
+            dbg!(scope.allowed());
+
+            Ok(())
+        })
         .plugin(tauri_plugin_window_state::Builder::new().build())
         .plugin(tauri_plugin_stronghold::Builder::new(|pass| todo!()).build())
         .plugin(tauri_plugin_http::init())
