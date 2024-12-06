@@ -1,22 +1,6 @@
 // src/api/types.rs
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize)]
-pub struct Message {
-    pub role: String,
-    pub content: String,
-}
-
-#[derive(Debug, Serialize)]
-pub struct MessageRequest {
-    pub model: String,
-    pub messages: Vec<Message>,
-    pub max_tokens: Option<i32>,
-    pub temperature: Option<f32>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub system: Option<String>,
-}
-
 #[derive(Debug, Deserialize)]
 pub struct MessageResponse {
     pub id: String,
@@ -38,4 +22,19 @@ pub struct MessageContent {
 pub struct Usage {
     pub input_tokens: i32,
     pub output_tokens: i32,
+}
+
+// Anthropic API 에러 응답 구조체 정의
+#[derive(Debug, Deserialize)]
+pub struct ErrorResponse {
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub error: ErrorDetail,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ErrorDetail {
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub message: String,
 }

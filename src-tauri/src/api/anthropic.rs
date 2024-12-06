@@ -1,54 +1,42 @@
-// src/api/anthropic.rs
-use crate::api::{error::*, types::*};
-use reqwest::header::{HeaderMap, HeaderValue, CONTENT_TYPE};
+use reqwest::{header::HeaderMap, Client};
+use std::{f32::consts::TAU, marker::PhantomData};
+
+use super::{ApiError, ErrorResponse, MessageRequest, MessageResponse};
+
+// Region: ---States
+#[derive(Clone, Default)]
+pub struct Headers(HeaderMap);
+#[derive(Clone, Default)]
+pub struct NoHeaders;
+#[derive(Clone, Default)]
+pub struct Sealed;
+#[derive(Clone, Default)]
+pub struct NotSealed;
 
 pub struct AnthropicClient {
-    client: reqwest::Client,
-    api_key: String,
-    base_url: String,
+    pub client: Client,
+    pub base_url: String,
+    pub headers: HeaderMap,
 }
 
 impl AnthropicClient {
-    pub fn new(api_key: String) -> Self {
-        Self {
-            client: reqwest::Client::new(),
-            api_key,
-            base_url: "https://api.anthropic.com".to_string(),
-        }
-    }
-
-    fn build_headers(&self) -> HeaderMap {
-        let mut headers = HeaderMap::new();
-        headers.insert("x-api-key", HeaderValue::from_str(&self.api_key).unwrap());
-        headers.insert("anthropic-version", HeaderValue::from_static("2023-06-01"));
-        headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
-        headers
-    }
-
-    pub async fn create_message(
-        &self,
-        request: MessageRequest,
-    ) -> Result<MessageResponse, ApiError> {
-        self.validate_request(&request)?;
-
+    pub async fn create_message(&self, body: MessageRequest) -> Result<MessageResponse, ApiError> {
         let response = self
             .client
             .post(format!("{}/v1/messages", self.base_url))
-            .headers(self.build_headers())
-            .json(&request)
+            .headers(self.headers.clone())
+            .json(&body)
             .send()
             .await
             .map_err(ApiError::Network)?;
 
-        // 먼저 상태 코드를 저장합니다
         let status = response.status();
 
-        // 성공하지 않은 경우에만 텍스트를 읽습니다
         if !status.is_success() {
             let error_text = response
                 .text()
                 .await
-                .unwrap_or_else(|_| "Failed to read error response".to_string());
+                .unwrap_or_else(|_| "Failed to read error response".to_owned());
 
             // 에러 응답 파싱 시도
             if let Ok(error) = serde_json::from_str::<ErrorResponse>(&error_text) {
@@ -76,7 +64,6 @@ impl AnthropicClient {
             };
         }
 
-        // 성공한 경우에는 JSON으로 파싱합니다
         let message_response = response
             .json()
             .await
@@ -86,26 +73,80 @@ impl AnthropicClient {
     }
 
     fn validate_request(&self, request: &MessageRequest) -> Result<(), ApiError> {
-        if request.messages.is_empty() {
-            return Err(ApiError::InvalidRequest("Messages cannot be empty".into()));
+        // Model 검증
+        // match request.model {
+
+        // }
+
+        // Messages 검증
+        match request.messages.is_empty() {
+            true => return Err(ApiError::InvalidRequest("Messages cannot be empty".into())),
+            _ => (),
         }
 
-        if let Some(tokens) = request.max_tokens {
-            if tokens <= 0 {
+        // Max tokens 검증
+        match request.max_tokens {
+            tokens if tokens <= 0 => {
                 return Err(ApiError::InvalidRequest(
                     "max_tokens must be positive".into(),
-                ));
+                ))
             }
+            _ => (),
         }
 
-        if let Some(temp) = request.temperature {
-            if temp < 0.0 || temp > 1.0 {
+        // Temperature 범위 검증
+        match request.temperature {
+            Some(temp) if temp < 0.0 || temp > 1.0 => {
                 return Err(ApiError::InvalidRequest(
                     "Temperature must be between 0 and 1".into(),
-                ));
+                ))
             }
+            _ => (),
         }
 
         Ok(())
+    }
+}
+
+#[derive(Clone, Default)]
+pub struct AnthropicClientBuilder<H, S> {
+    headers: H, // required
+    marker_seal: PhantomData<S>,
+}
+
+impl AnthropicClientBuilder<NoHeaders, NotSealed> {
+    pub fn new() -> Self {
+        AnthropicClientBuilder {
+            headers: NoHeaders,
+            marker_seal: PhantomData,
+        }
+    }
+}
+
+impl<H, S> AnthropicClientBuilder<H, S> {
+    pub fn headers(self, headers: HeaderMap) -> AnthropicClientBuilder<Headers, S> {
+        AnthropicClientBuilder {
+            headers: Headers(headers),
+            marker_seal: PhantomData,
+        }
+    }
+}
+
+impl<H> AnthropicClientBuilder<H, NotSealed> {
+    pub fn seal(self) -> AnthropicClientBuilder<H, Sealed> {
+        AnthropicClientBuilder {
+            headers: self.headers,
+            marker_seal: PhantomData,
+        }
+    }
+}
+
+impl<S> AnthropicClientBuilder<Headers, S> {
+    pub fn build(self) -> Result<AnthropicClient, &'static str> {
+        Ok(AnthropicClient {
+            client: Client::new(),
+            base_url: "https://api.anthropic.com".to_owned(),
+            headers: self.headers.0,
+        })
     }
 }

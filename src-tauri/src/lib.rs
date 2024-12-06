@@ -1,7 +1,10 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 pub mod api;
 
-use api::{anthropic::AnthropicClient, Message, MessageRequest, Usage, ANTHROPIC_API_KEY};
+use api::{
+    anthropic::AnthropicClientBuilder, HeadersBuilder, Message, MessageRequest, Usage,
+    ANTHROPIC_API_KEY,
+};
 use serde::{Deserialize, Serialize};
 
 #[derive(serde::Serialize)]
@@ -31,7 +34,11 @@ struct CommandResponse {
 async fn anthropic_request(prompt: String) -> Result<CommandResponse, String> {
     let api_key = ANTHROPIC_API_KEY.to_owned();
 
-    let client = AnthropicClient::new(api_key);
+    let headers = HeadersBuilder::new().api_key(api_key).build()?;
+    let client = AnthropicClientBuilder::new()
+        .headers(headers)
+        .seal()
+        .build()?;
 
     let request = MessageRequest {
         model: "claude-3-5-sonnet-latest".to_owned(),

@@ -1,8 +1,6 @@
 use std::marker::PhantomData;
 
-use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
-
-use super::Headers;
+use reqwest::header::{HeaderMap, HeaderValue};
 
 // Region: ---States
 #[derive(Clone, Default)]
