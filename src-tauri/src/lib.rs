@@ -1,15 +1,10 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 pub mod Anthropic_api;
 
-use std::path::PathBuf;
-
 use serde::{Deserialize, Serialize};
-use tauri::AppHandle;
-use tauri_plugin_fs::FsExt;
-use tokio::fs;
 use Anthropic_api::{
     anthropic::AnthropicClientBuilder, message_request::MessageRequestBuilder, HeadersBuilder,
-    Message, Usage, ANTHROPIC_API_KEY,
+    Message, Usage,
 };
 
 #[derive(serde::Serialize)]

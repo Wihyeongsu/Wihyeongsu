@@ -16,16 +16,17 @@ const exportToJson = (reactFlowInstance: ReactFlowInstance) => {
   // JSON 문자열로 변환
   const jsonString = JSON.stringify(graphData, null, 2);
 
+  console.log(jsonString);
   // 예시: JSON 파일로 다운로드
-  const blob = new Blob([jsonString], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "flow-data.json";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+  // const blob = new Blob([jsonString], { type: "application/json" });
+  // const url = URL.createObjectURL(blob);
+  // const link = document.createElement("a");
+  // link.href = url;
+  // link.download = "flow-data.json";
+  // document.body.appendChild(link);
+  // link.click();
+  // document.body.removeChild(link);
+  // URL.revokeObjectURL(url);
 };
 
 export default exportToJson;

@@ -18,7 +18,7 @@ const InputLayerNodeComponent = ({
   const [height, setHeight] = useState<number>(data.outputShape[0]);
   const [width, setWidth] = useState<number>(data.outputShape[1]);
   const [channels, setChannels] = useState<number>(data.outputShape[2]);
-  const outputShape2D = [height, width, channels];
+  const outputShape3D = [height, width, channels];
   const [dataFormat, setDataFormat] = useState<DataFormat>(data.dataFormat);
 
   const { updateNodeData } = useReactFlow();
@@ -29,11 +29,13 @@ const InputLayerNodeComponent = ({
       case "1D":
         updatedData = {
           outputShape: [length, 1, 1],
+          dataFormat: dataFormat,
         };
         break;
-      case "2D":
+      case "3D":
         updatedData = {
-          outputShape: outputShape2D,
+          outputShape: outputShape3D,
+          dataFormat: dataFormat,
         };
         break;
     }
@@ -55,8 +57,8 @@ const InputLayerNodeComponent = ({
           <Separator className="bg-slate-300 mb-1" />
 
           <div className="flex flex-col gap-1 text-xs">
-            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1">
-              [{dataFormat === "1D" ? [length] : outputShape2D.join(", ")}]
+            <div className="border border-gray-200 hover:border-slate-300 rounded-xl text-center px-2 py-1">
+              [{dataFormat === "1D" ? [length] : outputShape3D.join(", ")}]
             </div>
 
             {dataFormat === "1D" ? (

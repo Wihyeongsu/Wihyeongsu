@@ -1,11 +1,12 @@
 import { LinearLayerNodeProps } from "@/types/LinearLayerNode.types";
-import { Handle, Position } from "@xyflow/react";
+import { Handle, Position, useReactFlow } from "@xyflow/react";
 import { ActivationDropdownMenu } from "../ActivationDropdownMenu";
 import NodeContextMenu from "../NodeContextMenu";
 import BaseNode from "./BaseNode";
 import { Separator } from "../ui/separator";
 import { FastForward } from "lucide-react";
 import NumericPopover from "../NumericPopover";
+import { useEffect, useState } from "react";
 
 const LinearLayerNodeComponent = ({
   id,
@@ -13,6 +14,20 @@ const LinearLayerNodeComponent = ({
   isConnectable,
   selected,
 }: LinearLayerNodeProps) => {
+  const [inputShape, setInputShape] = useState(data.inputShape[0]);
+  const [outputShape, setOutputShape] = useState(data.outputShape[0]);
+  const [activation, setActivation] = useState(data.activation);
+  const { updateNodeData } = useReactFlow();
+
+  useEffect(() => {
+    const updatedData = {
+      inputShape: [inputShape, 1, 1],
+      outputShape: [outputShape, 1, 1],
+      activation: activation,
+    };
+    updateNodeData(id, updatedData);
+  }, [inputShape, outputShape, activation]);
+
   return (
     <NodeContextMenu id={id}>
       <BaseNode selected={selected}>
@@ -20,40 +35,35 @@ const LinearLayerNodeComponent = ({
           <div>Linear</div>
           <Separator className="bg-slate-300 mb-1" />
           <div className="flex flex-col gap-1 text-xs">
-            <div className="flex flex-row items-center gap-2 mb-1">
+            <div className="flex flex-row justify-center items-center gap-2 mb-1">
               <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1">
-                [{data.inputShape.join(", ")}]
+                [{inputShape}]
               </div>
               <FastForward className="h-4" />
               <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1">
-                [{data.outputShape.join(", ")}]
+                [{outputShape}]
               </div>
             </div>
 
             <div className="flex gap-2 mb-1">
               <NumericPopover
-                initialValue={data.outputShape[0]}
+                initialValue={inputShape}
                 id={id}
-                label="Out H"
+                label="Input"
+                setValue={setInputShape}
               />
               <NumericPopover
-                initialValue={data.outputShape[1]}
+                initialValue={outputShape}
                 id={id}
-                label="Out W"
+                label="Output"
+                setValue={setOutputShape}
               />
             </div>
-            <NumericPopover
-              initialValue={data.outputShape[2]}
-              id={id}
-              label="Out C"
+            <ActivationDropdownMenu
+              currentActivation={activation}
+              setActivation={setActivation}
+              label="Activation"
             />
-            <div className="flex items-center gap-2">
-              Activation:{" "}
-              <ActivationDropdownMenu
-                id={id}
-                initialActivation={data.activation}
-              />
-            </div>
           </div>
         </div>
 

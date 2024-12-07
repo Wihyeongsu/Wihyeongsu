@@ -1,13 +1,12 @@
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DataFormat, formatInfo } from "@/types/DataFormat.types";
+import { DataFormat, DataFormats } from "@/types/DataFormat.types";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { useReactFlow } from "@xyflow/react";
 
 type DataFormatPopoverProps = {
   currentFormat: DataFormat;
@@ -33,8 +32,8 @@ export const DataFormatPopover = ({
       <PopoverContent className="bg-slate-200 rounded-xl">
         <div className="flex flex-col gap-1">
           {[
-            { label: "1D", description: "N" },
-            { label: "2D", description: "H, W, C" },
+            { label: DataFormats[0], description: "N" },
+            { label: DataFormats[1], description: "H, W, C" },
           ].map((format) => (
             <Button
               key={format.label}

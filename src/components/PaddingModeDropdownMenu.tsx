@@ -1,4 +1,3 @@
-import { PaddingType } from "@/types/ConvolutionalLayerNode.types";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -8,20 +7,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { isNumberTuple } from "@/utils/isNumberTuple";
 
-type PaddingDropdownMenuProps = {
-  currentPadding: PaddingType;
-  setPadding: (value: string) => void;
+type PaddingModeDropdownMenuProps = {
+  currentPaddingMode: "zeros" | "reflect" | "replicate" | "circular";
+  setPaddingMode: (
+    value: "zeros" | "reflect" | "replicate" | "circular",
+  ) => void;
   label?: string;
 };
 
-export const PaddingDropdownMenu = ({
-  currentPadding,
-  setPadding,
+export const PaddingModeDropdownMenu = ({
+  currentPaddingMode,
+  setPaddingMode,
   label,
-}: PaddingDropdownMenuProps) => {
-  const PaddingTypes = ["[Vertical, Horizontal]", "valid", "same"];
+}: PaddingModeDropdownMenuProps) => {
+  const paddingModes = ["zeros", "reflect", "replicate", "circular"];
 
   return (
     <DropdownMenu>
@@ -31,21 +31,22 @@ export const PaddingDropdownMenu = ({
         <Button
           variant="ghost"
           className="border border-gray-200 hover:border-slate-300">
-          {label}:
-          {isNumberTuple(currentPadding)
-            ? `[${currentPadding.join(", ")}]`
-            : currentPadding}
+          {label}: {currentPaddingMode}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-slate-50 rounded-xl">
-        <DropdownMenuLabel className="text-xs">Padding type</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-xs">Padding mode</DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-slate-300" />
-        {PaddingTypes.map((type) => (
+        {paddingModes.map((mode) => (
           <DropdownMenuItem
-            key={type}
+            key={mode}
             className="focus:bg-slate-100 cursor-pointer data-[highlighted]:bg-slate-400 data-[highlighted]:text-white rounded-xl"
-            onClick={() => setPadding(type)}>
-            {type}
+            onClick={() =>
+              setPaddingMode(
+                mode as "zeros" | "reflect" | "replicate" | "circular",
+              )
+            }>
+            {mode}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

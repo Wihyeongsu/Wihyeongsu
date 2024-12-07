@@ -8,7 +8,7 @@ type NumericPopoverProps = {
   initialValue: number;
   id: string;
   label: string;
-  setValue?: (value: number) => void;
+  setValue: (value: number) => void;
 };
 
 const NumericPopover = ({

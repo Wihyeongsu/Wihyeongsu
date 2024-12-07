@@ -9,25 +9,18 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { useEffect, useState } from "react";
-import { useReactFlow } from "@xyflow/react";
+
+type ActivationDropdownMenuProps = {
+  currentActivation: Activation;
+  setActivation: (value: Activation) => void;
+  label?: string;
+};
 
 export const ActivationDropdownMenu = ({
-  initialActivation,
-  id,
-}: {
-  initialActivation: Activation;
-  id: string;
-}) => {
-  const [activation, setActivation] = useState(
-    initialActivation ? initialActivation : ActivationList[0],
-  );
-  const { updateNodeData } = useReactFlow();
-
-  useEffect(() => {
-    updateNodeData(id, { Activation: activation });
-  }, [activation]);
-
+  currentActivation,
+  setActivation,
+  label,
+}: ActivationDropdownMenuProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -36,7 +29,7 @@ export const ActivationDropdownMenu = ({
         <Button
           variant="ghost"
           className="border  border-gray-200 hover:border-slate-300">
-          {activation}
+          {label}: {currentActivation}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-slate-50 rounded-xl">

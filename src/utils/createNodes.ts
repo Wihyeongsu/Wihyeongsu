@@ -28,8 +28,8 @@ export const createNodes = (
         type: nodeType,
         position,
         data: {
-          outputShape: [28, 28, 1], // [height, width, channels]
-          dataFormat: "2D",
+          outputShape: [1, 1, 1], // [height, width, channels]
+          dataFormat: "3D",
         },
       };
       break;
@@ -52,22 +52,23 @@ export const createNodes = (
         position,
         data: {
           inputShape: [1, 1, 1], // [height, width, channels]
-          dataFormat: "2D",
+          dataFormat: "3D",
         },
       };
       break;
-    case "ConvolutionalLayer":
+    case "Convolutional2DLayer":
       newNode = {
         id: `${nodeType}-${Date.now()}`,
         type: nodeType,
         position,
         data: {
-          inputShape: [28, 28, 1],
-          outputShape: [28, 28, 32],
-          kernelSize: [3, 3],
-          filters: 32,
+          inputShape: [1, 1, 1],
+          outputShape: [1, 1, 1],
+          kernelSize: [1, 1],
+          filters: 1,
           stride: [1, 1],
           padding: "same",
+          paddingMode: "zeros",
           activation: "none",
         },
       };
