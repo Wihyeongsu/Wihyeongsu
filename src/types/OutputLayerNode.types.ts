@@ -1,7 +1,9 @@
 import { Node } from "@xyflow/react";
+import { DataFormat } from "./DataFormat.types";
 
 export type OutputLayerData = {
-  inputShape: number;
+  inputShape: [number, number, number]; // [height, width, channels]
+  dataFormat: DataFormat; // Changed from optional to required
 };
 
 export type OutputLayerNodeProps = {

@@ -7,6 +7,7 @@ import NodeContextMenu from "../NodeContextMenu";
 import BaseNode from "./BaseNode";
 import { Separator } from "../ui/separator";
 import { FastForward } from "lucide-react";
+import NumberPopover from "../NumberPopover";
 
 const LinearLayerNodeComponent = ({
   id,
@@ -20,26 +21,47 @@ const LinearLayerNodeComponent = ({
         <div className="grid-flow-row">
           <div>Linear</div>
           <Separator className="bg-slate-300 mb-1" />
-          <div className="flex flex-row items-center">
-            <ShapePopover
-              initialShape={data.inputShape}
-              id={id}
-              shapeType="input"
-            />
-            <FastForward className="h-4" />
-            <ShapePopover
-              initialShape={data.outputShape}
-              id={id}
-              shapeType="output"
-            />
-          </div>
+          <div className="flex flex-col gap-1 text-xs">
+            <div className="flex flex-row items-center gap-2 mb-1">
+              <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1">
+                [{data.inputShape.join(", ")}]
+              </div>
+              <FastForward className="h-4" />
+              <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1">
+                [{data.outputShape.join(", ")}]
+              </div>
+            </div>
 
-          <div>
-            Activation:
-            <ActivationDropdownMenu
-              initialActivation={data.activation}
+            <div className="flex gap-2 mb-1">
+              <NumberPopover
+                initialValue={data.outputShape[0]}
+                id={id}
+                fieldName="outputShape[0]"
+                label="Out H"
+                min={1}
+              />
+              <NumberPopover
+                initialValue={data.outputShape[1]}
+                id={id}
+                fieldName="outputShape[1]}"
+                label="Out W"
+                min={1}
+              />
+            </div>
+            <NumberPopover
+              initialValue={data.outputShape[2]}
               id={id}
+              fieldName="outputShape[2]}"
+              label="Out C"
+              min={1}
             />
+            <div className="flex items-center gap-2">
+              Activation:{" "}
+              <ActivationDropdownMenu
+                id={id}
+                initialActivation={data.activation}
+              />
+            </div>
           </div>
         </div>
 
@@ -51,7 +73,6 @@ const LinearLayerNodeComponent = ({
         <Handle
           type="source"
           position={Position.Right}
-          id="a"
           isConnectable={isConnectable}
         />
       </BaseNode>

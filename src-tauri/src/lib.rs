@@ -93,14 +93,6 @@ async fn anthropic_request(payload: Payload) -> Result<CommandResponse, String> 
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_fs::init())
-        .setup(|app| {
-            // allowed the given directory
-            let scope = app.fs_scope();
-            scope.allow_directory("/path/to/directory", false);
-            dbg!(scope.allowed());
-
-            Ok(())
-        })
         .plugin(tauri_plugin_window_state::Builder::new().build())
         .plugin(tauri_plugin_stronghold::Builder::new(|pass| todo!()).build())
         .plugin(tauri_plugin_http::init())

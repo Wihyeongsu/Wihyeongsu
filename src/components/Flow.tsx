@@ -17,31 +17,31 @@ const rfStyle = {
 };
 
 const initialNodes = [
-  {
-    id: "node_1",
-    type: "LinearLayer",
-    data: {
-      inputShape: 1,
-      outputShape: 1,
-      activation: "none",
-    },
-    position: { x: 0, y: 200 },
-  },
-  {
-    id: "Input",
-    type: "InputLayer",
-    position: { x: 0, y: 0 },
-    data: {
-      outputShape: 1,
-    },
-    selected: false,
-  },
-  {
-    id: "Output",
-    type: "OutputLayer",
-    position: { x: 200, y: 200 },
-    data: { inputShape: 1 },
-  },
+  // {
+  //   id: "node_1",
+  //   type: "LinearLayer",
+  //   data: {
+  //     inputShape: 1,
+  //     outputShape: 1,
+  //     activation: "none",
+  //   },
+  //   position: { x: 0, y: 200 },
+  // },
+  // {
+  //   id: "Input",
+  //   type: "InputLayer",
+  //   position: { x: 0, y: 0 },
+  //   data: {
+  //     outputShape: 1,
+  //   },
+  //   selected: false,
+  // },
+  // {
+  //   id: "Output",
+  //   type: "OutputLayer",
+  //   position: { x: 200, y: 200 },
+  //   data: { inputShape: 1 },
+  // },
 ];
 
 const initialEdges = [];

@@ -13,7 +13,7 @@ const exportToJson = (reactFlowInstance: ReactFlowInstance) => {
     viewport: reactFlowInstance.getViewport(),
   };
 
-  // JSON 문자열로 변환합니다
+  // JSON 문자열로 변환
   const jsonString = JSON.stringify(graphData, null, 2);
 
   // 예시: JSON 파일로 다운로드

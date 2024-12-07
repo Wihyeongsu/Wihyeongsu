@@ -9,6 +9,15 @@
     "store:default",
     "http:default",
     "stronghold:default",
-    "window-state:default"
+    "window-state:default",
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/*" }]
+    },
+    {
+      "identifier": "fs:allow-write",
+      "allow": [{ "path": "$DOWNLOAD/*" }, { "path": "$DOCUMENT/*" }]
+    }
   ]
 }

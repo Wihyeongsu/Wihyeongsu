@@ -27,7 +27,10 @@ export const createNodes = (
         id: `${nodeType}-${Date.now()}`,
         type: nodeType,
         position,
-        data: { outputShape: 1 },
+        data: {
+          outputShape: [28, 28, 1], // [height, width, channels]
+          dataFormat: "2D",
+        },
       };
       break;
     case "LinearLayer":
@@ -36,8 +39,8 @@ export const createNodes = (
         type: nodeType,
         position,
         data: {
-          inputShape: 1,
-          outputShape: 1,
+          inputShape: [1, 1, 1],
+          outputShape: [1, 1, 1],
           activation: "none",
         },
       };
@@ -47,7 +50,26 @@ export const createNodes = (
         id: `${nodeType}-${Date.now()}`,
         type: nodeType,
         position,
-        data: { inputShape: 1 },
+        data: {
+          inputShape: [1, 1, 1], // [height, width, channels]
+          dataFormat: "2D",
+        },
+      };
+      break;
+    case "ConvolutionalLayer":
+      newNode = {
+        id: `${nodeType}-${Date.now()}`,
+        type: nodeType,
+        position,
+        data: {
+          inputShape: [28, 28, 1],
+          outputShape: [28, 28, 32],
+          kernelSize: [3, 3],
+          filters: 32,
+          stride: [1, 1],
+          padding: "same",
+          activation: "none",
+        },
       };
       break;
     default:

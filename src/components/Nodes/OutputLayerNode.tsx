@@ -13,13 +13,15 @@ import { OutputLayerNodeProps } from "@/types/OutputLayerNode.types";
 import { LayerNode } from "@/types/Nodes.types";
 import { InputLayerNode } from "@/types/InputLayerNode.types";
 import { LinearLayerNode } from "@/types/LinearLayerNode.types";
+import NumberPopover from "../NumberPopover";
+import { DataFormatPopover } from "../DataFormatPopover";
 
 const OutputLayerNodeComponent = ({
   data,
   id,
   selected,
 }: OutputLayerNodeProps) => {
-  const [inputShape, setInputShape] = useState<number>(data.inputShape);
+  const [inputShape, setInputShape] = useState<number[]>(data.inputShape);
   const { updateNodeData } = useReactFlow();
 
   const connections = useHandleConnections({
@@ -57,16 +59,66 @@ const OutputLayerNodeComponent = ({
   return (
     <NodeContextMenu id={id}>
       <BaseNode selected={selected}>
+        <div className="grid-flow-row">
+          <div className="flex justify-between items-center">
+            <div>Output</div>
+            <DataFormatPopover
+              id={id}
+              currentFormat={data.dataFormat || "2D"}
+              shape={inputShape}
+              updateField="inputShape"
+            />
+          </div>
+          <Separator className="bg-slate-300 mb-1" />
+
+          <div className="flex flex-col gap-1 text-xs">
+            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1">
+              [{inputShape.join(", ")}]
+            </div>
+
+            {data.dataFormat === "1D" ? (
+              <NumberPopover
+                initialValue={inputShape[0]}
+                id={id}
+                fieldName="inputShape[0]"
+                label="Units"
+                min={1}
+              />
+            ) : (
+              <>
+                <div className="flex gap-2">
+                  <NumberPopover
+                    initialValue={inputShape[0]}
+                    id={id}
+                    fieldName="inputShape[0]"
+                    label="Height"
+                    min={1}
+                  />
+                  <NumberPopover
+                    initialValue={inputShape[1]}
+                    id={id}
+                    fieldName="inputShape[1]"
+                    label="Width"
+                    min={1}
+                  />
+                </div>
+                <NumberPopover
+                  initialValue={inputShape[2]}
+                  id={id}
+                  fieldName="inputShape[2]"
+                  label="Channels"
+                  min={1}
+                />
+              </>
+            )}
+          </div>
+        </div>
+
         <ConnectionLimitHandle
           type="target"
           position={Position.Left}
           connectionCount={1}
         />
-        <div>Output</div>
-
-        <Separator className="bg-slate-300" />
-
-        <div>Shape: {inputShape}</div>
       </BaseNode>
     </NodeContextMenu>
   );

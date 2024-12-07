@@ -2,8 +2,8 @@ import { Activation } from "./Activation.types";
 import { Node } from "@xyflow/react";
 
 export type LinearLayerData = {
-  inputShape: number;
-  outputShape: number;
+  inputShape: [number, number, number]; // [height, width, channels]
+  outputShape: [number, number, number]; // [height, width, channels]
   activation: Activation;
 };
 
