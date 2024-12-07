@@ -10,8 +10,7 @@ import { Button } from "@/components/ui/button";
 
 type DataFormatPopoverProps = {
   currentFormat: DataFormat;
-  updateField: "inputShape" | "outputShape";
-  setDataFormat?: (format: DataFormat) => void;
+  setDataFormat: (format: DataFormat) => void;
 };
 
 export const DataFormatPopover = ({

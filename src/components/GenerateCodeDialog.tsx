@@ -72,7 +72,7 @@ export function GenerateCodeDialog() {
               <Toggle
                 aria-label="Show API key"
                 onPressedChange={() => setShow(!show)}
-                className="absolute right-2 h-7 w-7 p-0 hover:bg-slate-100">
+                className="absolute right-2 h-7 w-7 p-0">
                 {show ? (
                   <EyeOff className="h-4 w-4" />
                 ) : (

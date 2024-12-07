@@ -7,6 +7,7 @@ import { Separator } from "../ui/separator";
 import { FastForward } from "lucide-react";
 import NumericPopover from "../NumericPopover";
 import { useEffect, useState } from "react";
+import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
 
 const LinearLayerNodeComponent = ({
   id,
@@ -48,13 +49,11 @@ const LinearLayerNodeComponent = ({
             <div className="flex gap-2 mb-1">
               <NumericPopover
                 initialValue={inputShape}
-                id={id}
                 label="Input"
                 setValue={setInputShape}
               />
               <NumericPopover
                 initialValue={outputShape}
-                id={id}
                 label="Output"
                 setValue={setOutputShape}
               />
@@ -67,15 +66,15 @@ const LinearLayerNodeComponent = ({
           </div>
         </div>
 
-        <Handle
+        <ConnectionLimitHandle
           type="target"
           position={Position.Left}
-          isConnectable={isConnectable}
+          connectionCount={1}
         />
-        <Handle
+        <ConnectionLimitHandle
           type="source"
           position={Position.Right}
-          isConnectable={isConnectable}
+          connectionCount={1}
         />
       </BaseNode>
     </NodeContextMenu>

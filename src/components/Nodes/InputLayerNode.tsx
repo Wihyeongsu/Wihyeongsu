@@ -7,6 +7,7 @@ import NumericPopover from "../NumericPopover";
 import { DataFormatPopover } from "../DataFormatPopover";
 import { useEffect, useState } from "react";
 import { DataFormat } from "@/types/DataFormat.types";
+import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
 
 const InputLayerNodeComponent = ({
   id,
@@ -18,29 +19,34 @@ const InputLayerNodeComponent = ({
   const [height, setHeight] = useState<number>(data.outputShape[0]);
   const [width, setWidth] = useState<number>(data.outputShape[1]);
   const [channels, setChannels] = useState<number>(data.outputShape[2]);
-  const outputShape3D = [height, width, channels];
   const [dataFormat, setDataFormat] = useState<DataFormat>(data.dataFormat);
-
   const { updateNodeData } = useReactFlow();
 
-  useEffect(() => {
-    let updatedData;
-    switch (dataFormat) {
-      case "1D":
-        updatedData = {
-          outputShape: [length, 1, 1],
-          dataFormat: dataFormat,
-        };
-        break;
-      case "3D":
-        updatedData = {
-          outputShape: outputShape3D,
-          dataFormat: dataFormat,
-        };
-        break;
+  const handleDataFormatChange = (newFormat: DataFormat) => {
+    setDataFormat(newFormat);
+    // 포맷 변경 시 초기 값 설정
+    if (newFormat === "1D") {
+      updateNodeData(id, {
+        outputShape: [length, 1, 1],
+        dataFormat: newFormat,
+      });
+    } else {
+      updateNodeData(id, {
+        outputShape: [height, width, channels],
+        dataFormat: newFormat,
+      });
     }
-    updateNodeData(id, updatedData);
-  }, [height, width, channels, dataFormat]);
+  };
+
+  useEffect(() => {
+    const outputShape =
+      dataFormat === "1D" ? [length, 1, 1] : [height, width, channels];
+
+    updateNodeData(id, {
+      outputShape,
+      dataFormat,
+    });
+  }, [length, height, width, channels, dataFormat, id]);
 
   return (
     <NodeContextMenu id={id}>
@@ -50,21 +56,23 @@ const InputLayerNodeComponent = ({
             <div>Input</div>
             <DataFormatPopover
               currentFormat={dataFormat}
-              updateField="outputShape"
-              setDataFormat={setDataFormat}
+              setDataFormat={handleDataFormatChange}
             />
           </div>
           <Separator className="bg-slate-300 mb-1" />
 
           <div className="flex flex-col gap-1 text-xs">
             <div className="border border-gray-200 hover:border-slate-300 rounded-xl text-center px-2 py-1">
-              [{dataFormat === "1D" ? [length] : outputShape3D.join(", ")}]
+              [
+              {dataFormat === "1D"
+                ? [length]
+                : [height, width, channels].join(", ")}
+              ]
             </div>
 
             {dataFormat === "1D" ? (
               <NumericPopover
                 initialValue={length}
-                id={id}
                 label="Units"
                 setValue={setLength}
               />
@@ -73,20 +81,17 @@ const InputLayerNodeComponent = ({
                 <div className="flex gap-2">
                   <NumericPopover
                     initialValue={height}
-                    id={id}
                     label="Height"
                     setValue={setHeight}
                   />
                   <NumericPopover
                     initialValue={width}
-                    id={id}
                     label="Width"
                     setValue={setWidth}
                   />
                 </div>
                 <NumericPopover
                   initialValue={channels}
-                  id={id}
                   label="Channels"
                   setValue={setChannels}
                 />
@@ -95,10 +100,10 @@ const InputLayerNodeComponent = ({
           </div>
         </div>
 
-        <Handle
+        <ConnectionLimitHandle
           type="source"
           position={Position.Right}
-          isConnectable={isConnectable}
+          connectionCount={1}
         />
       </BaseNode>
     </NodeContextMenu>

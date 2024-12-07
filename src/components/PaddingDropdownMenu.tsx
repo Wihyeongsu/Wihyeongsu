@@ -31,7 +31,7 @@ export const PaddingDropdownMenu = ({
         <Button
           variant="ghost"
           className="border border-gray-200 hover:border-slate-300">
-          {label}:
+          {label}:{" "}
           {isNumberTuple(currentPadding)
             ? `[${currentPadding.join(", ")}]`
             : currentPadding}

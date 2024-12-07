@@ -55,7 +55,7 @@ export const nodeTypesSidebar: NodeTypeInfo[] = [
   },
   {
     type: "Convolutional2DLayer",
-    label: "Convolutional Layer",
+    label: "Convolutional2D Layer",
     description: "2D Convolutional layer for feature extraction",
   },
 ];

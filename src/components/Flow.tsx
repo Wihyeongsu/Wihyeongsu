@@ -1,48 +1,24 @@
 import { useCallback, useRef } from "react";
 import {
   addEdge,
-  // Connection,
+  Connection,
   Controls,
   ReactFlow,
   useEdgesState,
   useNodesState,
-  // useReactFlow,
+  useReactFlow,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/base.css";
 import { nodeTypes } from "@/types/Nodes.types";
+import { isInputLayerNode } from "@/types/InputLayerNode.types";
+import { isConvolutional2DLayerNode } from "@/types/ConvolutionalLayerNode.types";
 
 const rfStyle = {
   backgroundColor: "#00062E32",
 };
 
-const initialNodes = [
-  // {
-  //   id: "node_1",
-  //   type: "LinearLayer",
-  //   data: {
-  //     inputShape: 1,
-  //     outputShape: 1,
-  //     activation: "none",
-  //   },
-  //   position: { x: 0, y: 200 },
-  // },
-  // {
-  //   id: "Input",
-  //   type: "InputLayer",
-  //   position: { x: 0, y: 0 },
-  //   data: {
-  //     outputShape: 1,
-  //   },
-  //   selected: false,
-  // },
-  // {
-  //   id: "Output",
-  //   type: "OutputLayer",
-  //   position: { x: 200, y: 200 },
-  //   data: { inputShape: 1 },
-  // },
-];
+const initialNodes = [];
 
 const initialEdges = [];
 
@@ -50,23 +26,27 @@ const Flow = () => {
   const reactFlowWrapper = useRef(null);
   const [nodes, , onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  // const { getNode } = useReactFlow();
+  const { getNode } = useReactFlow();
 
   // Validate connection between nodes
-  const isValidConnection = () =>
-    // connection: Connection
+  const isValidConnection = (connection: Connection) => {
+    const { source, target } = connection;
+    const sourceNode = getNode(source);
+    const targetNode = getNode(target);
 
-    {
-      // const { source, target } = connection;
-      // const sourceNode = getNode(source);
-      // const targetNode = getNode(target);
+    if (target === source) return false;
+    if (
+      isInputLayerNode(sourceNode) &&
+      isConvolutional2DLayerNode(targetNode) &&
+      sourceNode.data.dataFormat !== "3D"
+    )
+      return false;
+    // if (sourceNode.data.outputShape !== targetNode.data.inputShape) {
+    //   return false;
+    // }
 
-      // if (target === source) return false;
-      // if (sourceNode.data.outputShape !== targetNode.data.inputShape) {
-      //   return false;
-      // }
-      return true;
-    };
+    return true;
+  };
 
   const onConnect = useCallback(
     (connection) => setEdges((eds) => addEdge(connection, eds)),

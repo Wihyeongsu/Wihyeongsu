@@ -1,7 +1,13 @@
-import { useEffect, useState } from "react";
-import { Handle, Position, useReactFlow } from "@xyflow/react";
+import { memo, useEffect, useState } from "react";
+import {
+  Position,
+  useHandleConnections,
+  useNodesData,
+  useReactFlow,
+} from "@xyflow/react";
 import BaseNode from "./BaseNode";
 import {
+  Convolutional2DLayerNode,
   Convolutional2DLayerNodeProps,
   PaddingType,
 } from "@/types/ConvolutionalLayerNode.types";
@@ -13,8 +19,12 @@ import NodeContextMenu from "../NodeContextMenu";
 import { Separator } from "../ui/separator";
 import { PaddingModeDropdownMenu } from "../PaddingModeDropdownMenu";
 import { isNumberTuple } from "@/utils/isNumberTuple";
+import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
+import { LayerNode } from "@/types/Nodes.types";
+import { InputLayerNode } from "@/types/InputLayerNode.types";
+import { LinearLayerNode } from "@/types/LinearLayerNode.types";
 
-const Convolutional2DLayerNode = ({
+const Convolutional2DLayerNodeComponent = ({
   id,
   data,
   isConnectable,
@@ -42,6 +52,27 @@ const Convolutional2DLayerNode = ({
   const [paddingMode, setPaddingMode] = useState(data.paddingMode);
   const { updateNodeData } = useReactFlow();
 
+  // 연결된 노드들의 데이터를 구독
+  const connectedNodesData = useNodesData<LayerNode>(
+    useHandleConnections({
+      type: "target",
+    }).map((connection) => connection.source),
+  ) as Array<InputLayerNode | LinearLayerNode | Convolutional2DLayerNode>;
+
+  function handlePaddingChange(paddingType: string) {
+    switch (paddingType) {
+      case "valid":
+      case "same":
+        setPadding(paddingType);
+        break;
+      case "[Vertical, Horizontal]":
+        setPadding([paddingVertical, paddingHorizontal]);
+        break;
+      default:
+        break;
+    }
+  }
+
   useEffect(() => {
     if (isNumberTuple(padding)) {
       setPadding([paddingVertical, paddingHorizontal]);
@@ -57,7 +88,7 @@ const Convolutional2DLayerNode = ({
       );
     }
     // Stride가 1이 아닌 경우 same 지원 X
-    else if (padding === "same" && strideHeight !== 1 && strideWidth !== 1) {
+    else if (padding === "same" && strideHeight === 1 && strideWidth === 1) {
       setOutputHeight(inputHeight);
       setOutputWidth(inputWidth);
     } else if (padding === "valid") {
@@ -67,6 +98,20 @@ const Convolutional2DLayerNode = ({
       setOutputWidth(Math.floor((inputWidth - kernelWidth) / strideWidth + 1));
     }
     setOutputChannels(filters);
+
+    // 연결된 노드가 있는 경우
+    if (connectedNodesData.length > 0) {
+      const connectedNode = connectedNodesData[0]; // 첫 번째 연결된 노드의 데이터
+
+      setInputHeight(connectedNode.data.outputShape[0]);
+      setInputWidth(connectedNode.data.outputShape[1]);
+      setInputChannels(connectedNode.data.outputShape[2]);
+    } else {
+      // 연결된 노드가 없는 경우 기본값으로 복원
+      setInputHeight(data.inputShape[0]);
+      setInputWidth(data.inputShape[1]);
+      setInputChannels(data.inputShape[2]);
+    }
 
     const updatedData = {
       inputShape: [inputHeight, inputWidth, inputChannels],
@@ -81,9 +126,6 @@ const Convolutional2DLayerNode = ({
 
     updateNodeData(id, updatedData);
   }, [
-    inputHeight,
-    inputWidth,
-    inputChannels,
     filters,
     kernelHeight,
     kernelWidth,
@@ -95,21 +137,8 @@ const Convolutional2DLayerNode = ({
     paddingMode,
     activation,
     paddingMode,
+    connectedNodesData,
   ]);
-
-  function handlePaddingChange(paddingType: string) {
-    switch (paddingType) {
-      case "valid":
-      case "same":
-        setPadding(paddingType);
-        break;
-      case "[Vertical, Horizontal]":
-        setPadding([paddingVertical, paddingHorizontal]);
-        break;
-      default:
-        break;
-    }
-  }
 
   return (
     <NodeContextMenu id={id}>
@@ -131,20 +160,17 @@ const Convolutional2DLayerNode = ({
           <div className="flex flex-col gap-1 text-xs">
             <NumericPopover
               initialValue={filters}
-              id={id}
               label="Filters"
               setValue={setFilters}
             />
             <div className="flex flex-row justify-center items-center gap-2">
               <NumericPopover
                 initialValue={kernelHeight}
-                id={id}
                 label="Kernel H"
                 setValue={setKernelHeight}
               />
               <NumericPopover
                 initialValue={kernelWidth}
-                id={id}
                 label="Kernel W"
                 setValue={setKernelWidth}
               />
@@ -152,13 +178,11 @@ const Convolutional2DLayerNode = ({
             <div className="flex flex-row justify-center items-center gap-2">
               <NumericPopover
                 initialValue={strideHeight}
-                id={id}
                 label="Stride H"
                 setValue={setStrideHeight}
               />
               <NumericPopover
                 initialValue={strideWidth}
-                id={id}
                 label="Stride W"
                 setValue={setStrideWidth}
               />
@@ -179,13 +203,11 @@ const Convolutional2DLayerNode = ({
               <div className="flex flex-row justify-center items-center gap-2">
                 <NumericPopover
                   initialValue={paddingVertical}
-                  id={id}
                   label="Vertical"
                   setValue={setPaddingVertical}
                 />
                 <NumericPopover
                   initialValue={paddingHorizontal}
-                  id={id}
                   label="Horizontal"
                   setValue={setPaddingHorizontal}
                 />
@@ -199,18 +221,18 @@ const Convolutional2DLayerNode = ({
           </div>
         </div>
 
-        <Handle
+        <ConnectionLimitHandle
           type="target"
           position={Position.Left}
-          isConnectable={isConnectable}
+          connectionCount={1}
         />
-        <Handle
+        <ConnectionLimitHandle
           type="source"
           position={Position.Right}
-          isConnectable={isConnectable}
+          connectionCount={1}
         />
       </BaseNode>
     </NodeContextMenu>
   );
 };
-export default Convolutional2DLayerNode;
+export default memo(Convolutional2DLayerNodeComponent);

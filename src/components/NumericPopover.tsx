@@ -6,28 +6,26 @@ import { useReactFlow } from "@xyflow/react";
 
 type NumericPopoverProps = {
   initialValue: number;
-  id: string;
   label: string;
   setValue: (value: number) => void;
 };
 
 const NumericPopover = ({
   initialValue,
-  id,
   label,
   setValue,
 }: NumericPopoverProps) => {
   // const {  getNode, getEdges, setEdges } = useReactFlow();
 
-  const defaultValidator = (value: number) => value >= 1 && value <= 10000;
+  const defaultValidator = (value: number) => value >= 0 && value <= 10000;
   const [value, handleValueChange] = useInput<number>(
     initialValue,
     defaultValidator,
   );
 
   useEffect(() => {
-    setValue?.(value);
-  }, [value, initialValue, id, setValue]);
+    setValue(value);
+  }, [value]);
 
   // useEffect(() => {
   //   const updatedData = {

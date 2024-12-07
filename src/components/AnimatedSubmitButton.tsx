@@ -36,20 +36,20 @@ const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
   }, []);
 
   const handleClick = () => {
-    // 이미 애니메이션 중이라면 추가 클릭을 무시합니다
+    // 애니메이션 중이라면 추가 클릭을 무시
     if (isAnimating) return;
 
     fetchAnthropicResponse("Explain about Pytorch.", apikey);
 
     setIsAnimating(true);
 
-    // 텍스트 페이드아웃을 버튼 축소 시작과 함께 진행합니다
+    // 텍스트 페이드아웃을 버튼 축소 시작과 함께 진행
     setIsTextVisible(false);
 
-    // 아이콘은 버튼이 완전히 축소된 후에 표시합니다
+    // 아이콘은 버튼이 완전히 축소된 후에 표시
     setTimeout(() => {
       setIsImageVisible(true);
-    }, 300); // 버튼 축소 애니메이션의 절반 시점에 아이콘을 표시합니다
+    }, 300); // 버튼 축소 애니메이션의 절반 시점에 아이콘을 표시
   };
 
   return (
@@ -78,7 +78,7 @@ const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
             flex items-center justify-center
             font-medium
             transition-all duration-300 ease-in-out
-            ${apikey ? "text-slate-950" : "text-slate-300"}
+            ${apikey ? "text-slate-950" : "text-slate-50"}
             ${isTextVisible ? "opacity-100 text-slate-950" : "opacity-0"}
             ${
               length < 45
