@@ -10,28 +10,15 @@ import { Button } from "@/components/ui/button";
 import { useReactFlow } from "@xyflow/react";
 
 type DataFormatPopoverProps = {
-  id: string;
   currentFormat: DataFormat;
-  shape: number[];
   updateField: "inputShape" | "outputShape";
+  setDataFormat?: (format: DataFormat) => void;
 };
 
 export const DataFormatPopover = ({
-  id,
   currentFormat,
-  shape,
-  updateField,
+  setDataFormat,
 }: DataFormatPopoverProps) => {
-  const { updateNodeData } = useReactFlow();
-
-  const handleFormatChange = (newFormat: DataFormat) => {
-    const newShape = formatInfo[newFormat].convert(shape);
-    updateNodeData(id, {
-      dataFormat: newFormat,
-      [updateField]: newShape,
-    });
-  };
-
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -40,20 +27,25 @@ export const DataFormatPopover = ({
           size="sm"
           className="h-6 px-2 gap-2 text-xs hover:bg-slate-100">
           <FontAwesomeIcon icon={faArrowsRotate} className="h-3 w-3" />
-          {formatInfo[currentFormat].label}
+          {currentFormat}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-48 p-2">
+      <PopoverContent className="bg-slate-200 rounded-xl">
         <div className="flex flex-col gap-1">
-          {Object.entries(formatInfo).map(([format, info]) => (
+          {[
+            { label: "1D", description: "N" },
+            { label: "2D", description: "H, W, C" },
+          ].map((format) => (
             <Button
-              key={format}
-              variant={currentFormat === format ? "secondary" : "ghost"}
-              onClick={() => handleFormatChange(format as DataFormat)}
+              key={format.label}
+              variant={currentFormat === format.label ? "secondary" : "ghost"}
+              onClick={() => {
+                setDataFormat(format.label as DataFormat);
+              }}
               className="w-full justify-between text-xs hover:bg-slate-100">
-              <span>{info.label}</span>
+              <span>{format.label}</span>
               <span className="text-xs text-muted-foreground">
-                {info.description}
+                [{format.description}]
               </span>
             </Button>
           ))}

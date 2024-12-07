@@ -1,13 +1,11 @@
 import { LinearLayerNodeProps } from "@/types/LinearLayerNode.types";
 import { Handle, Position } from "@xyflow/react";
-
 import { ActivationDropdownMenu } from "../ActivationDropdownMenu";
-import ShapePopover from "../ShapePopover";
 import NodeContextMenu from "../NodeContextMenu";
 import BaseNode from "./BaseNode";
 import { Separator } from "../ui/separator";
 import { FastForward } from "lucide-react";
-import NumberPopover from "../NumberPopover";
+import NumericPopover from "../NumericPopover";
 
 const LinearLayerNodeComponent = ({
   id,
@@ -33,27 +31,21 @@ const LinearLayerNodeComponent = ({
             </div>
 
             <div className="flex gap-2 mb-1">
-              <NumberPopover
+              <NumericPopover
                 initialValue={data.outputShape[0]}
                 id={id}
-                fieldName="outputShape[0]"
                 label="Out H"
-                min={1}
               />
-              <NumberPopover
+              <NumericPopover
                 initialValue={data.outputShape[1]}
                 id={id}
-                fieldName="outputShape[1]}"
                 label="Out W"
-                min={1}
               />
             </div>
-            <NumberPopover
+            <NumericPopover
               initialValue={data.outputShape[2]}
               id={id}
-              fieldName="outputShape[2]}"
               label="Out C"
-              min={1}
             />
             <div className="flex items-center gap-2">
               Activation:{" "}

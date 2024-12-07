@@ -1,10 +1,12 @@
 import { InputLayerNodeProps } from "@/types/InputLayerNode.types";
-import { Handle, Position } from "@xyflow/react";
+import { Handle, Position, useReactFlow } from "@xyflow/react";
 import NodeContextMenu from "../NodeContextMenu";
 import BaseNode from "./BaseNode";
 import { Separator } from "../ui/separator";
-import NumberPopover from "../NumberPopover";
+import NumericPopover from "../NumericPopover";
 import { DataFormatPopover } from "../DataFormatPopover";
+import { useEffect, useState } from "react";
+import { DataFormat } from "@/types/DataFormat.types";
 
 const InputLayerNodeComponent = ({
   id,
@@ -12,6 +14,32 @@ const InputLayerNodeComponent = ({
   isConnectable,
   selected,
 }: InputLayerNodeProps) => {
+  const [length, setLength] = useState<number>(data.outputShape[0]);
+  const [height, setHeight] = useState<number>(data.outputShape[0]);
+  const [width, setWidth] = useState<number>(data.outputShape[1]);
+  const [channels, setChannels] = useState<number>(data.outputShape[2]);
+  const outputShape2D = [height, width, channels];
+  const [dataFormat, setDataFormat] = useState<DataFormat>(data.dataFormat);
+
+  const { updateNodeData } = useReactFlow();
+
+  useEffect(() => {
+    let updatedData;
+    switch (dataFormat) {
+      case "1D":
+        updatedData = {
+          outputShape: [length, 1, 1],
+        };
+        break;
+      case "2D":
+        updatedData = {
+          outputShape: outputShape2D,
+        };
+        break;
+    }
+    updateNodeData(id, updatedData);
+  }, [height, width, channels, dataFormat]);
+
   return (
     <NodeContextMenu id={id}>
       <BaseNode selected={selected}>
@@ -19,51 +47,50 @@ const InputLayerNodeComponent = ({
           <div className="flex justify-between items-center">
             <div>Input</div>
             <DataFormatPopover
-              id={id}
-              currentFormat={data.dataFormat || "2D"}
-              shape={data.outputShape}
+              currentFormat={dataFormat}
               updateField="outputShape"
+              setDataFormat={setDataFormat}
             />
           </div>
           <Separator className="bg-slate-300 mb-1" />
 
           <div className="flex flex-col gap-1 text-xs">
             <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1">
-              [{data.outputShape.join(", ")}]
+              [
+              {dataFormat === "1D"
+                ? [length, 1, 1].join(", ")
+                : outputShape2D.join(", ")}
+              ]
             </div>
 
-            {data.dataFormat === "1D" ? (
-              <NumberPopover
-                initialValue={data.outputShape[0]}
+            {dataFormat === "1D" ? (
+              <NumericPopover
+                initialValue={length}
                 id={id}
-                fieldName="outputShape[0]"
                 label="Units"
-                min={1}
+                setValue={setLength}
               />
             ) : (
               <>
                 <div className="flex gap-2">
-                  <NumberPopover
-                    initialValue={data.outputShape[0]}
+                  <NumericPopover
+                    initialValue={height}
                     id={id}
-                    fieldName="outputShape[0]"
                     label="Height"
-                    min={1}
+                    setValue={setHeight}
                   />
-                  <NumberPopover
-                    initialValue={data.outputShape[1]}
+                  <NumericPopover
+                    initialValue={width}
                     id={id}
-                    fieldName="outputShape[1]"
                     label="Width"
-                    min={1}
+                    setValue={setWidth}
                   />
                 </div>
-                <NumberPopover
-                  initialValue={data.outputShape[2]}
+                <NumericPopover
+                  initialValue={channels}
                   id={id}
-                  fieldName="outputShape[2]"
                   label="Channels"
-                  min={1}
+                  setValue={setChannels}
                 />
               </>
             )}

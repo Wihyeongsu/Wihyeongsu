@@ -13,7 +13,7 @@ import { OutputLayerNodeProps } from "@/types/OutputLayerNode.types";
 import { LayerNode } from "@/types/Nodes.types";
 import { InputLayerNode } from "@/types/InputLayerNode.types";
 import { LinearLayerNode } from "@/types/LinearLayerNode.types";
-import NumberPopover from "../NumberPopover";
+import NumericPopover from "../NumericPopover";
 import { DataFormatPopover } from "../DataFormatPopover";
 
 const OutputLayerNodeComponent = ({
@@ -39,7 +39,7 @@ const OutputLayerNodeComponent = ({
     if (nodesData.length > 0) {
       const connectedNode = nodesData[0]; // 첫 번째 연결된 노드의 데이터
 
-      // 연결된 노드의 outputShape가 현재 inputShape와 다른 경우에만 업데이트
+      // 연결된 노드의 outputShape가 현재 inputShape와 다른 경���에만 업데이트
       if (connectedNode && connectedNode.data.outputShape !== inputShape) {
         setInputShape(connectedNode.data.outputShape);
       }
@@ -77,37 +77,29 @@ const OutputLayerNodeComponent = ({
             </div>
 
             {data.dataFormat === "1D" ? (
-              <NumberPopover
+              <NumericPopover
                 initialValue={inputShape[0]}
                 id={id}
-                fieldName="inputShape[0]"
                 label="Units"
-                min={1}
               />
             ) : (
               <>
                 <div className="flex gap-2">
-                  <NumberPopover
+                  <NumericPopover
                     initialValue={inputShape[0]}
                     id={id}
-                    fieldName="inputShape[0]"
                     label="Height"
-                    min={1}
                   />
-                  <NumberPopover
+                  <NumericPopover
                     initialValue={inputShape[1]}
                     id={id}
-                    fieldName="inputShape[1]"
                     label="Width"
-                    min={1}
                   />
                 </div>
-                <NumberPopover
+                <NumericPopover
                   initialValue={inputShape[2]}
                   id={id}
-                  fieldName="inputShape[2]"
                   label="Channels"
-                  min={1}
                 />
               </>
             )}

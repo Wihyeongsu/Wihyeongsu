@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,7 +14,7 @@ import { Toggle } from "./ui/toggle";
 import { Eye, EyeOff } from "lucide-react";
 import { Separator } from "./ui/separator";
 import AnimatedSubmitButton from "./AnimatedSubmitButton";
-import ClimbingBoxLoader from "./ClimbingBoxLoader";
+// import ClimbingBoxLoader from "./ClimbingBoxLoader";
 
 const buttonStyle =
   "rounded-xl bg-slate-80 border-2 border-slate-50 text-slate-950 hover:bg-slate-50 hover:border-slate-950 active:bg-slate-950 active:text-slate-50 transition-color duration-200 shadow-sm";

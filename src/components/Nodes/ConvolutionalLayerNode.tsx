@@ -3,7 +3,7 @@ import { Handle, Position } from "@xyflow/react";
 import BaseNode from "./BaseNode";
 import { ConvolutionalLayerNodeProps } from "@/types/ConvolutionalLayerNode.types";
 import { ActivationDropdownMenu } from "../ActivationDropdownMenu";
-import NumberPopover from "../NumberPopover";
+import NumericPopover from "../NumericPopover";
 import { PaddingDropdownMenu } from "../PaddingDropdownMenu";
 import { FastForward } from "lucide-react";
 import NodeContextMenu from "../NodeContextMenu";
@@ -33,43 +33,33 @@ const ConvolutionalLayerNode: React.FC<ConvolutionalLayerNodeProps> = ({
           </div>
 
           <div className="flex flex-col gap-1 text-xs">
-            <NumberPopover
+            <NumericPopover
               initialValue={data.filters}
               id={id}
-              fieldName="filters"
               label="Filters"
-              min={1}
             />
             <div className="flex gap-2">
-              <NumberPopover
+              <NumericPopover
                 initialValue={data.kernelSize[0]}
                 id={id}
-                fieldName="kernelSize[0]"
                 label="Kernel H"
-                min={1}
               />
-              <NumberPopover
+              <NumericPopover
                 initialValue={data.kernelSize[1]}
                 id={id}
-                fieldName="kernelSize[1]"
                 label="Kernel W"
-                min={1}
               />
             </div>
             <div className="flex gap-2">
-              <NumberPopover
+              <NumericPopover
                 initialValue={data.stride[0]}
                 id={id}
-                fieldName="stride[0]"
                 label="Stride H"
-                min={1}
               />
-              <NumberPopover
+              <NumericPopover
                 initialValue={data.stride[1]}
                 id={id}
-                fieldName="stride[1]"
                 label="Stride W"
-                min={1}
               />
             </div>
             <div className="flex items-center gap-2">
