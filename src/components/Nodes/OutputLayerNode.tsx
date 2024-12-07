@@ -1,84 +1,116 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
+import NodeContextMenu from "../NodeContextMenu";
+import BaseNode from "./BaseNode";
+import { DataFormatPopover } from "../DataFormatPopover";
+import { OutputLayerNodeProps } from "@/types/OutputLayerNode.types";
 import {
   Position,
   useHandleConnections,
   useNodesData,
   useReactFlow,
 } from "@xyflow/react";
-import NodeContextMenu from "../NodeContextMenu";
-import BaseNode from "./BaseNode";
-import { Separator } from "../ui/separator";
-import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
-import { OutputLayerNodeProps } from "@/types/OutputLayerNode.types";
 import { LayerNode } from "@/types/Nodes.types";
+import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
+import { Separator } from "@radix-ui/react-context-menu";
+import { DataFormat } from "@/types/DataFormat.types";
+import { Convolutional2DLayerNode } from "@/types/ConvolutionalLayerNode.types";
 import { InputLayerNode } from "@/types/InputLayerNode.types";
 import { LinearLayerNode } from "@/types/LinearLayerNode.types";
-import NumericPopover from "../NumericPopover";
-import { DataFormatPopover } from "../DataFormatPopover";
-import {
-  Convolutional2DLayerData,
-  Convolutional2DLayerNode,
-} from "@/types/ConvolutionalLayerNode.types";
-import { DataFormat } from "@/types/DataFormat.types";
 
 const OutputLayerNodeComponent = ({
   data,
   id,
   selected,
 }: OutputLayerNodeProps) => {
-  const [inputHeight, setInputHeight] = useState<number>(data.inputShape[0]);
-  const [inputWidth, setInputWidth] = useState<number>(data.inputShape[1]);
-  const [inputChannels, setInputChannels] = useState<number>(
-    data.inputShape[2],
-  );
+  // 입력 형태를 관리하는 상태들
+  const [length, setLength] = useState<number>(1);
+  const [inputHeight, setInputHeight] = useState<number>(1);
+  const [inputWidth, setInputWidth] = useState<number>(1);
+  const [inputChannels, setInputChannels] = useState<number>(1);
   const [dataFormat, setDataFormat] = useState(data.dataFormat);
+
   const { updateNodeData } = useReactFlow();
 
-  // 연결된 노드들의 데이터를 구독
+  // 연결된 노드의 데이터를 추적합니다
   const connectedNodesData = useNodesData<LayerNode>(
     useHandleConnections({
       type: "target",
     }).map((connection) => connection.source),
   ) as Array<InputLayerNode | LinearLayerNode | Convolutional2DLayerNode>;
 
+  // 데이터 포맷 변경을 처리하는 함수를 개선합니다
   const handleDataFormatChange = (newFormat: DataFormat) => {
     setDataFormat(newFormat);
-    // 포맷 변경 시 초기 값 설정
+
     if (newFormat === "1D") {
+      // 1D로 변경할 때는 첫 번째 차원만 사용
+      setLength(inputHeight);
       updateNodeData(id, {
-        inputShape: [inputHeight, 1, 1],
+        inputShape: inputHeight,
         dataFormat: newFormat,
       });
     } else {
+      // 3D로 변경할 때는 이전 값들을 적절히 변환
+      const newHeight = 1;
+      const newWidth = 1;
+      const newChannels = 1;
+
+      setInputHeight(newHeight);
+      setInputWidth(newWidth);
+      setInputChannels(newChannels);
+
       updateNodeData(id, {
-        inputShape: [inputHeight, inputWidth, inputChannels],
+        inputShape: [newHeight, newWidth, newChannels],
         dataFormat: newFormat,
       });
     }
   };
 
+  // 연결된 노드의 변경을 처리하는 useEffect
   useEffect(() => {
-    // 연결된 노드가 있는 경우
     if (connectedNodesData.length > 0) {
-      const connectedNode = connectedNodesData[0]; // 첫 번째 연결된 노드의 데이터
+      const connectedNode = connectedNodesData[0];
+      const outputShape = connectedNode.data.outputShape;
 
-      setInputHeight(connectedNode.data.outputShape[0]);
-      setInputWidth(connectedNode.data.outputShape[1]);
-      setInputChannels(connectedNode.data.outputShape[2]);
+      if (typeof outputShape === "number") {
+        // 1D 데이터를 받았을 때
+        setLength(outputShape);
+        if (dataFormat !== "1D") {
+          setInputHeight(outputShape);
+          setInputWidth(1);
+          setInputChannels(1);
+        }
+      } else {
+        // 3D 데이터를 받았을 때
+        setLength(outputShape[0]);
+        setInputHeight(outputShape[0]);
+        setInputWidth(outputShape[1]);
+        setInputChannels(outputShape[2]);
+      }
     } else {
-      // 연결된 노드가 없는 경우 기본값으로 복원
-      setInputHeight(data.inputShape[0]);
-      setInputWidth(data.inputShape[1]);
-      setInputChannels(data.inputShape[2]);
+      // 연결이 해제된 경우 기본값으로 복원
+      if (dataFormat === "1D") {
+        setLength(1);
+      } else {
+        setInputHeight(data.inputShape[0]);
+        setInputWidth(data.inputShape[1]);
+        setInputChannels(data.inputShape[2]);
+      }
     }
+  }, [connectedNodesData, dataFormat, data.inputShape]);
 
-    const updatedData = {
-      inputShape: [inputHeight, inputWidth, inputChannels],
-      dataFormat: dataFormat,
-    };
+  // 노드 데이터 업데이트를 처리하는 useEffect
+  useEffect(() => {
+    const inputShape =
+      dataFormat === "1D"
+        ? length
+        : [inputHeight || 1, inputWidth || 1, inputChannels || 1];
 
-    updateNodeData(id, updatedData);
-  }, [connectedNodesData, dataFormat]);
+    updateNodeData(id, {
+      inputShape,
+      dataFormat,
+    });
+  }, [length, inputHeight, inputWidth, inputChannels, dataFormat, id]);
 
   return (
     <NodeContextMenu id={id}>
@@ -94,41 +126,15 @@ const OutputLayerNodeComponent = ({
           <Separator className="bg-slate-300 mb-1" />
 
           <div className="flex flex-col gap-1 text-xs">
-            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1">
+            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1 text-center">
               [
               {dataFormat === "1D"
-                ? [length]
-                : [inputHeight, inputWidth, inputChannels].join(", ")}
+                ? length
+                : [inputHeight || 1, inputWidth || 1, inputChannels || 1].join(
+                    ", ",
+                  )}
               ]
             </div>
-
-            {data.dataFormat === "1D" ? (
-              <NumericPopover
-                initialValue={inputHeight}
-                label="Units"
-                setValue={setInputHeight}
-              />
-            ) : (
-              <>
-                <div className="flex gap-2">
-                  <NumericPopover
-                    initialValue={inputHeight}
-                    label="Height"
-                    setValue={setInputHeight}
-                  />
-                  <NumericPopover
-                    initialValue={inputWidth}
-                    label="Width"
-                    setValue={setInputWidth}
-                  />
-                </div>
-                <NumericPopover
-                  initialValue={inputChannels}
-                  label="Channels"
-                  setValue={setInputChannels}
-                />
-              </>
-            )}
           </div>
         </div>
 

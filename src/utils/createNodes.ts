@@ -39,8 +39,8 @@ export const createNodes = (
         type: nodeType,
         position,
         data: {
-          inputShape: [1, 1, 1],
-          outputShape: [1, 1, 1],
+          inputShape: 1,
+          outputShape: 1,
           activation: "none",
         },
       };

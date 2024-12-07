@@ -138,6 +138,7 @@ const Convolutional2DLayerNodeComponent = ({
     activation,
     paddingMode,
     connectedNodesData,
+    data.inputShape,
   ]);
 
   return (

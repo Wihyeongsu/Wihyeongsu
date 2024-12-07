@@ -27,7 +27,7 @@ const InputLayerNodeComponent = ({
     // 포맷 변경 시 초기 값 설정
     if (newFormat === "1D") {
       updateNodeData(id, {
-        outputShape: [length, 1, 1],
+        outputShape: length,
         dataFormat: newFormat,
       });
     } else {
@@ -40,7 +40,7 @@ const InputLayerNodeComponent = ({
 
   useEffect(() => {
     const outputShape =
-      dataFormat === "1D" ? [length, 1, 1] : [height, width, channels];
+      dataFormat === "1D" ? length : [height, width, channels];
 
     updateNodeData(id, {
       outputShape,

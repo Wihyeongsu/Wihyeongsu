@@ -1,5 +1,14 @@
-import { LinearLayerNodeProps } from "@/types/LinearLayerNode.types";
-import { Handle, Position, useReactFlow } from "@xyflow/react";
+import {
+  LinearLayerNode,
+  LinearLayerNodeProps,
+} from "@/types/LinearLayerNode.types";
+import {
+  Handle,
+  Position,
+  useHandleConnections,
+  useNodesData,
+  useReactFlow,
+} from "@xyflow/react";
 import { ActivationDropdownMenu } from "../ActivationDropdownMenu";
 import NodeContextMenu from "../NodeContextMenu";
 import BaseNode from "./BaseNode";
@@ -8,6 +17,9 @@ import { FastForward } from "lucide-react";
 import NumericPopover from "../NumericPopover";
 import { useEffect, useState } from "react";
 import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
+import { LayerNode } from "@/types/Nodes.types";
+import { Convolutional2DLayerNode } from "@/types/ConvolutionalLayerNode.types";
+import { InputLayerNode } from "@/types/InputLayerNode.types";
 
 const LinearLayerNodeComponent = ({
   id,
@@ -15,19 +27,35 @@ const LinearLayerNodeComponent = ({
   isConnectable,
   selected,
 }: LinearLayerNodeProps) => {
-  const [inputShape, setInputShape] = useState(data.inputShape[0]);
-  const [outputShape, setOutputShape] = useState(data.outputShape[0]);
+  const [inputShape, setInputShape] = useState(data.inputShape);
+  const [outputShape, setOutputShape] = useState(data.outputShape);
   const [activation, setActivation] = useState(data.activation);
   const { updateNodeData } = useReactFlow();
 
+  // 연결된 노드들의 데이터를 구독
+  const connectedNodesData = useNodesData<LayerNode>(
+    useHandleConnections({
+      type: "target",
+    }).map((connection) => connection.source),
+  ) as Array<InputLayerNode | LinearLayerNode | Convolutional2DLayerNode>;
+
   useEffect(() => {
+    // 연결된 노드가 있는 경우
+    if (connectedNodesData.length > 0) {
+      const connectedNode = connectedNodesData[0]; // 첫 번째 연결된 노드의 데이터
+
+      setInputShape(connectedNode.data.outputShape);
+    } else {
+      // 연결된 노드가 없는 경우 기본값으로 복원
+      setInputShape(data.inputShape);
+    }
     const updatedData = {
-      inputShape: [inputShape, 1, 1],
-      outputShape: [outputShape, 1, 1],
+      inputShape: inputShape,
+      outputShape: outputShape,
       activation: activation,
     };
     updateNodeData(id, updatedData);
-  }, [inputShape, outputShape, activation]);
+  }, [inputShape, outputShape, activation, connectedNodesData]);
 
   return (
     <NodeContextMenu id={id}>
@@ -46,12 +74,7 @@ const LinearLayerNodeComponent = ({
               </div>
             </div>
 
-            <div className="flex gap-2 mb-1">
-              <NumericPopover
-                initialValue={inputShape}
-                label="Input"
-                setValue={setInputShape}
-              />
+            <div className="flex gap-2 justify-center">
               <NumericPopover
                 initialValue={outputShape}
                 label="Output"

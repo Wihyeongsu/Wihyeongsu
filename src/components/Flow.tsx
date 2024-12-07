@@ -13,6 +13,8 @@ import "@xyflow/react/dist/base.css";
 import { nodeTypes } from "@/types/Nodes.types";
 import { isInputLayerNode } from "@/types/InputLayerNode.types";
 import { isConvolutional2DLayerNode } from "@/types/ConvolutionalLayerNode.types";
+import { isOutputLayerNode } from "@/types/OutputLayerNode.types";
+import { isLinearLayerNode } from "@/types/LinearLayerNode.types";
 
 const rfStyle = {
   backgroundColor: "#00062E32",
@@ -39,6 +41,18 @@ const Flow = () => {
       isInputLayerNode(sourceNode) &&
       isConvolutional2DLayerNode(targetNode) &&
       sourceNode.data.dataFormat !== "3D"
+    )
+      return false;
+    if (
+      isInputLayerNode(sourceNode) &&
+      isLinearLayerNode(targetNode) &&
+      sourceNode.data.dataFormat !== "1D"
+    )
+      return false;
+    if (
+      isInputLayerNode(sourceNode) &&
+      isOutputLayerNode(targetNode) &&
+      sourceNode.data.dataFormat !== targetNode.data.dataFormat
     )
       return false;
     // if (sourceNode.data.outputShape !== targetNode.data.inputShape) {
