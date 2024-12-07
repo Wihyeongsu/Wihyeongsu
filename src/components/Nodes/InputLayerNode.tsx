@@ -56,11 +56,7 @@ const InputLayerNodeComponent = ({
 
           <div className="flex flex-col gap-1 text-xs">
             <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1">
-              [
-              {dataFormat === "1D"
-                ? [length, 1, 1].join(", ")
-                : outputShape2D.join(", ")}
-              ]
+              [{dataFormat === "1D" ? [length] : outputShape2D.join(", ")}]
             </div>
 
             {dataFormat === "1D" ? (
