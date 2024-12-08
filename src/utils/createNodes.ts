@@ -69,6 +69,7 @@ export const createNodes = (
           stride: [1, 1],
           padding: "same",
           paddingMode: "zeros",
+          dilation: [1, 1],
           activation: "none",
         },
       };

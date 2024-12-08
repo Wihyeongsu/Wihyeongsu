@@ -21,7 +21,7 @@ export const PaddingDropdownMenu = ({
   setPadding,
   label,
 }: PaddingDropdownMenuProps) => {
-  const PaddingTypes = ["[Vertical, Horizontal]", "valid", "same"];
+  const PaddingTypes = ["[Height, Width]", "valid", "same"];
 
   return (
     <DropdownMenu>

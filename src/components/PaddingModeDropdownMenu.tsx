@@ -1,3 +1,4 @@
+import { PaddingMode } from "@/types/Nodes/ConvolutionalLayerNode.types";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -9,11 +10,9 @@ import {
 } from "./ui/dropdown-menu";
 
 type PaddingModeDropdownMenuProps = {
-  currentPaddingMode: "zeros" | "reflect" | "replicate" | "circular";
-  setPaddingMode: (
-    value: "zeros" | "reflect" | "replicate" | "circular",
-  ) => void;
-  label?: string;
+  currentPaddingMode: PaddingMode;
+  setPaddingMode: (value: PaddingMode) => void;
+  label: string;
 };
 
 export const PaddingModeDropdownMenu = ({
@@ -41,11 +40,7 @@ export const PaddingModeDropdownMenu = ({
           <DropdownMenuItem
             key={mode}
             className="focus:bg-slate-100 cursor-pointer data-[highlighted]:bg-slate-400 data-[highlighted]:text-white rounded-xl"
-            onClick={() =>
-              setPaddingMode(
-                mode as "zeros" | "reflect" | "replicate" | "circular",
-              )
-            }>
+            onClick={() => setPaddingMode(mode as PaddingMode)}>
             {mode}
           </DropdownMenuItem>
         ))}

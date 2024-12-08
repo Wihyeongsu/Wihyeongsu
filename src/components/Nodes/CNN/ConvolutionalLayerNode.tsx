@@ -55,8 +55,12 @@ const Convolutional2DLayerNodeComponent = ({
   const [padding, setPadding] = useState<PaddingType>(data.padding);
   const [paddingVertical, setPaddingVertical] = useState<number>(1);
   const [paddingHorizontal, setPaddingHorizontal] = useState<number>(1);
-  const [activation, setActivation] = useState(data.activation);
   const [paddingMode, setPaddingMode] = useState(data.paddingMode);
+  const [dilationHeight, setDilationHeight] = useState<number>(
+    data.dilation[0],
+  );
+  const [dilationWidth, setDilationWidth] = useState<number>(data.dilation[1]);
+  const [activation, setActivation] = useState(data.activation);
   const { updateNodeData } = useReactFlow();
 
   // 연결된 노드들의 데이터를 구독
@@ -72,7 +76,7 @@ const Convolutional2DLayerNodeComponent = ({
       case "same":
         setPadding(paddingType);
         break;
-      case "[Vertical, Horizontal]":
+      case "[Height, Width]":
         setPadding([paddingVertical, paddingHorizontal]);
         break;
       default:
@@ -120,6 +124,8 @@ const Convolutional2DLayerNodeComponent = ({
       setInputChannels(data.inputShape[2]);
     }
 
+    // Todo: dilation 변경 적용
+
     const updatedData = {
       inputShape: [inputHeight, inputWidth, inputChannels],
       outputShape: [outputHeight, outputWidth, outputChannels],
@@ -127,8 +133,9 @@ const Convolutional2DLayerNodeComponent = ({
       kernelSize: [kernelHeight, kernelWidth],
       stride: [strideHeight, strideWidth],
       padding: padding,
-      activation: activation,
       paddingMode: paddingMode,
+      dilation: [dilationHeight, dilationWidth],
+      activation: activation,
     };
 
     updateNodeData(id, updatedData);
@@ -144,8 +151,9 @@ const Convolutional2DLayerNodeComponent = ({
     paddingMode,
     activation,
     paddingMode,
+    dilationHeight,
+    dilationWidth,
     connectedNodesData,
-    data.inputShape,
   ]);
 
   return (
