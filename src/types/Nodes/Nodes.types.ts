@@ -6,6 +6,7 @@ import { MaxPooling2DLayerNode } from "./MaxPooling2DLayerNode.types";
 import { AvgPooling2DLayerNode } from "./AvgPooling2DLayerNode.types";
 import { AdaptiveMaxPooling2DLayerNode } from "./AdaptiveMaxPooling2DLayerNode.types";
 import { AdaptiveAvgPooling2DLayerNode } from "./AdaptiveAvgPooling2DLayerNode.types";
+import { FlattenLayerNode } from "./FlattenLayerNode.types";
 import InputLayerNodeComponent from "@/components/Nodes/InputLayerNode";
 import LinearLayerNodeComponent from "@/components/Nodes/DNN/LinearLayerNode";
 import OutputLayerNodeComponent from "@/components/Nodes/OutputLayerNode";
@@ -14,6 +15,7 @@ import MaxPooling2DLayerNodeComponent from "@/components/Nodes/CNN/MaxPooling2DL
 import AvgPooling2DLayerNodeComponent from "@/components/Nodes/CNN/AvgPooling2DLayerNode";
 import AdaptiveMaxPooling2DLayerNodeComponent from "@/components/Nodes/CNN/AdaptiveMaxPooling2DLayerNode";
 import AdaptiveAvgPooling2DLayerNodeComponent from "@/components/Nodes/CNN/AdaptiveAvgPooling2DLayerNode";
+import FlattenLayerNodeComponent from "@/components/Nodes/FlattenLayerNode";
 
 const NodeTypes = [
   "InputLayer",
@@ -24,6 +26,7 @@ const NodeTypes = [
   "AvgPooling2DLayer",
   "AdaptiveMaxPooling2DLayer",
   "AdaptiveAvgPooling2DLayer",
+  "FlattenLayer",
 ] as const;
 export type AvailableNodeTypes = (typeof NodeTypes)[number];
 export type LayerNode = {
@@ -35,6 +38,7 @@ export type LayerNode = {
   AvgPooling2DLayer: AvgPooling2DLayerNode;
   AdaptiveMaxPooling2DLayer: AdaptiveMaxPooling2DLayerNode;
   AdaptiveAvgPooling2DLayer: AdaptiveAvgPooling2DLayerNode;
+  FlattenLayer: FlattenLayerNode;
 }[AvailableNodeTypes];
 
 // 사이드바에 표시될 노드 항목의 타입을 정의합니다
@@ -54,6 +58,7 @@ export const nodeTypes = {
   AvgPooling2DLayer: AvgPooling2DLayerNodeComponent,
   AdaptiveMaxPooling2DLayer: AdaptiveMaxPooling2DLayerNodeComponent,
   AdaptiveAvgPooling2DLayer: AdaptiveAvgPooling2DLayerNodeComponent,
+  FlattenLayer: FlattenLayerNodeComponent,
 } as const; // as const를 사용하여 타입을 더 엄격하게 만듭니다
 
 // 사이드바에 표시될 노드 타입들을 정의합니다
@@ -97,6 +102,11 @@ export const nodeTypesSidebar: NodeTypeInfo[] = [
     type: "AdaptiveAvgPooling2DLayer",
     label: "AdaptiveAvgPooling2D Layer",
     description: "2D Adaptive Average Pooling layer for flexible down-sampling",
+  },
+  {
+    type: "FlattenLayer",
+    label: "Flatten Layer",
+    description: "Flattens the input tensor into a 1D vector",
   },
 ];
 

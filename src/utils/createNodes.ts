@@ -128,6 +128,19 @@ export const createNodes = (
         },
       };
       break;
+    case "FlattenLayer":
+      newNode = {
+        id: `${nodeType}-${Date.now()}`,
+        type: nodeType,
+        position,
+        data: {
+          inputShape: [1, 1, 1],
+          outputShape: [1],
+          startDim: 1,
+          endDim: -1,
+        },
+      };
+      break;
     default:
   }
   // ReactFlow 인스턴스를 통해 노드를 추가합니다
