@@ -16,6 +16,8 @@ import { LayerNode } from "@/types/Nodes/Nodes.types";
 import { OutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 import BooleanDropdownMenu from "@/components/BooleanDropdownMenu";
 import { isNumberNArray } from "@/utils/isNumberNArray";
+import { FlattenLayerNode } from "@/types/Nodes/FlattenLayerNode.types";
+import { LinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 
 export type AvgPooling2DLayerNodeProps = {
   id: string;
@@ -66,7 +68,12 @@ const AvgPooling2DLayerNodeComponent = ({
     useHandleConnections({
       type: "target",
     }).map((connection) => connection.source),
-  ) as Array<Exclude<LayerNode, OutputLayerNode>>;
+  ) as Array<
+    Exclude<
+      Exclude<Exclude<LayerNode, OutputLayerNode>, LinearLayerNode>,
+      FlattenLayerNode
+    >
+  >;
 
   const calculateOutputShape = (
     input: typeof inputShape,

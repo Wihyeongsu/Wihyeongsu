@@ -16,6 +16,7 @@ import { LayerNode } from "@/types/Nodes/Nodes.types";
 import { OutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 import { LinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 import { isNumberNArray } from "@/utils/isNumberNArray";
+import { FlattenLayerNode } from "@/types/Nodes/FlattenLayerNode.types";
 
 export type MaxPooling2DLayerNodeProps = {
   id: string;
@@ -69,7 +70,12 @@ const MaxPooling2DLayerNodeComponent = ({
     useHandleConnections({
       type: "target",
     }).map((connection) => connection.source),
-  ) as Array<Exclude<Exclude<LayerNode, OutputLayerNode>, LinearLayerNode>>;
+  ) as Array<
+    Exclude<
+      Exclude<Exclude<LayerNode, OutputLayerNode>, LinearLayerNode>,
+      FlattenLayerNode
+    >
+  >;
 
   // 출력 크기를 계산하는 함수를 분리하여 재사용성과 가독성을 높입니다
   const calculateOutputShape = (

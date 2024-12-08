@@ -6,11 +6,7 @@ import {
   useReactFlow,
 } from "@xyflow/react";
 import BaseNode from "../BaseNode";
-import {
-  Convolutional2DLayerData,
-  Convolutional2DLayerNode,
-  PaddingType,
-} from "@/types/Nodes/Convolutional2DLayerNode.types";
+import { Convolutional2DLayerData } from "@/types/Nodes/Convolutional2DLayerNode.types";
 import { ActivationDropdownMenu } from "../../ActivationDropdownMenu";
 import NumericPopover from "../../NumericPopover";
 import { PaddingDropdownMenu } from "../../PaddingDropdownMenu";
@@ -21,7 +17,6 @@ import { PaddingModeDropdownMenu } from "../../PaddingModeDropdownMenu";
 import { isNumberNArray } from "@/utils/isNumberNArray";
 import ConnectionLimitHandle from "../../Handles/ConnectionLimitHandle";
 import { LayerNode } from "@/types/Nodes/Nodes.types";
-import { InputLayerNode } from "@/types/Nodes/InputLayerNode.types";
 import { LinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 import { OutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 

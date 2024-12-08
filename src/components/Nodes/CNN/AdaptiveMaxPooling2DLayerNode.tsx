@@ -15,6 +15,8 @@ import { LayerNode } from "@/types/Nodes/Nodes.types";
 import { OutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 import { isNumberNArray } from "@/utils/isNumberNArray";
 import { AdaptiveMaxPooling2DLayerNodeData } from "@/types/Nodes/AdaptiveMaxPooling2DLayerNode.types";
+import { FlattenLayerNode } from "@/types/Nodes/FlattenLayerNode.types";
+import { LinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 
 export type AdaptiveMaxPooling2DLayerNodeProps = {
   id: string;
@@ -46,7 +48,12 @@ const AdaptiveMaxPooling2DLayerNodeComponent = ({
     useHandleConnections({
       type: "target",
     }).map((connection) => connection.source),
-  ) as Array<Exclude<LayerNode, OutputLayerNode>>;
+  ) as Array<
+    Exclude<
+      Exclude<Exclude<LayerNode, OutputLayerNode>, LinearLayerNode>,
+      FlattenLayerNode
+    >
+  >;
 
   useEffect(() => {
     if (connectedNodesData.length > 0) {
