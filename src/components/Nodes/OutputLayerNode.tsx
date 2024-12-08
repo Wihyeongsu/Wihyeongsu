@@ -2,7 +2,10 @@ import { memo, useEffect, useMemo, useState } from "react";
 import NodeContextMenu from "../NodeContextMenu";
 import BaseNode from "./BaseNode";
 import { DataFormatPopover } from "../DataFormatPopover";
-import { OutputLayerNodeProps } from "@/types/Nodes/OutputLayerNode.types";
+import {
+  OutputLayerNode,
+  OutputLayerNodeProps,
+} from "@/types/Nodes/OutputLayerNode.types";
 import {
   Position,
   useHandleConnections,
@@ -13,7 +16,7 @@ import { LayerNode } from "@/types/Nodes/Nodes.types";
 import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
 import { Separator } from "@radix-ui/react-context-menu";
 import { DataFormat } from "@/types/DataFormat.types";
-import { Convolutional2DLayerNode } from "@/types/Nodes/ConvolutionalLayerNode.types";
+import { Convolutional2DLayerNode } from "@/types/Nodes/Convolutional2DLayerNode.types";
 import { InputLayerNode } from "@/types/Nodes/InputLayerNode.types";
 import { LinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 
@@ -31,12 +34,12 @@ const OutputLayerNodeComponent = ({
 
   const { updateNodeData } = useReactFlow();
 
-  // 연결된 노드의 데이터를 추적합니다
+  // 연결된 노드들의 데이터를 구독
   const connectedNodesData = useNodesData<LayerNode>(
     useHandleConnections({
       type: "target",
     }).map((connection) => connection.source),
-  ) as Array<InputLayerNode | LinearLayerNode | Convolutional2DLayerNode>;
+  ) as Array<Exclude<LayerNode, OutputLayerNode>>;
 
   // 데이터 포맷 변경을 처리하는 함수를 개선합니다
   const handleDataFormatChange = (newFormat: DataFormat) => {

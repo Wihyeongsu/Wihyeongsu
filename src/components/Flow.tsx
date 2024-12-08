@@ -12,7 +12,7 @@ import {
 import "@xyflow/react/dist/base.css";
 import { nodeTypes } from "@/types/Nodes/Nodes.types";
 import { isInputLayerNode } from "@/types/Nodes/InputLayerNode.types";
-import { isConvolutional2DLayerNode } from "@/types/Nodes/ConvolutionalLayerNode.types";
+import { isConvolutional2DLayerNode } from "@/types/Nodes/Convolutional2DLayerNode.types";
 import { isOutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 import { isLinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 

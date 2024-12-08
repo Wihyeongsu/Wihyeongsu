@@ -1,4 +1,4 @@
-import { PaddingMode } from "@/types/Nodes/ConvolutionalLayerNode.types";
+import { PaddingMode } from "@/types/Nodes/Convolutional2DLayerNode.types";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,

@@ -17,8 +17,9 @@ import NumericPopover from "../../NumericPopover";
 import { useEffect, useState } from "react";
 import ConnectionLimitHandle from "../../Handles/ConnectionLimitHandle";
 import { LayerNode } from "@/types/Nodes/Nodes.types";
-import { Convolutional2DLayerNode } from "@/types/Nodes/ConvolutionalLayerNode.types";
+import { Convolutional2DLayerNode } from "@/types/Nodes/Convolutional2DLayerNode.types";
 import { InputLayerNode } from "@/types/Nodes/InputLayerNode.types";
+import { OutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 
 const LinearLayerNodeComponent = ({
   id,
@@ -36,7 +37,7 @@ const LinearLayerNodeComponent = ({
     useHandleConnections({
       type: "target",
     }).map((connection) => connection.source),
-  ) as Array<InputLayerNode | LinearLayerNode | Convolutional2DLayerNode>;
+  ) as Array<Exclude<LayerNode, OutputLayerNode>>;
 
   useEffect(() => {
     // 연결된 노드가 있는 경우
