@@ -1,7 +1,4 @@
-import {
-  LinearLayerNode,
-  LinearLayerNodeProps,
-} from "@/types/Nodes/LinearLayerNode.types";
+import { LinearLayerNodeProps } from "@/types/Nodes/LinearLayerNode.types";
 import {
   Position,
   useHandleConnections,
@@ -17,8 +14,6 @@ import NumericPopover from "../../NumericPopover";
 import { useEffect, useState } from "react";
 import ConnectionLimitHandle from "../../Handles/ConnectionLimitHandle";
 import { LayerNode } from "@/types/Nodes/Nodes.types";
-import { Convolutional2DLayerNode } from "@/types/Nodes/Convolutional2DLayerNode.types";
-import { InputLayerNode } from "@/types/Nodes/InputLayerNode.types";
 import { OutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 
 const LinearLayerNodeComponent = ({

@@ -89,6 +89,23 @@ export const createNodes = (
         },
       };
       break;
+    case "AvgPooling2DLayer":
+      newNode = {
+        id: `${nodeType}-${Date.now()}`,
+        type: nodeType,
+        position,
+        data: {
+          inputShape: [1, 1, 1],
+          outputShape: [1, 1, 1],
+          kernelSize: [1, 1],
+          padding: [0, 0],
+          stride: [1, 1],
+          ceilMode: false,
+          countIncludePad: false,
+          divisorOverride: 1,
+        },
+      };
+      break;
     default:
   }
   // ReactFlow 인스턴스를 통해 노드를 추가합니다

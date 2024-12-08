@@ -6,7 +6,7 @@ import {
   useReactFlow,
 } from "@xyflow/react";
 import BaseNode from "../BaseNode";
-import { MaxPooling2DLayerNodeData } from "@/types/Nodes/MaxPooling2DLayerNode.types";
+import { AvgPooling2DLayerNodeData } from "@/types/Nodes/AvgPooling2DLayerNode.types";
 import NumericPopover from "../../NumericPopover";
 import { FastForward } from "lucide-react";
 import NodeContextMenu from "../../NodeContextMenu";
@@ -14,23 +14,22 @@ import { Separator } from "../../ui/separator";
 import ConnectionLimitHandle from "../../Handles/ConnectionLimitHandle";
 import { LayerNode } from "@/types/Nodes/Nodes.types";
 import { OutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
-import { LinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
+import BooleanDropdownMenu from "@/components/BooleanDropdownMenu";
 import { isNumberNArray } from "@/utils/isNumberNArray";
 
-export type MaxPooling2DLayerNodeProps = {
+export type AvgPooling2DLayerNodeProps = {
   id: string;
-  data: MaxPooling2DLayerNodeData;
+  data: AvgPooling2DLayerNodeData;
   isConnectable: boolean;
   selected: boolean;
 };
 
-const MaxPooling2DLayerNodeComponent = ({
+const AvgPooling2DLayerNodeComponent = ({
   id,
   data,
   isConnectable,
   selected,
-}: MaxPooling2DLayerNodeProps) => {
-  // 입력과 출력 형태를 객체로 관리하여 관련 상태를 그룹화합니다
+}: AvgPooling2DLayerNodeProps) => {
   const [inputShape, setInputShape] = useState({
     height: data.inputShape[0],
     width: data.inputShape[1],
@@ -43,7 +42,6 @@ const MaxPooling2DLayerNodeComponent = ({
     channels: data.outputShape[2],
   });
 
-  // 풀링 연산의 매개변수들을 객체로 관리합니다
   const [poolingParams, setPoolingParams] = useState({
     kernel: {
       height: data.kernelSize[0],
@@ -57,39 +55,31 @@ const MaxPooling2DLayerNodeComponent = ({
       height: data.padding[0],
       width: data.padding[1],
     },
-    dilation: {
-      height: data.dilation[0],
-      width: data.dilation[1],
-    },
+    ceilMode: data.ceilMode,
+    countIncludePad: data.countIncludePad,
+    divisorOverride: data.divisorOverride,
   });
+
   const { updateNodeData } = useReactFlow();
 
-  // 연결된 노드들의 데이터를 구독
   const connectedNodesData = useNodesData<LayerNode>(
     useHandleConnections({
       type: "target",
     }).map((connection) => connection.source),
-  ) as Array<Exclude<Exclude<LayerNode, OutputLayerNode>, LinearLayerNode>>;
+  ) as Array<Exclude<LayerNode, OutputLayerNode>>;
 
-  // 출력 크기를 계산하는 함수를 분리하여 재사용성과 가독성을 높입니다
   const calculateOutputShape = (
     input: typeof inputShape,
     params: typeof poolingParams,
   ) => {
     const outputHeight = Math.floor(
-      (input.height +
-        2 * params.padding.height -
-        params.dilation.height * (params.kernel.height - 1) -
-        1) /
+      (input.height + 2 * params.padding.height - params.kernel.height) /
         params.stride.height +
         1,
     );
 
     const outputWidth = Math.floor(
-      (input.width +
-        2 * params.padding.width -
-        params.dilation.width * (params.kernel.width - 1) -
-        1) /
+      (input.width + 2 * params.padding.width - params.kernel.width) /
         params.stride.width +
         1,
     );
@@ -101,7 +91,6 @@ const MaxPooling2DLayerNodeComponent = ({
     };
   };
 
-  // 연결된 노드의 출력을 처리하는 useEffect
   useEffect(() => {
     if (connectedNodesData.length > 0) {
       const connectedNode = connectedNodesData[0];
@@ -116,7 +105,6 @@ const MaxPooling2DLayerNodeComponent = ({
     }
   }, [connectedNodesData]);
 
-  // 출력 크기를 업데이트하고 노드 데이터를 갱신하는 useEffect
   useEffect(() => {
     const newOutputShape = calculateOutputShape(inputShape, poolingParams);
     setOutputShape(newOutputShape);
@@ -131,11 +119,12 @@ const MaxPooling2DLayerNodeComponent = ({
       kernelSize: [poolingParams.kernel.height, poolingParams.kernel.width],
       stride: [poolingParams.stride.height, poolingParams.stride.width],
       padding: [poolingParams.padding.height, poolingParams.padding.width],
-      dilation: [poolingParams.dilation.height, poolingParams.dilation.width],
+      ceilMode: poolingParams.ceilMode,
+      countIncludePad: poolingParams.countIncludePad,
+      divisorOverride: poolingParams.divisorOverride,
     });
   }, [inputShape, poolingParams, id]);
 
-  // 매개변수 업데이트 핸들러들을 생성합니다
   const handleKernelChange = (dimension: "height" | "width", value: number) => {
     setPoolingParams((prev) => ({
       ...prev,
@@ -160,21 +149,11 @@ const MaxPooling2DLayerNodeComponent = ({
     }));
   };
 
-  const handleDilationChange = (
-    dimension: "height" | "width",
-    value: number,
-  ) => {
-    setPoolingParams((prev) => ({
-      ...prev,
-      dilation: { ...prev.dilation, [dimension]: value },
-    }));
-  };
-
   return (
     <NodeContextMenu id={id}>
       <BaseNode selected={selected}>
         <div className="grid-flow-row">
-          <div>MaxPooling2D</div>
+          <div>AvgPooling2D</div>
           <Separator className="bg-slate-300 mb-1" />
 
           <div className="flex flex-row justify-center items-center gap-2 mb-1">
@@ -210,7 +189,6 @@ const MaxPooling2DLayerNodeComponent = ({
                 setValue={(value) => handleKernelChange("width", value)}
               />
             </div>
-            {/* 비슷한 방식으로 나머지 NumericPopover 컴포넌트들도 구성 */}
             <div className="flex flex-row justify-center items-center gap-2">
               <NumericPopover
                 initialValue={poolingParams.stride.height}
@@ -236,15 +214,22 @@ const MaxPooling2DLayerNodeComponent = ({
               />
             </div>
             <div className="flex flex-row justify-center items-center gap-2">
-              <NumericPopover
-                initialValue={poolingParams.dilation.height}
-                label="Dilation H"
-                setValue={(value) => handleDilationChange("height", value)}
+              <BooleanDropdownMenu
+                label="Ceil Mode"
+                currentValue={poolingParams.ceilMode}
+                setValue={(value) =>
+                  setPoolingParams((prev) => ({ ...prev, ceilMode: value }))
+                }
               />
-              <NumericPopover
-                initialValue={poolingParams.dilation.width}
-                label="Dilation W"
-                setValue={(value) => handleDilationChange("width", value)}
+              <BooleanDropdownMenu
+                label="Count Include Pad"
+                currentValue={poolingParams.countIncludePad}
+                setValue={(value) =>
+                  setPoolingParams((prev) => ({
+                    ...prev,
+                    countIncludePad: value,
+                  }))
+                }
               />
             </div>
           </div>
@@ -265,4 +250,4 @@ const MaxPooling2DLayerNodeComponent = ({
   );
 };
 
-export default memo(MaxPooling2DLayerNodeComponent);
+export default memo(AvgPooling2DLayerNodeComponent);

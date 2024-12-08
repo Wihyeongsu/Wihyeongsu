@@ -8,12 +8,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { isNumberTuple } from "@/utils/isNumberTuple";
+import { isNumberNArray } from "@/utils/isNumberNArray";
 
 type PaddingDropdownMenuProps = {
   currentPadding: PaddingType;
-  setPadding: (value: string) => void;
-  label?: string;
+  setPadding: (value: [number, number] | "valid" | "same") => void;
+  label: string;
 };
 
 export const PaddingDropdownMenu = ({
@@ -21,7 +21,30 @@ export const PaddingDropdownMenu = ({
   setPadding,
   label,
 }: PaddingDropdownMenuProps) => {
-  const PaddingTypes = ["[Height, Width]", "valid", "same"];
+  const PaddingTypes = ["[number, number]", "valid", "same"];
+
+  const handlePaddingChange = (type: string) => {
+    switch (type) {
+      case "valid":
+        setPadding("valid");
+        break;
+      case "same":
+        setPadding("same");
+        break;
+      case "[number, number]":
+        // 기본값으로 [1, 1]을 사용하거나, 현재 값을 유지할 수 있습니다
+        const defaultPadding: [number, number] = isNumberNArray(
+          currentPadding,
+          2,
+        )
+          ? currentPadding
+          : [1, 1];
+        setPadding(defaultPadding);
+        break;
+      default:
+        console.warn(`Unexpected padding type: ${type}`);
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -32,7 +55,7 @@ export const PaddingDropdownMenu = ({
           variant="ghost"
           className="border border-gray-200 hover:border-slate-300">
           {label}:{" "}
-          {isNumberTuple(currentPadding)
+          {isNumberNArray(currentPadding, 2)
             ? `[${currentPadding.join(", ")}]`
             : currentPadding}
         </Button>
@@ -44,7 +67,7 @@ export const PaddingDropdownMenu = ({
           <DropdownMenuItem
             key={type}
             className="focus:bg-slate-100 cursor-pointer data-[highlighted]:bg-slate-400 data-[highlighted]:text-white rounded-xl"
-            onClick={() => setPadding(type)}>
+            onClick={() => handlePaddingChange(type)}>
             {type}
           </DropdownMenuItem>
         ))}

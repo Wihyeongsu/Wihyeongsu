@@ -18,7 +18,7 @@ import { FastForward } from "lucide-react";
 import NodeContextMenu from "../../NodeContextMenu";
 import { Separator } from "../../ui/separator";
 import { PaddingModeDropdownMenu } from "../../PaddingModeDropdownMenu";
-import { isNumberTuple } from "@/utils/isNumberTuple";
+import { isNumberNArray } from "@/utils/isNumberNArray";
 import ConnectionLimitHandle from "../../Handles/ConnectionLimitHandle";
 import { LayerNode } from "@/types/Nodes/Nodes.types";
 import { InputLayerNode } from "@/types/Nodes/InputLayerNode.types";
@@ -38,30 +38,43 @@ const Convolutional2DLayerNodeComponent = ({
   isConnectable,
   selected,
 }: Convolutional2DLayerNodeProps) => {
-  const [inputHeight, setInputHeight] = useState<number>(data.inputShape[0]);
-  const [inputWidth, setInputWidth] = useState<number>(data.inputShape[1]);
-  const [inputChannels, setInputChannels] = useState<number>(
-    data.inputShape[2],
-  );
-  const [outputHeight, setOutputHeight] = useState<number>(data.outputShape[0]);
-  const [outputWidth, setOutputWidth] = useState<number>(data.outputShape[1]);
-  const [outputChannels, setOutputChannels] = useState<number>(
-    data.outputShape[2],
-  );
-  const [filters, setFilters] = useState(data.filters);
-  const [kernelHeight, setKernelHeight] = useState(data.kernelSize[0]);
-  const [kernelWidth, setKernelWidth] = useState(data.kernelSize[1]);
-  const [strideHeight, setStrideHeight] = useState(data.stride[0]);
-  const [strideWidth, setStrideWidth] = useState(data.stride[1]);
-  const [padding, setPadding] = useState<PaddingType>(data.padding);
-  const [paddingVertical, setPaddingVertical] = useState<number>(1);
-  const [paddingHorizontal, setPaddingHorizontal] = useState<number>(1);
+  // 입력과 출력의 형태를 하나의 객체로 관리하여 관련 상태들을 논리적으로 그룹화합니다
+  const [inputShape, setInputShape] = useState({
+    height: data.inputShape[0],
+    width: data.inputShape[1],
+    channels: data.inputShape[2],
+  });
+
+  const [outputShape, setOutputShape] = useState({
+    height: data.outputShape[0],
+    width: data.outputShape[1],
+    channels: data.outputShape[2],
+  });
+
+  // 컨볼루션 연산의 주요 매개변수들을 객체로 구조화합니다
+  const [convParams, setConvParams] = useState({
+    filters: data.filters,
+    kernel: {
+      height: data.kernelSize[0],
+      width: data.kernelSize[1],
+    },
+    stride: {
+      height: data.stride[0],
+      width: data.stride[1],
+    },
+    padding: data.padding,
+    paddingSize: {
+      vertical: 1,
+      horizontal: 1,
+    },
+    dilation: {
+      height: data.dilation[0],
+      width: data.dilation[1],
+    },
+  });
   const [paddingMode, setPaddingMode] = useState(data.paddingMode);
-  const [dilationHeight, setDilationHeight] = useState<number>(
-    data.dilation[0],
-  );
-  const [dilationWidth, setDilationWidth] = useState<number>(data.dilation[1]);
   const [activation, setActivation] = useState(data.activation);
+
   const { updateNodeData } = useReactFlow();
 
   // 연결된 노드들의 데이터를 구독
@@ -69,145 +82,229 @@ const Convolutional2DLayerNodeComponent = ({
     useHandleConnections({
       type: "target",
     }).map((connection) => connection.source),
-  ) as Array<Exclude<LayerNode, OutputLayerNode>>;
+  ) as Array<Exclude<Exclude<LayerNode, OutputLayerNode>, LinearLayerNode>>;
 
-  function handlePaddingChange(paddingType: string) {
-    switch (paddingType) {
+  // 출력 크기를 계산하는 함수를 분리
+  const calculateOutputShape = (
+    input: typeof inputShape,
+    params: typeof convParams,
+  ) => {
+    let outputHeight: number;
+    let outputWidth: number;
+
+    if (isNumberNArray(params.padding, 2)) {
+      outputHeight = Math.floor(
+        (input.height + 2 * params.padding[0] - params.kernel.height) /
+          params.stride.height +
+          1,
+      );
+      outputWidth = Math.floor(
+        (input.width + 2 * params.padding[1] - params.kernel.width) /
+          params.stride.width +
+          1,
+      );
+    } else if (params.padding === "valid") {
+      outputHeight = Math.floor(
+        (input.height - params.kernel.height) / params.stride.height + 1,
+      );
+      outputWidth = Math.floor(
+        (input.width - params.kernel.width) / params.stride.width + 1,
+      );
+    } else if (
+      params.padding === "same" &&
+      params.stride.height === 1 &&
+      params.stride.width === 1
+    ) {
+      outputHeight = input.height;
+      outputWidth = input.width;
+    } else {
+      console.log("padding: same must be stride [1, 1]");
+    }
+
+    return {
+      height: outputHeight,
+      width: outputWidth,
+      channels: convParams.filters,
+    };
+  };
+
+  // 연결된 노드의 변경을 처리하는 useEffect
+  useEffect(() => {
+    if (connectedNodesData.length > 0) {
+      const connectedNode = connectedNodesData[0];
+      setInputShape({
+        height: connectedNode.data.outputShape[0],
+        width: connectedNode.data.outputShape[1],
+        channels: connectedNode.data.outputShape[2],
+      });
+    } else {
+      setInputShape({
+        height: data.inputShape[0],
+        width: data.inputShape[1],
+        channels: data.inputShape[2],
+      });
+    }
+  }, [connectedNodesData]);
+
+  // 출력 크기와 노드 데이터를 업데이트하는 useEffect
+  useEffect(() => {
+    const newOutputShape = calculateOutputShape(inputShape, convParams);
+    setOutputShape(newOutputShape);
+
+    updateNodeData(id, {
+      inputShape: [inputShape.height, inputShape.width, inputShape.channels],
+      outputShape: [
+        newOutputShape.height,
+        newOutputShape.width,
+        newOutputShape.channels,
+      ],
+      filters: convParams.filters,
+      kernelSize: [convParams.kernel.height, convParams.kernel.width],
+      stride: [convParams.stride.height, convParams.stride.width],
+      padding: convParams.padding,
+      paddingMode,
+      dilation: [convParams.dilation.height, convParams.dilation.width],
+      activation,
+    });
+  }, [inputShape, convParams, paddingMode, activation]);
+
+  // 매개변수 변경을 처리하는 핸들러들을 생성합니다
+  const handleFiltersChange = (value: number) => {
+    setConvParams((prev) => ({
+      ...prev,
+      filters: value,
+    }));
+  };
+
+  const handleKernelChange = (dimension: "height" | "width", value: number) => {
+    setConvParams((prev) => ({
+      ...prev,
+      kernel: { ...prev.kernel, [dimension]: value },
+    }));
+  };
+
+  const handleStrideChange = (dimension: "height" | "width", value: number) => {
+    setConvParams((prev) => ({
+      ...prev,
+      stride: { ...prev.stride, [dimension]: value },
+    }));
+  };
+
+  const handlePaddingChange = (
+    padding: [number, number] | "valid" | "same",
+  ) => {
+    const newConvParams = { ...convParams };
+    switch (padding) {
       case "valid":
       case "same":
-        setPadding(paddingType);
-        break;
-      case "[Height, Width]":
-        setPadding([paddingVertical, paddingHorizontal]);
+        newConvParams.padding = padding;
         break;
       default:
+        newConvParams.padding = [
+          newConvParams.paddingSize.vertical,
+          newConvParams.paddingSize.horizontal,
+        ];
         break;
     }
-  }
+    setConvParams(newConvParams);
+  };
 
-  useEffect(() => {
-    if (isNumberTuple(padding)) {
-      setPadding([paddingVertical, paddingHorizontal]);
-      setOutputHeight(
-        Math.floor(
-          (inputHeight + 2 * padding[0] - kernelHeight) / strideHeight + 1,
-        ),
-      );
-      setOutputWidth(
-        Math.floor(
-          (inputWidth + 2 * padding[1] - kernelWidth) / strideWidth + 1,
-        ),
-      );
-    }
-    // Stride가 1이 아닌 경우 same 지원 X
-    else if (padding === "same" && strideHeight === 1 && strideWidth === 1) {
-      setOutputHeight(inputHeight);
-      setOutputWidth(inputWidth);
-    } else if (padding === "valid") {
-      setOutputHeight(
-        Math.floor((inputHeight - kernelHeight) / strideHeight + 1),
-      );
-      setOutputWidth(Math.floor((inputWidth - kernelWidth) / strideWidth + 1));
-    }
-    setOutputChannels(filters);
+  const handlePaddingSizeChange = (
+    dimension: "vertical" | "horizontal",
+    value: number,
+  ) => {
+    setConvParams((prev) => ({
+      ...prev,
+      paddingSize: { ...prev.paddingSize, [dimension]: value },
+    }));
+  };
 
-    // 연결된 노드가 있는 경우
-    if (connectedNodesData.length > 0) {
-      const connectedNode = connectedNodesData[0]; // 첫 번째 연결된 노드의 데이터
-
-      setInputHeight(connectedNode.data.outputShape[0]);
-      setInputWidth(connectedNode.data.outputShape[1]);
-      setInputChannels(connectedNode.data.outputShape[2]);
-    } else {
-      // 연결된 노드가 없는 경우 기본값으로 복원
-      setInputHeight(data.inputShape[0]);
-      setInputWidth(data.inputShape[1]);
-      setInputChannels(data.inputShape[2]);
-    }
-
-    // Todo: dilation 변경 적용
-
-    const updatedData = {
-      inputShape: [inputHeight, inputWidth, inputChannels],
-      outputShape: [outputHeight, outputWidth, outputChannels],
-      filters: filters,
-      kernelSize: [kernelHeight, kernelWidth],
-      stride: [strideHeight, strideWidth],
-      padding: padding,
-      paddingMode: paddingMode,
-      dilation: [dilationHeight, dilationWidth],
-      activation: activation,
-    };
-
-    updateNodeData(id, updatedData);
-  }, [
-    filters,
-    kernelHeight,
-    kernelWidth,
-    strideHeight,
-    strideWidth,
-    padding,
-    paddingVertical,
-    paddingHorizontal,
-    paddingMode,
-    activation,
-    paddingMode,
-    dilationHeight,
-    dilationWidth,
-    connectedNodesData,
-  ]);
+  const handleDilationChange = (
+    dimension: "height" | "width",
+    value: number,
+  ) => {
+    setConvParams((prev) => ({
+      ...prev,
+      dilation: { ...prev.dilation, [dimension]: value },
+    }));
+  };
 
   return (
     <NodeContextMenu id={id}>
       <BaseNode selected={selected}>
         <div className="grid-flow-row">
-          <div>Convolutional</div>
+          {/* Header */}
+          <div className="flex justify-between items-center">
+            <div>Convolutional</div>
+          </div>
           <Separator className="bg-slate-300 mb-1" />
 
+          {/* 입력과 출력 형태를 보여주는 시각적 표현 */}
           <div className="flex flex-row justify-center items-center gap-2 mb-1">
+            {/* Input */}
             <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1 text-xs">
-              [{[inputHeight, inputWidth, inputChannels].join(", ")}]
+              [
+              {[inputShape.height, inputShape.width, inputShape.channels].join(
+                ", ",
+              )}
+              ]
             </div>
+            {/* 변환 방향을 나타내는 화살표 */}
             <FastForward className="h-4" />
+            {/* Output */}
             <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1 text-xs">
-              [{[outputHeight, outputWidth, outputChannels].join(", ")}]
+              [
+              {[
+                outputShape.height,
+                outputShape.width,
+                outputShape.channels,
+              ].join(", ")}
+              ]
             </div>
           </div>
 
+          {/* Parameters */}
           <div className="flex flex-col gap-1 text-xs">
+            {/* Filters */}
             <NumericPopover
-              initialValue={filters}
+              initialValue={convParams.filters}
               label="Filters"
-              setValue={setFilters}
+              setValue={(value) => handleFiltersChange(value)}
             />
+
+            {/* Kernel */}
             <div className="flex flex-row justify-center items-center gap-2">
               <NumericPopover
-                initialValue={kernelHeight}
+                initialValue={convParams.kernel.height}
                 label="Kernel H"
-                setValue={setKernelHeight}
+                setValue={(value) => handleKernelChange("height", value)}
               />
               <NumericPopover
-                initialValue={kernelWidth}
+                initialValue={convParams.kernel.width}
                 label="Kernel W"
-                setValue={setKernelWidth}
+                setValue={(value) => handleKernelChange("width", value)}
               />
             </div>
+
+            {/* Stride */}
             <div className="flex flex-row justify-center items-center gap-2">
               <NumericPopover
-                initialValue={strideHeight}
+                initialValue={convParams.stride.height}
                 label="Stride H"
-                setValue={setStrideHeight}
+                setValue={(value) => handleStrideChange("height", value)}
               />
               <NumericPopover
-                initialValue={strideWidth}
+                initialValue={convParams.stride.width}
                 label="Stride W"
-                setValue={setStrideWidth}
+                setValue={(value) => handleStrideChange("width", value)}
               />
             </div>
+
+            {/* Padding */}
             <div className="flex flex-row justify-center items-center gap-2">
               <PaddingDropdownMenu
-                currentPadding={padding}
-                setPadding={handlePaddingChange}
+                currentPadding={convParams.padding}
+                setPadding={(value) => handlePaddingChange(value)}
                 label="Padding"
               />
               <PaddingModeDropdownMenu
@@ -216,20 +313,42 @@ const Convolutional2DLayerNodeComponent = ({
                 label="PaddingMode"
               />
             </div>
-            {isNumberTuple(padding) && (
+
+            {/* Padding size */}
+            {isNumberNArray(convParams.padding, 2) && (
               <div className="flex flex-row justify-center items-center gap-2">
                 <NumericPopover
-                  initialValue={paddingVertical}
+                  initialValue={convParams.paddingSize.vertical}
                   label="Vertical"
-                  setValue={setPaddingVertical}
+                  setValue={(value) =>
+                    handlePaddingSizeChange("vertical", value)
+                  }
                 />
                 <NumericPopover
-                  initialValue={paddingHorizontal}
+                  initialValue={convParams.paddingSize.horizontal}
                   label="Horizontal"
-                  setValue={setPaddingHorizontal}
+                  setValue={(value) =>
+                    handlePaddingSizeChange("horizontal", value)
+                  }
                 />
               </div>
             )}
+
+            {/* Dilation */}
+            <div className="flex flex-row justify-center items-center gap-2">
+              <NumericPopover
+                initialValue={convParams.dilation.height}
+                label="Dilation H"
+                setValue={(value) => handleDilationChange("height", value)}
+              />
+              <NumericPopover
+                initialValue={convParams.dilation.width}
+                label="Dilation W"
+                setValue={(value) => handleDilationChange("width", value)}
+              />
+            </div>
+
+            {/* Activation */}
             <ActivationDropdownMenu
               currentActivation={activation}
               setActivation={setActivation}
@@ -238,6 +357,7 @@ const Convolutional2DLayerNodeComponent = ({
           </div>
         </div>
 
+        {/* Handle */}
         <ConnectionLimitHandle
           type="target"
           position={Position.Left}
