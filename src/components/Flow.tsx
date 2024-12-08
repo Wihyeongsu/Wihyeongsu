@@ -15,6 +15,7 @@ import { isInputLayerNode } from "@/types/Nodes/InputLayerNode.types";
 import { isConvolutional2DLayerNode } from "@/types/Nodes/Convolutional2DLayerNode.types";
 import { isOutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 import { isLinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
+import DownloadButton from "./DownloadButton";
 
 const rfStyle = {
   backgroundColor: "#00062E32",
@@ -81,6 +82,7 @@ const Flow = () => {
           fitView
           style={rfStyle}>
           <Controls />
+          <DownloadButton />
         </ReactFlow>
       </div>
     </div>

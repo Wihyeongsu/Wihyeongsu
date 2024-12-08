@@ -27,39 +27,11 @@ const NumericPopover = ({
     setValue(value);
   }, [value]);
 
-  // useEffect(() => {
-  //   const updatedData = {
-  //     // [fieldName]: value,
-  //   };
-  //   updateNodeData(id, updatedData);
-
-  //   // Shape 검증이 필요한 경우에만 실행
-  //   if (fieldName === "inputShape" || fieldName === "outputShape") {
-  //     const edges = getEdges();
-  //     const updatedEdges = edges.filter((edge) => {
-  //       if (edge.source === id) {
-  //         const targetNode = getNode(edge.target);
-  //         if (targetNode?.type === "OutputLayer") return true;
-  //         return value === targetNode?.data.inputShape;
-  //       }
-  //       if (edge.target === id) {
-  //         const sourceNode = getNode(edge.source);
-  //         return sourceNode?.data.outputShape === value;
-  //       }
-  //       return true;
-  //     });
-
-  //     if (edges.length !== updatedEdges.length) {
-  //       setEdges(updatedEdges);
-  //     }
-  //   }
-  // }, [value, id, updateNodeData, getNode, getEdges, setEdges]);
-
   return (
     <Popover>
       <PopoverTrigger
         asChild
-        className="hover:bg-slate-100 rounded-xl h-4 text-xs">
+        className="hover:bg-slate-100 rounded-xl h-4 text-xs ">
         <Button
           variant="ghost"
           className="border border-gray-200 hover:border-slate-300">

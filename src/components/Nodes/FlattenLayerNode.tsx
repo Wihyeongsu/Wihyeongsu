@@ -132,11 +132,11 @@ const FlattenLayerNodeComponent = ({
           <Separator className="bg-slate-300 mb-1" />
 
           <div className="flex flex-row justify-center items-center gap-2 mb-1">
-            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1 text-xs">
+            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-4 py-1 text-xs min-w-[80px] text-center">
               [{inputShape.join(", ")}]
             </div>
             <FastForward className="h-4" />
-            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1 text-xs">
+            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-4 py-1 text-xs min-w-[80px] text-center">
               [{outputShape.join(", ")}]
             </div>
           </div>

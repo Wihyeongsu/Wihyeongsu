@@ -245,7 +245,7 @@ const Convolutional2DLayerNodeComponent = ({
           {/* 입력과 출력 형태를 보여주는 시각적 표현 */}
           <div className="flex flex-row justify-center items-center gap-2 mb-1">
             {/* Input */}
-            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1 text-xs">
+            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-4 py-1 text-xs min-w-[80px] text-center">
               [
               {[inputShape.height, inputShape.width, inputShape.channels].join(
                 ", ",
@@ -255,7 +255,7 @@ const Convolutional2DLayerNodeComponent = ({
             {/* 변환 방향을 나타내는 화살표 */}
             <FastForward className="h-4" />
             {/* Output */}
-            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-2 py-1 text-xs">
+            <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-4 py-1 text-xs min-w-[80px] text-center">
               [
               {[
                 outputShape.height,
