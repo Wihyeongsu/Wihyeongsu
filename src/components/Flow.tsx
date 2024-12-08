@@ -10,11 +10,11 @@ import {
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/base.css";
-import { nodeTypes } from "@/types/Nodes.types";
-import { isInputLayerNode } from "@/types/InputLayerNode.types";
-import { isConvolutional2DLayerNode } from "@/types/ConvolutionalLayerNode.types";
-import { isOutputLayerNode } from "@/types/OutputLayerNode.types";
-import { isLinearLayerNode } from "@/types/LinearLayerNode.types";
+import { nodeTypes } from "@/types/Nodes/Nodes.types";
+import { isInputLayerNode } from "@/types/Nodes/InputLayerNode.types";
+import { isConvolutional2DLayerNode } from "@/types/Nodes/ConvolutionalLayerNode.types";
+import { isOutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
+import { isLinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 
 const rfStyle = {
   backgroundColor: "#00062E32",

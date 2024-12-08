@@ -5,24 +5,31 @@ import {
   useNodesData,
   useReactFlow,
 } from "@xyflow/react";
-import BaseNode from "./BaseNode";
+import BaseNode from "../BaseNode";
 import {
+  Convolutional2DLayerData,
   Convolutional2DLayerNode,
-  Convolutional2DLayerNodeProps,
   PaddingType,
-} from "@/types/ConvolutionalLayerNode.types";
-import { ActivationDropdownMenu } from "../ActivationDropdownMenu";
-import NumericPopover from "../NumericPopover";
-import { PaddingDropdownMenu } from "../PaddingDropdownMenu";
+} from "@/types/Nodes/ConvolutionalLayerNode.types";
+import { ActivationDropdownMenu } from "../../ActivationDropdownMenu";
+import NumericPopover from "../../NumericPopover";
+import { PaddingDropdownMenu } from "../../PaddingDropdownMenu";
 import { FastForward } from "lucide-react";
-import NodeContextMenu from "../NodeContextMenu";
-import { Separator } from "../ui/separator";
-import { PaddingModeDropdownMenu } from "../PaddingModeDropdownMenu";
+import NodeContextMenu from "../../NodeContextMenu";
+import { Separator } from "../../ui/separator";
+import { PaddingModeDropdownMenu } from "../../PaddingModeDropdownMenu";
 import { isNumberTuple } from "@/utils/isNumberTuple";
-import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
-import { LayerNode } from "@/types/Nodes.types";
-import { InputLayerNode } from "@/types/InputLayerNode.types";
-import { LinearLayerNode } from "@/types/LinearLayerNode.types";
+import ConnectionLimitHandle from "../../Handles/ConnectionLimitHandle";
+import { LayerNode } from "@/types/Nodes/Nodes.types";
+import { InputLayerNode } from "@/types/Nodes/InputLayerNode.types";
+import { LinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
+
+export type Convolutional2DLayerNodeProps = {
+  id: string;
+  data: Convolutional2DLayerData;
+  isConnectable: boolean;
+  selected: boolean;
+};
 
 const Convolutional2DLayerNodeComponent = ({
   id,

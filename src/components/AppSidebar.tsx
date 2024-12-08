@@ -11,7 +11,7 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { nodeTypesSidebar } from "@/types/Nodes.types";
+import { nodeTypesSidebar } from "@/types/Nodes/Nodes.types";
 import { useReactFlow } from "@xyflow/react";
 import { createNodes } from "@/utils/createNodes";
 import { useState } from "react";

@@ -2,20 +2,20 @@ import { memo, useEffect, useMemo, useState } from "react";
 import NodeContextMenu from "../NodeContextMenu";
 import BaseNode from "./BaseNode";
 import { DataFormatPopover } from "../DataFormatPopover";
-import { OutputLayerNodeProps } from "@/types/OutputLayerNode.types";
+import { OutputLayerNodeProps } from "@/types/Nodes/OutputLayerNode.types";
 import {
   Position,
   useHandleConnections,
   useNodesData,
   useReactFlow,
 } from "@xyflow/react";
-import { LayerNode } from "@/types/Nodes.types";
+import { LayerNode } from "@/types/Nodes/Nodes.types";
 import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
 import { Separator } from "@radix-ui/react-context-menu";
 import { DataFormat } from "@/types/DataFormat.types";
-import { Convolutional2DLayerNode } from "@/types/ConvolutionalLayerNode.types";
-import { InputLayerNode } from "@/types/InputLayerNode.types";
-import { LinearLayerNode } from "@/types/LinearLayerNode.types";
+import { Convolutional2DLayerNode } from "@/types/Nodes/ConvolutionalLayerNode.types";
+import { InputLayerNode } from "@/types/Nodes/InputLayerNode.types";
+import { LinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 
 const OutputLayerNodeComponent = ({
   data,

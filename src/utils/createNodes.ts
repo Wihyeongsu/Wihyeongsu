@@ -1,4 +1,4 @@
-import { AvailableNodeTypes, LayerNode } from "@/types/Nodes.types";
+import { AvailableNodeTypes, LayerNode } from "@/types/Nodes/Nodes.types";
 import { ReactFlowInstance } from "@xyflow/react";
 
 export const createNodes = (

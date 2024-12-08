@@ -1,5 +1,5 @@
 import { Node } from "@xyflow/react";
-import { Activation } from "./Activation.types";
+import { Activation } from "../Activation.types";
 
 export type PaddingType = [number, number] | "valid" | "same"; // [Vertical, Horizontal] | "valid" | "same"
 
@@ -11,14 +11,8 @@ export type Convolutional2DLayerData = {
   stride: [number, number]; // [Vertical, Horizontal]
   padding: PaddingType;
   paddingMode: "zeros" | "reflect" | "replicate" | "circular";
+  dilation?: [number, number]; // [Vertical, Horizontal]
   activation: Activation;
-};
-
-export type Convolutional2DLayerNodeProps = {
-  id: string;
-  data: Convolutional2DLayerData;
-  isConnectable: boolean;
-  selected?: boolean;
 };
 
 export type Convolutional2DLayerNode = Node<

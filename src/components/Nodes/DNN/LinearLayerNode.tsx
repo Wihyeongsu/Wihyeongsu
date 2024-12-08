@@ -1,25 +1,24 @@
 import {
   LinearLayerNode,
   LinearLayerNodeProps,
-} from "@/types/LinearLayerNode.types";
+} from "@/types/Nodes/LinearLayerNode.types";
 import {
-  Handle,
   Position,
   useHandleConnections,
   useNodesData,
   useReactFlow,
 } from "@xyflow/react";
-import { ActivationDropdownMenu } from "../ActivationDropdownMenu";
-import NodeContextMenu from "../NodeContextMenu";
-import BaseNode from "./BaseNode";
-import { Separator } from "../ui/separator";
+import { ActivationDropdownMenu } from "../../ActivationDropdownMenu";
+import NodeContextMenu from "../../NodeContextMenu";
+import BaseNode from "../BaseNode";
+import { Separator } from "../../ui/separator";
 import { FastForward } from "lucide-react";
-import NumericPopover from "../NumericPopover";
+import NumericPopover from "../../NumericPopover";
 import { useEffect, useState } from "react";
-import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
-import { LayerNode } from "@/types/Nodes.types";
-import { Convolutional2DLayerNode } from "@/types/ConvolutionalLayerNode.types";
-import { InputLayerNode } from "@/types/InputLayerNode.types";
+import ConnectionLimitHandle from "../../Handles/ConnectionLimitHandle";
+import { LayerNode } from "@/types/Nodes/Nodes.types";
+import { Convolutional2DLayerNode } from "@/types/Nodes/ConvolutionalLayerNode.types";
+import { InputLayerNode } from "@/types/Nodes/InputLayerNode.types";
 
 const LinearLayerNodeComponent = ({
   id,

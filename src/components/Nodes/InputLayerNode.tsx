@@ -1,4 +1,4 @@
-import { InputLayerNodeProps } from "@/types/InputLayerNode.types";
+import { InputLayerNodeProps } from "@/types/Nodes/InputLayerNode.types";
 import { Handle, Position, useReactFlow } from "@xyflow/react";
 import NodeContextMenu from "../NodeContextMenu";
 import BaseNode from "./BaseNode";

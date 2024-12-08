@@ -3,9 +3,9 @@ import { InputLayerNode } from "./InputLayerNode.types";
 import { OutputLayerNode } from "./OutputLayerNode.types";
 import { Convolutional2DLayerNode } from "./ConvolutionalLayerNode.types";
 import InputLayerNodeComponent from "@/components/Nodes/InputLayerNode";
-import LinearLayerNodeComponent from "@/components/Nodes/LinearLayerNode";
+import LinearLayerNodeComponent from "@/components/Nodes/DNN/LinearLayerNode";
 import OutputLayerNodeComponent from "@/components/Nodes/OutputLayerNode";
-import Convolutional2DLayerNodeComponent from "@/components/Nodes/ConvolutionalLayerNode";
+import Convolutional2DLayerNodeComponent from "@/components/Nodes/CNN/ConvolutionalLayerNode";
 
 const NodeTypes = [
   "InputLayer",

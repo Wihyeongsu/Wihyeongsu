@@ -1,4 +1,4 @@
-import { Activation } from "./Activation.types";
+import { Activation } from "../Activation.types";
 import { Node } from "@xyflow/react";
 
 export type LinearLayerData = {
