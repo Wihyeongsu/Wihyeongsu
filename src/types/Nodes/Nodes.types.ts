@@ -4,12 +4,16 @@ import { OutputLayerNode } from "./OutputLayerNode.types";
 import { Convolutional2DLayerNode } from "./Convolutional2DLayerNode.types";
 import { MaxPooling2DLayerNode } from "./MaxPooling2DLayerNode.types";
 import { AvgPooling2DLayerNode } from "./AvgPooling2DLayerNode.types";
+import { AdaptiveMaxPooling2DLayerNode } from "./AdaptiveMaxPooling2DLayerNode.types";
+import { AdaptiveAvgPooling2DLayerNode } from "./AdaptiveAvgPooling2DLayerNode.types";
 import InputLayerNodeComponent from "@/components/Nodes/InputLayerNode";
 import LinearLayerNodeComponent from "@/components/Nodes/DNN/LinearLayerNode";
 import OutputLayerNodeComponent from "@/components/Nodes/OutputLayerNode";
 import Convolutional2DLayerNodeComponent from "@/components/Nodes/CNN/ConvolutionalLayerNode";
 import MaxPooling2DLayerNodeComponent from "@/components/Nodes/CNN/MaxPooling2DLayerNode";
 import AvgPooling2DLayerNodeComponent from "@/components/Nodes/CNN/AvgPooling2DLayerNode";
+import AdaptiveMaxPooling2DLayerNodeComponent from "@/components/Nodes/CNN/AdaptiveMaxPooling2DLayerNode";
+import AdaptiveAvgPooling2DLayerNodeComponent from "@/components/Nodes/CNN/AdaptiveAvgPooling2DLayerNode";
 
 const NodeTypes = [
   "InputLayer",
@@ -18,6 +22,8 @@ const NodeTypes = [
   "Convolutional2DLayer",
   "MaxPooling2DLayer",
   "AvgPooling2DLayer",
+  "AdaptiveMaxPooling2DLayer",
+  "AdaptiveAvgPooling2DLayer",
 ] as const;
 export type AvailableNodeTypes = (typeof NodeTypes)[number];
 export type LayerNode = {
@@ -27,6 +33,8 @@ export type LayerNode = {
   Convolutional2DLayer: Convolutional2DLayerNode;
   MaxPooling2DLayer: MaxPooling2DLayerNode;
   AvgPooling2DLayer: AvgPooling2DLayerNode;
+  AdaptiveMaxPooling2DLayer: AdaptiveMaxPooling2DLayerNode;
+  AdaptiveAvgPooling2DLayer: AdaptiveAvgPooling2DLayerNode;
 }[AvailableNodeTypes];
 
 // 사이드바에 표시될 노드 항목의 타입을 정의합니다
@@ -44,6 +52,8 @@ export const nodeTypes = {
   Convolutional2DLayer: Convolutional2DLayerNodeComponent,
   MaxPooling2DLayer: MaxPooling2DLayerNodeComponent,
   AvgPooling2DLayer: AvgPooling2DLayerNodeComponent,
+  AdaptiveMaxPooling2DLayer: AdaptiveMaxPooling2DLayerNodeComponent,
+  AdaptiveAvgPooling2DLayer: AdaptiveAvgPooling2DLayerNodeComponent,
 } as const; // as const를 사용하여 타입을 더 엄격하게 만듭니다
 
 // 사이드바에 표시될 노드 타입들을 정의합니다
@@ -77,6 +87,16 @@ export const nodeTypesSidebar: NodeTypeInfo[] = [
     type: "AvgPooling2DLayer",
     label: "AvgPooling2D Layer",
     description: "2D Average Pooling layer for down-sampling",
+  },
+  {
+    type: "AdaptiveMaxPooling2DLayer",
+    label: "AdaptiveMaxPooling2D Layer",
+    description: "2D Adaptive Max Pooling layer for flexible down-sampling",
+  },
+  {
+    type: "AdaptiveAvgPooling2DLayer",
+    label: "AdaptiveAvgPooling2D Layer",
+    description: "2D Adaptive Average Pooling layer for flexible down-sampling",
   },
 ];
 
