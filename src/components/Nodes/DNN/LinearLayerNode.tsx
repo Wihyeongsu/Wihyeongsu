@@ -14,7 +14,9 @@ import NumericPopover from "../../NumericPopover";
 import { useEffect, useState } from "react";
 import ConnectionLimitHandle from "../../Handles/ConnectionLimitHandle";
 import { LayerNode } from "@/types/Nodes/Nodes.types";
-import { OutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
+import { InputLayerNode } from "@/types/Nodes/InputLayerNode.types";
+import { FlattenLayerNode } from "@/types/Nodes/FlattenLayerNode.types";
+import { isNumberNArray } from "@/utils/isNumberNArray";
 
 const LinearLayerNodeComponent = ({
   id,
@@ -32,14 +34,17 @@ const LinearLayerNodeComponent = ({
     useHandleConnections({
       type: "target",
     }).map((connection) => connection.source),
-  ) as Array<Exclude<LayerNode, OutputLayerNode>>;
+  ) as Array<InputLayerNode | FlattenLayerNode>;
 
   useEffect(() => {
     // 연결된 노드가 있는 경우
     if (connectedNodesData.length > 0) {
       const connectedNode = connectedNodesData[0]; // 첫 번째 연결된 노드의 데이터
-      if (typeof connectedNode.data.outputShape === "number") {
-        setInputShape(connectedNode.data.outputShape);
+      if (
+        typeof connectedNode.data.outputShape === "number" ||
+        isNumberNArray(connectedNode.data.outputShape, 1)
+      ) {
+        setInputShape(connectedNode.data.outputShape[0]);
       }
     } else {
       // 연결된 노드가 없는 경우 기본값으로 복원

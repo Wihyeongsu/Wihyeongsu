@@ -14,7 +14,6 @@ import { Separator } from "../ui/separator";
 import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
 import { LayerNode } from "@/types/Nodes/Nodes.types";
 import { OutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
-import { isNumberNArray } from "@/utils/isNumberNArray";
 
 export type FlattenLayerNodeProps = {
   id: string;
@@ -118,7 +117,7 @@ const FlattenLayerNodeComponent = ({
     setOutputShape(newOutputShape);
 
     updateNodeData(id, {
-      inputShape,
+      inputShape: inputShape,
       outputShape: newOutputShape,
       startDim: params.startDim,
       endDim: params.endDim,
