@@ -64,8 +64,8 @@ const Convolutional2DLayerNodeComponent = ({
     },
     padding: data.padding,
     paddingSize: {
-      vertical: 1,
-      horizontal: 1,
+      height: 1,
+      width: 1,
     },
     dilation: {
       height: data.dilation[0],
@@ -94,12 +94,18 @@ const Convolutional2DLayerNodeComponent = ({
 
     if (isNumberNArray(params.padding, 2)) {
       outputHeight = Math.floor(
-        (input.height + 2 * params.padding[0] - params.kernel.height) /
+        (input.height +
+          2 * params.paddingSize.height -
+          params.dilation.height * (params.kernel.height - 1) -
+          1) /
           params.stride.height +
           1,
       );
       outputWidth = Math.floor(
-        (input.width + 2 * params.padding[1] - params.kernel.width) /
+        (input.width +
+          2 * params.paddingSize.width -
+          params.dilation.width * (params.kernel.width - 1) -
+          1) /
           params.stride.width +
           1,
       );
@@ -161,7 +167,9 @@ const Convolutional2DLayerNodeComponent = ({
       filters: convParams.filters,
       kernelSize: [convParams.kernel.height, convParams.kernel.width],
       stride: [convParams.stride.height, convParams.stride.width],
-      padding: convParams.padding,
+      padding: isNumberNArray(convParams.padding, 2)
+        ? [convParams.paddingSize.height, convParams.paddingSize.width]
+        : convParams.padding,
       paddingMode,
       dilation: [convParams.dilation.height, convParams.dilation.width],
       activation,
@@ -201,8 +209,8 @@ const Convolutional2DLayerNodeComponent = ({
         break;
       default:
         newConvParams.padding = [
-          newConvParams.paddingSize.vertical,
-          newConvParams.paddingSize.horizontal,
+          newConvParams.paddingSize.height,
+          newConvParams.paddingSize.width,
         ];
         break;
     }
@@ -210,7 +218,7 @@ const Convolutional2DLayerNodeComponent = ({
   };
 
   const handlePaddingSizeChange = (
-    dimension: "vertical" | "horizontal",
+    dimension: "height" | "width",
     value: number,
   ) => {
     setConvParams((prev) => ({
@@ -305,8 +313,14 @@ const Convolutional2DLayerNodeComponent = ({
               <PaddingDropdownMenu
                 currentPadding={convParams.padding}
                 setPadding={(value) => handlePaddingChange(value)}
-                label="Padding"
-              />
+                label="Padding">
+                {isNumberNArray(convParams.padding, 2)
+                  ? `[${[
+                      convParams.paddingSize.height,
+                      convParams.paddingSize.width,
+                    ].join(",")}]`
+                  : convParams.padding}
+              </PaddingDropdownMenu>
               <PaddingModeDropdownMenu
                 currentPaddingMode={paddingMode}
                 setPaddingMode={setPaddingMode}
@@ -318,18 +332,14 @@ const Convolutional2DLayerNodeComponent = ({
             {isNumberNArray(convParams.padding, 2) && (
               <div className="flex flex-row justify-center items-center gap-2">
                 <NumericPopover
-                  initialValue={convParams.paddingSize.vertical}
-                  label="Vertical"
-                  setValue={(value) =>
-                    handlePaddingSizeChange("vertical", value)
-                  }
+                  initialValue={convParams.paddingSize.height}
+                  label="Height"
+                  setValue={(value) => handlePaddingSizeChange("height", value)}
                 />
                 <NumericPopover
-                  initialValue={convParams.paddingSize.horizontal}
-                  label="Horizontal"
-                  setValue={(value) =>
-                    handlePaddingSizeChange("horizontal", value)
-                  }
+                  initialValue={convParams.paddingSize.width}
+                  label="Width"
+                  setValue={(value) => handlePaddingSizeChange("width", value)}
                 />
               </div>
             )}

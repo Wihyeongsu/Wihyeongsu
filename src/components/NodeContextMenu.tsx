@@ -28,7 +28,9 @@ const NodeContextMenu = ({ children, id }) => {
 
   const deleteNode = useCallback(() => {
     setNodes((nodes) => nodes.filter((node) => node.id !== id));
-    setEdges((edges) => edges.filter((edge) => edge.source !== id));
+    setEdges((edges) =>
+      edges.filter((edge) => edge.source !== id && edge.target !== id),
+    );
   }, [id, setNodes, setEdges]);
 
   const ContextMenuItems = [
