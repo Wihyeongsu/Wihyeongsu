@@ -7,10 +7,17 @@ const exportFlowToJson = (reactFlowInstance: ReactFlowInstance) => {
 
   // 그래프 데이터를 하나의 객체로 구성
   const graphData = {
-    nodes: nodes,
-    edges: edges,
-    // 뷰포트 정보도 포함할 수 있습니다
-    viewport: reactFlowInstance.getViewport(),
+    nodes: nodes.map((node) => ({
+      id: node.id,
+      type: node.type,
+      data: node.data,
+    })),
+    edges: edges.map((edge) => ({
+      source: edge.source,
+      target: edge.target,
+    })),
+
+    // viewport: reactFlowInstance.getViewport(),
   };
 
   // JSON 문자열로 변환

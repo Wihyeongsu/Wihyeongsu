@@ -18,7 +18,7 @@ import { useState } from "react";
 import { GenerateCodeDialog } from "./GenerateCodeDialog";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
-import exportToJson from "@/utils/flowExporter";
+import exportToJson from "@/utils/exportFlowToJson";
 
 export function AppSidebar() {
   const reactFlowInstance = useReactFlow();
