@@ -3,8 +3,10 @@ pub mod Anthropic_api;
 
 use serde::{Deserialize, Serialize};
 use Anthropic_api::{
-    anthropic::AnthropicClientBuilder, message_request::MessageRequestBuilder, HeadersBuilder,
-    Message, Usage,
+    anthropic::AnthropicClientBuilder,
+    message_request::MessageRequestBuilder,
+    Content::{ContentImage, ContentText},
+    HeadersBuilder, Message, Source, Usage, TYPE_BASE64, TYPE_IMAGE, TYPE_TEXT,
 };
 
 #[derive(serde::Serialize)]
@@ -32,7 +34,8 @@ struct CommandResponse {
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Payload {
-    prompt: String,
+    flow_image_base64: String,
+    flow_data: String,
     api_key: String,
 }
 
@@ -50,7 +53,20 @@ async fn anthropic_request(payload: Payload) -> Result<CommandResponse, String> 
         .max_tokens(2048)
         .messages(vec![Message {
             role: "user".to_owned(),
-            content: payload.prompt,
+            content: vec![
+                ContentText {
+                    type_: TYPE_TEXT.to_owned(),
+                    text: payload.flow_data,
+                },
+                ContentImage {
+                    type_: TYPE_IMAGE.to_owned(),
+                    source: Source {
+                        type_: TYPE_BASE64.to_owned(),
+                        media_type: "image/png".to_owned(),
+                        data: payload.flow_image_base64,
+                    },
+                },
+            ],
         }])
         .temperature(0.7)
         .system(system_prompt)

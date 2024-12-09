@@ -12,11 +12,41 @@ pub struct MessageRequest {
     pub system: Option<String>,
 }
 
+// --- START
+
 #[derive(Debug, Serialize, Clone)]
 pub struct Message {
     pub role: String,
-    pub content: String,
+    pub content: Vec<Content>,
 }
+
+#[derive(Debug, Serialize, Clone)]
+pub enum Content {
+    ContentText {
+        #[serde(rename = "type")]
+        type_: String,
+        text: String,
+    },
+    ContentImage {
+        #[serde(rename = "type")]
+        type_: String,
+        source: Source,
+    },
+}
+
+pub const TYPE_TEXT: &str = "text";
+pub const TYPE_IMAGE: &str = "image";
+pub const TYPE_BASE64: &str = "base64";
+
+#[derive(Debug, Serialize, Clone)]
+pub struct Source {
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub media_type: String,
+    pub data: String,
+}
+
+// --- END
 
 // Region: ---States
 #[derive(Clone, Default)]
