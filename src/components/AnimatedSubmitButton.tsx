@@ -79,7 +79,7 @@ const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
             font-medium
             transition-all duration-300 ease-in-out
             ${apikey ? "text-slate-950" : "text-slate-50"}
-            ${isTextVisible ? "opacity-100 text-slate-950" : "opacity-0"}
+            ${isTextVisible ? "opacity-100" : "opacity-0"}
             ${
               length < 45
                 ? "text-sm"
