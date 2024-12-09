@@ -4,6 +4,7 @@ import {
   useReactFlow,
   getNodesBounds,
   getViewportForBounds,
+  useViewport,
 } from "@xyflow/react";
 import { toPng } from "html-to-image";
 
@@ -15,42 +16,49 @@ function downloadImage(dataUrl) {
   a.click();
 }
 
-const imageWidth = 1024;
-const imageHeight = 768;
+const imageWidth = 1920;
+const imageHeight = 1080;
 
 function DownloadButton() {
+  // useViewport hook을 컴포넌트 최상위 레벨에서 사용
+  const viewport = useViewport();
   const { getNodes } = useReactFlow();
 
   const onClick = () => {
-    // 먼저 실제 DOM 요소를 찾습니다
     const viewportElement = document.querySelector(".react-flow__viewport");
     if (!(viewportElement instanceof HTMLElement)) {
-      console.error("Viewport element not found or is not an HTMLElement");
+      console.error("Viewport element not found");
       return;
     }
 
     try {
-      // 노드들의 실제 경계를 계산합니다
+      // 모든 노드의 경계를 계산
       const nodesBounds = getNodesBounds(getNodes());
 
-      // 패딩을 추가하여 여유 공간을 확보합니다
-      const padding = 50;
-      nodesBounds.x -= padding;
-      nodesBounds.y -= padding;
-      nodesBounds.width += 2 * padding;
-      nodesBounds.height += 2 * padding;
+      // 더 넉넉한 패딩을 추가하여 여유 공간 확보
+      const padding = Math.max(nodesBounds.width, nodesBounds.height) * 0.1; // 10% 패딩
+      const expandedBounds = {
+        x: nodesBounds.x - padding,
+        y: nodesBounds.y - padding,
+        width: nodesBounds.width + padding * 2,
+        height: nodesBounds.height + padding * 2,
+      };
 
-      // 뷰포트 변환값을 계산할 때 현재 줌 레벨을 고려합니다
+      // 현재 뷰포트 상태를 고려한 변환값 계산
       const transform = getViewportForBounds(
-        nodesBounds,
+        expandedBounds,
         imageWidth,
         imageHeight,
-        0.5,
-        2,
-        0.5,
+        viewport.zoom, // 현재 줌 레벨 사용
+        4, // 최대 줌
+        0.1, // 최소 줌
       );
 
-      // 이제 실제 DOM 요소와 계산된 변환 값을 사용하여 이미지를 생성합니다
+      // 노드들이 이미지 중앙에 오도록 조정
+      const centerX = (imageWidth - expandedBounds.width * transform.zoom) / 2;
+      const centerY =
+        (imageHeight - expandedBounds.height * transform.zoom) / 2;
+
       toPng(viewportElement, {
         backgroundColor: "#9ca3af",
         width: imageWidth,
@@ -58,14 +66,22 @@ function DownloadButton() {
         style: {
           width: `${imageWidth}px`,
           height: `${imageHeight}px`,
-          transform: `translate(${transform.x}px, ${transform.y}px) scale(${transform.zoom})`,
+          transform: `
+            translate(${centerX}px, ${centerY}px) 
+            scale(${transform.zoom})
+          `,
           transformOrigin: "top left",
           position: "relative",
         },
+        // 이미지 품질 향상을 위한 옵션
+        pixelRatio: 2,
+        skipAutoScale: true,
       })
         .then(downloadImage)
         .catch((error) => {
           console.error("Failed to generate image:", error);
+          // 사용자에게 에러 알림
+          alert("이미지 생성 중 문제가 발생했습니다. 다시 시도해주세요.");
         });
     } catch (error) {
       console.error("Error processing viewport:", error);
@@ -74,7 +90,17 @@ function DownloadButton() {
 
   return (
     <Panel position="top-right">
-      <button className="download-btn" onClick={onClick}>
+      <button
+        className="download-btn"
+        onClick={onClick}
+        style={{
+          padding: "8px 16px",
+          backgroundColor: "#4f46e5",
+          color: "white",
+          borderRadius: "4px",
+          border: "none",
+          cursor: "pointer",
+        }}>
         Download Image
       </button>
     </Panel>

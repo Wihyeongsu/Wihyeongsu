@@ -103,6 +103,8 @@ const Flow = () => {
           isValidConnection={isValidConnection}
           connectionLineComponent={ConnectionLine}
           fitView
+          minZoom={0.1}
+          maxZoom={4}
           style={rfStyle}>
           <Controls />
           <DownloadButton />
