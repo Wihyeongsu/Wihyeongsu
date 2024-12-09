@@ -16,6 +16,8 @@ import { isConvolutional2DLayerNode } from "@/types/Nodes/Convolutional2DLayerNo
 import { isOutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 import { isLinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 import DownloadButton from "./DownloadButton";
+import ConnectionLine from "./ConnectionLine";
+import { connect } from "http2";
 
 const rfStyle = {
   backgroundColor: "#00062E32",
@@ -64,7 +66,27 @@ const Flow = () => {
   };
 
   const onConnect = useCallback(
-    (connection) => setEdges((eds) => addEdge(connection, eds)),
+    (connection: Connection) => {
+      setEdges((eds) =>
+        addEdge(
+          {
+            ...connection,
+            type: "smoothstep",
+            animated: true,
+            reconnectable: true,
+            style: {
+              stroke: "#22d3ee", // 선의 색상
+              strokeWidth: 3, // 선의 두께
+              opacity: 0.8, // 투명도
+              strokeDasharray: "5,5", // 점선 패턴 (필요한 경우)
+              cursor: "pointer", // 마우스 커서 스타일
+              transition: "stroke-width 0.2s ease", // 호버 효과를 위한 전환
+            },
+          },
+          eds,
+        ),
+      );
+    },
     [setEdges],
   );
 
@@ -79,6 +101,7 @@ const Flow = () => {
           onConnect={onConnect}
           nodeTypes={nodeTypes}
           isValidConnection={isValidConnection}
+          connectionLineComponent={ConnectionLine}
           fitView
           style={rfStyle}>
           <Controls />

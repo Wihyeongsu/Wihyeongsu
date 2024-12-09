@@ -52,7 +52,7 @@ function DownloadButton() {
 
       // 이제 실제 DOM 요소와 계산된 변환 값을 사용하여 이미지를 생성합니다
       toPng(viewportElement, {
-        backgroundColor: "#1a365d",
+        backgroundColor: "#9ca3af",
         width: imageWidth,
         height: imageHeight,
         style: {
