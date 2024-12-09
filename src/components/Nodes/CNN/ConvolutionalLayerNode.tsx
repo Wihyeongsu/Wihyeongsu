@@ -243,7 +243,7 @@ const Convolutional2DLayerNodeComponent = ({
         <div className="grid-flow-row">
           {/* Header */}
           <div className="flex justify-between items-center">
-            <div>Convolutional</div>
+            <div>Convolutional2D</div>
           </div>
           <Separator className="bg-slate-300 mb-1" />
 

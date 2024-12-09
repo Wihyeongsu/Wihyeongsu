@@ -50,7 +50,7 @@ async fn anthropic_request(payload: Payload) -> Result<CommandResponse, String> 
 
     let request = MessageRequestBuilder::new()
         .model("claude-3-5-sonnet-latest")
-        .max_tokens(2048)
+        .max_tokens(8192)
         .messages(vec![Message {
             role: "user".to_owned(),
             content: vec![
@@ -84,7 +84,6 @@ async fn anthropic_request(payload: Payload) -> Result<CommandResponse, String> 
 
     match response {
         Ok(response) => {
-            // 응답의 첫 번째 텍스트 콘텐츠를 가져옵니다
             let content = response
                 .content
                 .first()

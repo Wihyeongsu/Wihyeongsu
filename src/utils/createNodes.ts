@@ -142,6 +142,7 @@ export const createNodes = (
       };
       break;
     default:
+      throw new Error("Undefined node type");
   }
   // ReactFlow 인스턴스를 통해 노드를 추가합니다
   reactFlowInstance.addNodes(newNode);

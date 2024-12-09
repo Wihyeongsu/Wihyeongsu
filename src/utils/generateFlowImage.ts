@@ -73,6 +73,9 @@ export const generateFlowImage = async (
       },
       pixelRatio: 2,
       skipAutoScale: true,
+    }).then((dataUrl) => {
+      // "data:image/png;base64," 부분을 제거하고 순수 base64 데이터만 반환합니다
+      return dataUrl.split(",")[1];
     });
   } catch (error) {
     console.error("뷰포트 처리 중 오류:", error);

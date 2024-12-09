@@ -1,4 +1,7 @@
+import exportFlowToJson from "@/utils/exportFlowToJson";
 import { fetchAnthropicResponse } from "@/utils/fetchAnthropic";
+import { generateFlowImage } from "@/utils/generateFlowImage";
+import { useReactFlow } from "@xyflow/react";
 import { useEffect, useRef, useState } from "react";
 
 const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
@@ -6,6 +9,8 @@ const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
   const [isTextVisible, setIsTextVisible] = useState(true);
   const [isImageVisible, setIsImageVisible] = useState(false);
   const [length, setLength] = useState(40);
+
+  const reactFlowInstance = useReactFlow();
 
   // 실제 DOM 요소를 참조하기 위한 ref
   const buttonContainerRef = useRef<HTMLDivElement>(null);
@@ -39,8 +44,6 @@ const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
     // 애니메이션 중이라면 추가 클릭을 무시
     if (isAnimating) return;
 
-    fetchAnthropicResponse("Explain about Pytorch.", apikey);
-
     setIsAnimating(true);
 
     // 텍스트 페이드아웃을 버튼 축소 시작과 함께 진행
@@ -51,6 +54,8 @@ const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
       setIsImageVisible(true);
     }, 300); // 버튼 축소 애니메이션의 절반 시점에 아이콘을 표시
   };
+
+  const responseContent = fetchAnthropicResponse(reactFlowInstance, apikey);
 
   return (
     <div

@@ -1,6 +1,6 @@
 import { ReactFlowInstance } from "@xyflow/react";
 
-const exportFlowToJson = (reactFlowInstance: ReactFlowInstance) => {
+const exportFlowToJson = (reactFlowInstance: ReactFlowInstance): string => {
   // 현재 그래프의 모든 노드와 엣지를 수집
   const nodes = reactFlowInstance.getNodes();
   const edges = reactFlowInstance.getEdges();
@@ -24,6 +24,7 @@ const exportFlowToJson = (reactFlowInstance: ReactFlowInstance) => {
   const jsonString = JSON.stringify(graphData, null, 2);
 
   console.log(jsonString);
+  return jsonString;
   // JSON 파일로 다운로드
   // const blob = new Blob([jsonString], { type: "application/json" });
   // const url = URL.createObjectURL(blob);
