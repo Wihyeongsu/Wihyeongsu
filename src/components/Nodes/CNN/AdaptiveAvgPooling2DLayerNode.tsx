@@ -21,8 +21,7 @@ import { LinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 export type AdaptiveAvgPooling2DLayerNodeProps = {
   id: string;
   data: AdaptiveAvgPooling2DLayerNodeData;
-  isConnectable: boolean;
-  selected: boolean;
+  selected?: boolean;
 };
 
 const AdaptiveAvgPooling2DLayerNodeComponent = ({

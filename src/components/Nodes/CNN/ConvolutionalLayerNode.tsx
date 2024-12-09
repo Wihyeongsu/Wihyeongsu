@@ -23,14 +23,12 @@ import { OutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 export type Convolutional2DLayerNodeProps = {
   id: string;
   data: Convolutional2DLayerData;
-  isConnectable: boolean;
-  selected: boolean;
+  selected?: boolean;
 };
 
 const Convolutional2DLayerNodeComponent = ({
   id,
   data,
-  isConnectable,
   selected,
 }: Convolutional2DLayerNodeProps) => {
   // 입력과 출력의 형태를 하나의 객체로 관리하여 관련 상태들을 논리적으로 그룹화합니다
@@ -120,6 +118,8 @@ const Convolutional2DLayerNodeComponent = ({
       outputWidth = input.width;
     } else {
       console.log("padding: same must be stride [1, 1]");
+      outputHeight = 0;
+      outputWidth = 0;
     }
 
     return {
@@ -133,11 +133,16 @@ const Convolutional2DLayerNodeComponent = ({
   useEffect(() => {
     if (connectedNodesData.length > 0) {
       const connectedNode = connectedNodesData[0];
-      setInputShape({
-        height: connectedNode.data.outputShape[0],
-        width: connectedNode.data.outputShape[1],
-        channels: connectedNode.data.outputShape[2],
-      });
+      if (
+        isNumberNArray(connectedNode.data.outputShape, 3) &&
+        !isNumberNArray(connectedNode.data.outputShape, 2)
+      ) {
+        setInputShape({
+          height: connectedNode.data.outputShape[0],
+          width: connectedNode.data.outputShape[1],
+          channels: connectedNode.data.outputShape[2],
+        });
+      }
     } else {
       setInputShape({
         height: data.inputShape[0],

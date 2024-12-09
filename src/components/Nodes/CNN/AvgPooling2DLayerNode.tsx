@@ -22,14 +22,12 @@ import { LinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 export type AvgPooling2DLayerNodeProps = {
   id: string;
   data: AvgPooling2DLayerNodeData;
-  isConnectable: boolean;
-  selected: boolean;
+  selected?: boolean;
 };
 
 const AvgPooling2DLayerNodeComponent = ({
   id,
   data,
-  isConnectable,
   selected,
 }: AvgPooling2DLayerNodeProps) => {
   const [inputShape, setInputShape] = useState({

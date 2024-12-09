@@ -7,13 +7,6 @@ export type LinearLayerData = {
   activation: Activation;
 };
 
-export type LinearLayerNodeProps = {
-  id: string;
-  data: LinearLayerData;
-  isConnectable: boolean;
-  selected?: boolean;
-};
-
 export type LinearLayerNode = Node<LinearLayerData, "LinearLayer">;
 
 export const isLinearLayerNode = (node: any) => {

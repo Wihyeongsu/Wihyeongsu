@@ -21,8 +21,7 @@ import { LinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 export type AdaptiveMaxPooling2DLayerNodeProps = {
   id: string;
   data: AdaptiveMaxPooling2DLayerNodeData;
-  isConnectable: boolean;
-  selected: boolean;
+  selected?: boolean;
 };
 
 const AdaptiveMaxPooling2DLayerNodeComponent = ({

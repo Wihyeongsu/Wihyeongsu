@@ -1,4 +1,4 @@
-import { LinearLayerNodeProps } from "@/types/Nodes/LinearLayerNode.types";
+import { LinearLayerData } from "@/types/Nodes/LinearLayerNode.types";
 import {
   Position,
   useHandleConnections,
@@ -18,10 +18,15 @@ import { InputLayerNode } from "@/types/Nodes/InputLayerNode.types";
 import { FlattenLayerNode } from "@/types/Nodes/FlattenLayerNode.types";
 import { isNumberNArray } from "@/utils/isNumberNArray";
 
+export type LinearLayerNodeProps = {
+  id: string;
+  data: LinearLayerData;
+  selected?: boolean;
+};
+
 const LinearLayerNodeComponent = ({
   id,
   data,
-  isConnectable,
   selected,
 }: LinearLayerNodeProps) => {
   const [inputShape, setInputShape] = useState(data.inputShape);
@@ -40,10 +45,9 @@ const LinearLayerNodeComponent = ({
     // 연결된 노드가 있는 경우
     if (connectedNodesData.length > 0) {
       const connectedNode = connectedNodesData[0]; // 첫 번째 연결된 노드의 데이터
-      if (
-        typeof connectedNode.data.outputShape === "number" ||
-        isNumberNArray(connectedNode.data.outputShape, 1)
-      ) {
+      if (typeof connectedNode.data.outputShape === "number") {
+        setInputShape(connectedNode.data.outputShape);
+      } else if (isNumberNArray(connectedNode.data.outputShape, 1)) {
         setInputShape(connectedNode.data.outputShape[0]);
       }
     } else {

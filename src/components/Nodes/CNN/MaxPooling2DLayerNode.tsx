@@ -21,14 +21,12 @@ import { FlattenLayerNode } from "@/types/Nodes/FlattenLayerNode.types";
 export type MaxPooling2DLayerNodeProps = {
   id: string;
   data: MaxPooling2DLayerNodeData;
-  isConnectable: boolean;
-  selected: boolean;
+  selected?: boolean;
 };
 
 const MaxPooling2DLayerNodeComponent = ({
   id,
   data,
-  isConnectable,
   selected,
 }: MaxPooling2DLayerNodeProps) => {
   // 입력과 출력 형태를 객체로 관리하여 관련 상태를 그룹화합니다

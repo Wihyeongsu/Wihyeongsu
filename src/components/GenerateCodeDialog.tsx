@@ -14,6 +14,7 @@ import { Toggle } from "./ui/toggle";
 import { Eye, EyeOff } from "lucide-react";
 import { Separator } from "./ui/separator";
 import AnimatedSubmitButton from "./AnimatedSubmitButton";
+import ImageDisplayButton from "./ImageDisplayButton";
 // import ClimbingBoxLoader from "./ClimbingBoxLoader";
 
 const buttonStyle =
@@ -89,6 +90,7 @@ export function GenerateCodeDialog() {
             <AnimatedSubmitButton apikey={apikey} />
           </div>
         </div>
+        <ImageDisplayButton />
       </DialogContent>
     </Dialog>
   );

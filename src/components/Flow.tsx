@@ -3,6 +3,8 @@ import {
   addEdge,
   Connection,
   Controls,
+  Edge,
+  Node,
   ReactFlow,
   useEdgesState,
   useNodesState,
@@ -15,17 +17,15 @@ import { isInputLayerNode } from "@/types/Nodes/InputLayerNode.types";
 import { isConvolutional2DLayerNode } from "@/types/Nodes/Convolutional2DLayerNode.types";
 import { isOutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 import { isLinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
-import DownloadButton from "./DownloadButton";
 import ConnectionLine from "./ConnectionLine";
-import { connect } from "http2";
 
 const rfStyle = {
   backgroundColor: "#00062E32",
 };
 
-const initialNodes = [];
+const initialNodes: Node[] = [];
 
-const initialEdges = [];
+const initialEdges: Edge[] = [];
 
 const Flow = () => {
   const reactFlowWrapper = useRef(null);
@@ -34,11 +34,12 @@ const Flow = () => {
   const { getNode } = useReactFlow();
 
   // Validate connection between nodes
-  const isValidConnection = (connection: Connection) => {
+  const isValidConnection = (connection: Edge | Connection) => {
     const { source, target } = connection;
     const sourceNode = getNode(source);
     const targetNode = getNode(target);
 
+    if (!sourceNode || !targetNode) return false;
     if (target === source) return false;
     if (
       isInputLayerNode(sourceNode) &&
@@ -107,7 +108,7 @@ const Flow = () => {
           maxZoom={4}
           style={rfStyle}>
           <Controls />
-          <DownloadButton />
+          {/* <DownloadButton /> */}
         </ReactFlow>
       </div>
     </div>

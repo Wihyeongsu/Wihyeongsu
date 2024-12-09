@@ -18,8 +18,7 @@ import { OutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 export type FlattenLayerNodeProps = {
   id: string;
   data: FlattenLayerNodeData;
-  isConnectable: boolean;
-  selected: boolean;
+  selected?: boolean;
 };
 
 const FlattenLayerNodeComponent = ({
