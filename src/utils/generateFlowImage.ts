@@ -1,5 +1,6 @@
 import { getNodesBounds, getViewportForBounds, Node } from "@xyflow/react";
 import { toPng } from "html-to-image";
+import { parse } from "path";
 
 // 이미지 다운로드
 // function downloadImage(dataUrl: string) {
@@ -10,6 +11,11 @@ import { toPng } from "html-to-image";
 //   a.click();
 // }
 
+export const parseBase64 = (dataUrl: string) => {
+  // "data:image/png;base64," 부분을 제거하고 순수 base64 데이터만 반환합니다
+  return dataUrl.split(",")[1];
+};
+
 export const generateFlowImage = async (
   getNodes: () => Node[],
 ): Promise<string> => {
@@ -17,8 +23,8 @@ export const generateFlowImage = async (
   if (!(viewportElement instanceof HTMLElement))
     throw new Error("Viewport element not found");
 
-  const imageWidth = 3840;
-  const imageHeight = 2160;
+  const imageWidth = 1092;
+  const imageHeight = 1092;
 
   try {
     // 모든 노드의 경계를 계산
@@ -57,7 +63,7 @@ export const generateFlowImage = async (
     const xOffset = (imageWidth - effectiveWidth) / 2;
     const yOffset = (imageHeight - effectiveHeight) / 2;
 
-    return await toPng(viewportElement, {
+    const url = await toPng(viewportElement, {
       backgroundColor: "#9ca3af",
       width: imageWidth,
       height: imageHeight,
@@ -73,10 +79,10 @@ export const generateFlowImage = async (
       },
       pixelRatio: 2,
       skipAutoScale: true,
-    }).then((dataUrl) => {
-      // "data:image/png;base64," 부분을 제거하고 순수 base64 데이터만 반환합니다
-      return dataUrl.split(",")[1];
     });
+    console.log(parseBase64(url));
+
+    return url;
   } catch (error) {
     console.error("뷰포트 처리 중 오류:", error);
     throw error;
