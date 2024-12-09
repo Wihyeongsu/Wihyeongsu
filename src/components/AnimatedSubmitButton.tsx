@@ -44,6 +44,8 @@ const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
     // 애니메이션 중이라면 추가 클릭을 무시
     if (isAnimating) return;
 
+    const responseContent = fetchAnthropicResponse(reactFlowInstance, apikey);
+
     setIsAnimating(true);
 
     // 텍스트 페이드아웃을 버튼 축소 시작과 함께 진행
@@ -54,8 +56,6 @@ const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
       setIsImageVisible(true);
     }, 300); // 버튼 축소 애니메이션의 절반 시점에 아이콘을 표시
   };
-
-  const responseContent = fetchAnthropicResponse(reactFlowInstance, apikey);
 
   return (
     <div

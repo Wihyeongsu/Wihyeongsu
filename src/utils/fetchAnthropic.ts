@@ -58,17 +58,23 @@ export const fetchAnthropicResponse = async (
 
     return response.content;
   } catch (error) {
+    // if (error instanceof Error) {
+    //   // 에러 종류별 처리
+    //   if (error.message.includes("image generation")) {
+    //     toast.error("Error: generating image");
+    //   } else if (error.message.includes("credit balance")) {
+    //     toast.error("Error: insufficient credits");
+    //   } else {
+    //     toast.error(`Error: ${error.message}`);
+    //   }
+    // } else {
+    //   toast.error("Unknown error");
+    // }
+
     if (error instanceof Error) {
-      // 에러 종류별 처리
-      if (error.message.includes("이미지 생성")) {
-        toast.error("이미지 생성 중 문제가 발생했습니다");
-      } else if (error.message.includes("credit balance")) {
-        toast.error("크레딧이 부족합니다. 충전 후 다시 시도해주세요");
-      } else {
-        toast.error(`오류: ${error.message}`);
-      }
+      toast.error(`Error: ${error.message}`);
     } else {
-      toast.error("예기치 않은 오류가 발생했습니다");
+      toast.error("An unknown error occurred");
     }
 
     throw error; // 에러를 다시 던져서 호출자가 처리할 수 있도록 함

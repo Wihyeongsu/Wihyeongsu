@@ -21,17 +21,10 @@ pub struct Message {
 }
 
 #[derive(Debug, Serialize, Clone)]
+#[serde(tag = "type", rename_all = "lowercase")]
 pub enum Content {
-    ContentText {
-        #[serde(rename = "type")]
-        type_: String,
-        text: String,
-    },
-    ContentImage {
-        #[serde(rename = "type")]
-        type_: String,
-        source: Source,
-    },
+    Text { text: String },
+    Image { source: Source },
 }
 
 pub const TYPE_TEXT: &str = "text";
@@ -152,9 +145,11 @@ impl<M, T, MSGS> MessageRequestBuilder<M, T, MSGS, NotSealed> {
 
 impl<S> MessageRequestBuilder<Model, MaxTokens, Messages, S> {
     pub fn build(self) -> Result<MessageRequest, &'static str> {
+        let messages_vec: Vec<Message> = self.messages.0; // 명시적 타입 지정
+
         Ok(MessageRequest {
             model: self.model.0,
-            messages: self.messages.0,
+            messages: messages_vec,
             max_tokens: self.max_tokens.0,
             temperature: self.temperature,
             system: self.system,

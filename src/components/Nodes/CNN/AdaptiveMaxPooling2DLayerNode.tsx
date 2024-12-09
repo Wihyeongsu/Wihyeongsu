@@ -88,7 +88,7 @@ const AdaptiveMaxPooling2DLayerNodeComponent = ({
     <NodeContextMenu id={id}>
       <BaseNode selected={selected}>
         <div className="grid-flow-row">
-          <div>AdaptiveAvgPool2D</div>
+          <div>AdaptiveMaxPool2D</div>
           <Separator className="bg-slate-300 mb-1" />
 
           <div className="flex flex-row justify-center items-center gap-2 mb-1">
