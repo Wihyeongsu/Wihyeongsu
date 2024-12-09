@@ -80,8 +80,6 @@ export function GenerateCodeDialog() {
                   <Eye className="h-4 w-4" />
                 )}
               </Toggle>
-
-              {/* <ClimbingBoxLoader /> */}
             </div>
           </div>
         </div>
@@ -90,7 +88,6 @@ export function GenerateCodeDialog() {
             <AnimatedSubmitButton apikey={apikey} />
           </div>
         </div>
-        <ImageDisplayButton />
       </DialogContent>
     </Dialog>
   );

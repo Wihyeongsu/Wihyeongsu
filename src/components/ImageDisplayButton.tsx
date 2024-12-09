@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  Panel,
-  useReactFlow,
-  getNodesBounds,
-  getViewportForBounds,
-} from "@xyflow/react";
-import { toPng } from "html-to-image";
+import { Panel, useReactFlow } from "@xyflow/react";
 import { generateFlowImage } from "@/utils/generateFlowImage";
 
 function ImageDisplayButton() {
