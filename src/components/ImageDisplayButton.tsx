@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Panel,
   useReactFlow,
   getNodesBounds,
   getViewportForBounds,
-  useViewport,
 } from "@xyflow/react";
 import { toPng } from "html-to-image";
 
