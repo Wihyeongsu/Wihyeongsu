@@ -8,7 +8,7 @@ import {
 } from "@xyflow/react";
 import { toPng } from "html-to-image";
 
-function downloadImage(dataUrl) {
+function downloadImage(dataUrl: string) {
   const a = document.createElement("a");
 
   a.setAttribute("download", "reactflow.png");
@@ -18,12 +18,11 @@ function downloadImage(dataUrl) {
 
 function ImageDisplayButton() {
   // 생성된 이미지의 URL을 저장할 상태
-  const [generatedImage, setGeneratedImage] = useState(null);
-  const viewport = useViewport();
+  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const { getNodes } = useReactFlow();
 
   // 이미지를 생성하고 상태에 저장하는 함수
-  const handleImage = (dataUrl) => {
+  const handleImage = (dataUrl: string) => {
     setGeneratedImage(dataUrl);
     downloadImage(dataUrl);
   };
