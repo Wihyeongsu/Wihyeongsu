@@ -3,13 +3,13 @@ import { toPng } from "html-to-image";
 import { parse } from "path";
 
 // 이미지 다운로드
-// function downloadImage(dataUrl: string) {
-//   const a = document.createElement("a");
+function downloadImage(dataUrl: string) {
+  const a = document.createElement("a");
 
-//   a.setAttribute("download", "reactflow.png");
-//   a.setAttribute("href", dataUrl);
-//   a.click();
-// }
+  a.setAttribute("download", "reactflow.png");
+  a.setAttribute("href", dataUrl);
+  a.click();
+}
 
 export const parseBase64 = (dataUrl: string) => {
   // "data:image/png;base64," 부분을 제거하고 순수 base64 데이터만 반환합니다
@@ -23,8 +23,8 @@ export const generateFlowImage = async (
   if (!(viewportElement instanceof HTMLElement))
     throw new Error("Viewport element not found");
 
-  const imageWidth = 1092;
-  const imageHeight = 1092;
+  const imageWidth = 2184;
+  const imageHeight = 2184;
 
   try {
     // 모든 노드의 경계를 계산
@@ -81,7 +81,7 @@ export const generateFlowImage = async (
       skipAutoScale: true,
     });
     console.log(parseBase64(url));
-
+    downloadImage(url);
     return url;
   } catch (error) {
     console.error("뷰포트 처리 중 오류:", error);

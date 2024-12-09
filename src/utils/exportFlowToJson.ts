@@ -16,8 +16,6 @@ const exportFlowToJson = (reactFlowInstance: ReactFlowInstance): string => {
       source: edge.source,
       target: edge.target,
     })),
-
-    // viewport: reactFlowInstance.getViewport(),
   };
 
   // JSON 문자열로 변환

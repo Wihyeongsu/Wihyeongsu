@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { toast } from "sonner";
-import { generateFlowImage } from "./generateFlowImage";
+import { generateFlowImage, parseBase64 } from "./generateFlowImage";
 import { ReactFlowInstance, Node, Edge } from "@xyflow/react";
 import exportFlowToJson from "./exportFlowToJson";
 
@@ -38,8 +38,8 @@ export const fetchAnthropicResponse = async (
       throw new Error("ReactFlow 인스턴스가 필요합니다");
     }
 
-    const flow_image_base64 = await generateFlowImage(
-      reactFlowInstance.getNodes,
+    const flow_image_base64 = parseBase64(
+      await generateFlowImage(reactFlowInstance.getNodes),
     );
 
     const flow_data = exportFlowToJson(reactFlowInstance);

@@ -26,13 +26,14 @@ IMPLEMENTATION FEATURES:
 5. Essential utility functions
 6. Example usage code
 
-The output should be production-ready, executable Python code without any additional formatting, documentation, or explanatory text. Provide only the implementation code that can be directly saved as a .py file and executed.
-
-IMPORTANT:
+IMPORTANT FORMATTING RULES:
 1. No markdown or special formatting
 2. No explanations or comments
 3. No docstrings except essential function/class signatures
-4. Focus on clean, efficient implementation
-5. Include only executable Python code
+4. Use single quotes for strings instead of double quotes to avoid escape characters
+5. For text values in configuration or parameters, use single quotes: activation='relu'
+6. No backslashes or escape sequences in strings
+7. Focus on clean, efficient implementation
+8. Include only executable Python code
 
-Your response should contain nothing but the pure Python implementation that can be directly copied and executed.
+Your response should contain nothing but pure Python implementation that can be directly copied and executed, using single quotes for strings to avoid escape characters.
