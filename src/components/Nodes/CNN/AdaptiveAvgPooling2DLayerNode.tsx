@@ -27,7 +27,7 @@ export type AdaptiveAvgPooling2DLayerNodeProps = {
 const AdaptiveAvgPooling2DLayerNodeComponent = ({
   id,
   data,
-  selected,
+  selected = false,
 }: AdaptiveAvgPooling2DLayerNodeProps) => {
   const [inputShape, setInputShape] = useState({
     height: data.inputShape[0],

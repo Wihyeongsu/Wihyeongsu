@@ -29,7 +29,7 @@ export type Convolutional2DLayerNodeProps = {
 const Convolutional2DLayerNodeComponent = ({
   id,
   data,
-  selected,
+  selected = false,
 }: Convolutional2DLayerNodeProps) => {
   // 입력과 출력의 형태를 하나의 객체로 관리하여 관련 상태들을 논리적으로 그룹화합니다
   const [inputShape, setInputShape] = useState({

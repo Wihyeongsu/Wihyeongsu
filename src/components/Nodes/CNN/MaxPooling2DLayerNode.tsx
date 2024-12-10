@@ -27,7 +27,7 @@ export type MaxPooling2DLayerNodeProps = {
 const MaxPooling2DLayerNodeComponent = ({
   id,
   data,
-  selected,
+  selected = false,
 }: MaxPooling2DLayerNodeProps) => {
   // 입력과 출력 형태를 객체로 관리하여 관련 상태를 그룹화합니다
   const [inputShape, setInputShape] = useState({

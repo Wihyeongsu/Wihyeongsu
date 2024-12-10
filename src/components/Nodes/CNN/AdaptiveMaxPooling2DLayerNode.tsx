@@ -27,7 +27,7 @@ export type AdaptiveMaxPooling2DLayerNodeProps = {
 const AdaptiveMaxPooling2DLayerNodeComponent = ({
   id,
   data,
-  selected,
+  selected = false,
 }: AdaptiveMaxPooling2DLayerNodeProps) => {
   const [inputShape, setInputShape] = useState({
     height: data.inputShape[0],

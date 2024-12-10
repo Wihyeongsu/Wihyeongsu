@@ -24,7 +24,7 @@ export type FlattenLayerNodeProps = {
 const FlattenLayerNodeComponent = ({
   id,
   data,
-  selected,
+  selected = false,
 }: FlattenLayerNodeProps) => {
   const [inputShape, setInputShape] = useState(data.inputShape);
   const [outputShape, setOutputShape] = useState(data.outputShape);

@@ -27,7 +27,7 @@ export type LinearLayerNodeProps = {
 const LinearLayerNodeComponent = ({
   id,
   data,
-  selected,
+  selected = false,
 }: LinearLayerNodeProps) => {
   const [inputShape, setInputShape] = useState(data.inputShape);
   const [outputShape, setOutputShape] = useState(data.outputShape);

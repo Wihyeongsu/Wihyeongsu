@@ -1,5 +1,5 @@
 import { InputLayerNodeProps } from "@/types/Nodes/InputLayerNode.types";
-import { Handle, Position, useReactFlow } from "@xyflow/react";
+import { Position, useReactFlow } from "@xyflow/react";
 import NodeContextMenu from "../NodeContextMenu";
 import BaseNode from "./BaseNode";
 import { Separator } from "../ui/separator";
@@ -12,41 +12,61 @@ import ConnectionLimitHandle from "../Handles/ConnectionLimitHandle";
 const InputLayerNodeComponent = ({
   id,
   data,
-  isConnectable,
-  selected,
+  selected = false,
 }: InputLayerNodeProps) => {
-  const [length, setLength] = useState<number>(data.outputShape[0]);
-  const [height, setHeight] = useState<number>(data.outputShape[0]);
-  const [width, setWidth] = useState<number>(data.outputShape[1]);
-  const [channels, setChannels] = useState<number>(data.outputShape[2]);
-  const [dataFormat, setDataFormat] = useState<DataFormat>(data.dataFormat);
+  // 상태를 객체로 그룹화
+  const [inputState, setInputState] = useState({
+    shape: {
+      length: Array.isArray(data.outputShape)
+        ? data.outputShape[0]
+        : data.outputShape,
+      height: Array.isArray(data.outputShape) ? data.outputShape[0] : 0,
+      width: Array.isArray(data.outputShape) ? data.outputShape[1] : 0,
+      channels: Array.isArray(data.outputShape) ? data.outputShape[2] : 0,
+    },
+    dataFormat: data.dataFormat,
+  });
+
   const { updateNodeData } = useReactFlow();
 
+  // 데이터 포맷 변경 핸들러
   const handleDataFormatChange = (newFormat: DataFormat) => {
-    setDataFormat(newFormat);
-    // 포맷 변경 시 초기 값 설정
-    if (newFormat === "1D") {
-      updateNodeData(id, {
-        outputShape: length,
-        dataFormat: newFormat,
-      });
-    } else {
-      updateNodeData(id, {
-        outputShape: [height, width, channels],
-        dataFormat: newFormat,
-      });
-    }
+    setInputState((prev) => ({
+      ...prev,
+      dataFormat: newFormat,
+    }));
   };
 
+  // 형태 변경 핸들러
+  const handleShapeChange = (
+    dimension: keyof typeof inputState.shape,
+    value: number,
+  ) => {
+    setInputState((prev) => ({
+      ...prev,
+      shape: {
+        ...prev.shape,
+        [dimension]: value,
+      },
+    }));
+  };
+
+  // 노드 데이터 업데이트
   useEffect(() => {
     const outputShape =
-      dataFormat === "1D" ? length : [height, width, channels];
+      inputState.dataFormat === "1D"
+        ? inputState.shape.length
+        : [
+            inputState.shape.height,
+            inputState.shape.width,
+            inputState.shape.channels,
+          ];
 
     updateNodeData(id, {
       outputShape,
-      dataFormat,
+      dataFormat: inputState.dataFormat,
     });
-  }, [length, height, width, channels, dataFormat, id]);
+  }, [inputState, id]);
 
   return (
     <NodeContextMenu id={id}>
@@ -55,7 +75,7 @@ const InputLayerNodeComponent = ({
           <div className="flex justify-between items-center">
             <div>Input</div>
             <DataFormatPopover
-              currentFormat={dataFormat}
+              currentFormat={inputState.dataFormat}
               setDataFormat={handleDataFormatChange}
             />
           </div>
@@ -64,36 +84,40 @@ const InputLayerNodeComponent = ({
           <div className="flex flex-col gap-1 text-xs">
             <div className="border border-gray-200 hover:border-slate-300 rounded-xl px-4 py-1 text-xs min-w-[80px] text-center">
               [
-              {dataFormat === "1D"
-                ? [length]
-                : [height, width, channels].join(", ")}
+              {inputState.dataFormat === "1D"
+                ? [inputState.shape.length]
+                : [
+                    inputState.shape.height,
+                    inputState.shape.width,
+                    inputState.shape.channels,
+                  ].join(", ")}
               ]
             </div>
 
-            {dataFormat === "1D" ? (
+            {inputState.dataFormat === "1D" ? (
               <NumericPopover
-                initialValue={length}
+                initialValue={inputState.shape.length}
                 label="Units"
-                setValue={setLength}
+                setValue={(value) => handleShapeChange("length", value)}
               />
             ) : (
               <>
                 <div className="flex gap-2">
                   <NumericPopover
-                    initialValue={height}
+                    initialValue={inputState.shape.height}
                     label="Height"
-                    setValue={setHeight}
+                    setValue={(value) => handleShapeChange("height", value)}
                   />
                   <NumericPopover
-                    initialValue={width}
+                    initialValue={inputState.shape.width}
                     label="Width"
-                    setValue={setWidth}
+                    setValue={(value) => handleShapeChange("width", value)}
                   />
                 </div>
                 <NumericPopover
-                  initialValue={channels}
+                  initialValue={inputState.shape.channels}
                   label="Channels"
-                  setValue={setChannels}
+                  setValue={(value) => handleShapeChange("channels", value)}
                 />
               </>
             )}
