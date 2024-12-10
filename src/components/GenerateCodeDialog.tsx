@@ -18,20 +18,22 @@ import ImageDisplayButton from "./ImageDisplayButton";
 import CodeViewer from "./CodeViewer";
 import useAnthropicResponseStore from "@/store/anthropicResponseStore";
 
-const buttonStyle =
-  "rounded-xl bg-slate-80 border-2 border-slate-50 text-slate-950 hover:bg-slate-50 hover:border-slate-950 active:bg-slate-950 active:text-slate-50 transition-color duration-200 shadow-sm";
-
 export function GenerateCodeDialog() {
-  const [apikey, setApikey] = useState("");
+  const { api_key, setApikey } = useAnthropicResponseStore();
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const [showCodeViewer, setShowCodeViewer] = useState(false);
-  const { response } = useAnthropicResponseStore();
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild className="bg-slate-100 font-semibold">
-        <Button variant="ghost" className={buttonStyle}>
+      <DialogTrigger asChild className="!bg-violet-50 font-semibold shadow-md">
+        <Button
+          variant="ghost"
+          className="rounded-xl border-2 
+          border-violet-50 text-slate-950 
+          hover:!bg-slate-50 hover:border-slate-950 
+          active:!bg-slate-950 active:text-slate-50 
+          transition-color duration-200 hover:shadow-md">
           Generate code
         </Button>
       </DialogTrigger>
@@ -63,7 +65,7 @@ export function GenerateCodeDialog() {
               <Input
                 id="apikey"
                 type={show ? "text" : "password"}
-                value={apikey}
+                value={api_key}
                 placeholder="Enter your API key"
                 onChange={(e) => setApikey(e.target.value)}
                 className="
@@ -89,7 +91,6 @@ export function GenerateCodeDialog() {
         <div className="flex flex-row justify-end items-center">
           <div className="flex flex-col justify-center h-2/3 w-full min-h-[40px]">
             <AnimatedSubmitButton
-              apikey={apikey}
               onSuccess={() => {
                 setOpen(false);
                 setShowCodeViewer(true);
@@ -100,10 +101,7 @@ export function GenerateCodeDialog() {
         <ImageDisplayButton />
       </DialogContent>
       {showCodeViewer && (
-        <CodeViewer
-          code={response?.content || null}
-          onClose={() => setShowCodeViewer(false)}
-        />
+        <CodeViewer onClose={() => setShowCodeViewer(false)} />
       )}
     </Dialog>
   );

@@ -19,12 +19,12 @@ import { isOutputLayerNode } from "@/types/Nodes/OutputLayerNode.types";
 import { isLinearLayerNode } from "@/types/Nodes/LinearLayerNode.types";
 import ConnectionLine from "./ConnectionLine";
 
-const rfStyle = {
-  backgroundColor: "#00062E32",
+export const rfStyle = {
+  backgroundColor: "#404040",
+  opacity: 0.8,
 };
 
 const initialNodes: Node[] = [];
-
 const initialEdges: Edge[] = [];
 
 const Flow = () => {
@@ -76,8 +76,9 @@ const Flow = () => {
             animated: true,
             reconnectable: true,
             style: {
-              stroke: "#22d3ee", // 선의 색상
+              stroke: "#a78bfa", // 선의 색상
               strokeWidth: 3, // 선의 두께
+              strokeLinejoin: "round", // 선의 끝 모양
               opacity: 0.8, // 투명도
               strokeDasharray: "5,5", // 점선 패턴 (필요한 경우)
               cursor: "pointer", // 마우스 커서 스타일

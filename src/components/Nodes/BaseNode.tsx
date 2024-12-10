@@ -1,12 +1,16 @@
-const BaseNode = ({ children, selected }) => {
+const BaseNode = ({
+  children,
+  selected,
+}: {
+  children: React.ReactNode;
+  selected: boolean;
+}) => {
   return (
     <div
       className={`bg-slate-50 p-4 rounded-xl border hover:shadow-md
     transition-all
     ${
-      selected
-        ? "border-slate-700 shadow-lg scale-105"
-        : "border-slate-200 shadow-sm"
+      selected ? "border-violet-500 shadow-lg" : "border-slate-200 shadow-sm"
     }`}>
       {children}
     </div>

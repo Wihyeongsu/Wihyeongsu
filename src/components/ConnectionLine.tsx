@@ -3,7 +3,7 @@ export default ({ fromX, fromY, toX, toY }) => {
     <g>
       <path
         fill="none"
-        stroke={"#06b6d4"}
+        stroke={"#7c3aed"}
         strokeWidth={2}
         className="animated"
         d={`M${fromX},${fromY} C ${fromX} ${toY} ${fromX} ${toY} ${toX},${toY}`}
@@ -13,7 +13,7 @@ export default ({ fromX, fromY, toX, toY }) => {
         cy={toY}
         fill="#fff"
         r={3}
-        stroke={"#06b6d4"}
+        stroke={"#7c3aed"}
         strokeWidth={1.5}
       />
     </g>

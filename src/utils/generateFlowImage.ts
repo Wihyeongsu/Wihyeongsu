@@ -1,15 +1,14 @@
 import { getNodesBounds, getViewportForBounds, Node } from "@xyflow/react";
 import { toPng } from "html-to-image";
-import { parse } from "path";
 
 // 이미지 다운로드
-const downloadImage = (dataUrl: string) => {
-  const a = document.createElement("a");
+// const downloadImage = (dataUrl: string) => {
+//   const a = document.createElement("a");
 
-  a.setAttribute("download", "reactflow.png");
-  a.setAttribute("href", dataUrl);
-  a.click();
-};
+//   a.setAttribute("download", "reactflow.png");
+//   a.setAttribute("href", dataUrl);
+//   a.click();
+// };
 
 export const parseBase64 = (dataUrl: string) => {
   // "data:image/png;base64,": data 추출
@@ -64,7 +63,7 @@ export const generateFlowImage = async (
     const yOffset = (imageHeight - effectiveHeight) / 2;
 
     const url = await toPng(viewportElement, {
-      backgroundColor: "#9ca3af",
+      backgroundColor: "#404040",
       width: imageWidth,
       height: imageHeight,
       style: {
@@ -80,8 +79,8 @@ export const generateFlowImage = async (
       pixelRatio: 2,
       skipAutoScale: true,
     });
-    console.log(parseBase64(url));
-    downloadImage(url);
+    // console.log(parseBase64(url));
+    // downloadImage(url);
     return url;
   } catch (error) {
     console.error("뷰포트 처리 중 오류:", error);

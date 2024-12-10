@@ -23,14 +23,13 @@ type Usage = {
 
 type AnthropicResponseState = {
   response: CommandResponse | null;
+  api_key: string;
   isLoading: boolean;
   error: string | null;
 
-  fetchResponse: (
-    reactFlowInstance: ReactFlowInstance<Node, Edge>,
-    api_key: string,
-  ) => void;
+  fetchResponse: (reactFlowInstance: ReactFlowInstance<Node, Edge>) => void;
   clearResponse: () => void;
+  setApikey: (apikey: string) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
 };
@@ -38,13 +37,14 @@ type AnthropicResponseState = {
 const useAnthropicResponseStore = create<AnthropicResponseState>(
   (set, get) => ({
     response: null,
+    api_key: "",
     isLoading: false,
     error: null,
 
-    fetchResponse: async (reactFlowInstance, api_key) => {
+    fetchResponse: async (reactFlowInstance) => {
       try {
         set({ isLoading: true, error: null });
-
+        const { api_key } = get();
         if (!api_key) {
           throw new Error("API KEY is required");
         }
@@ -98,7 +98,7 @@ const useAnthropicResponseStore = create<AnthropicResponseState>(
             toast.error(`Error: ${error.message}`);
           }
         }
-
+        toast.error(errorMessage);
         set({ error: errorMessage, isLoading: false });
         throw error;
       }
@@ -108,6 +108,11 @@ const useAnthropicResponseStore = create<AnthropicResponseState>(
       set({
         response: null,
         error: null,
+      }),
+
+    setApikey: (api_key) =>
+      set({
+        api_key,
       }),
 
     setLoading: (loading) =>

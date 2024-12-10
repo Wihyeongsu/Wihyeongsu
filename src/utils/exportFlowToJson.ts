@@ -21,7 +21,7 @@ const exportFlowToJson = (reactFlowInstance: ReactFlowInstance): string => {
   // JSON 문자열로 변환
   const jsonString = JSON.stringify(graphData, null, 2);
 
-  console.log(jsonString);
+  // console.log(jsonString);
   return jsonString;
   // JSON 파일로 다운로드
   // const blob = new Blob([jsonString], { type: "application/json" });

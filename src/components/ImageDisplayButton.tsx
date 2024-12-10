@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Panel, useReactFlow } from "@xyflow/react";
 import { generateFlowImage } from "@/utils/generateFlowImage";
+import { toast } from "sonner";
 
 function ImageDisplayButton() {
   // 생성된 이미지의 URL을 저장할 상태
@@ -12,30 +13,31 @@ function ImageDisplayButton() {
       const imageUrl = await generateFlowImage(getNodes);
       setGeneratedImage(imageUrl);
     } catch (error) {
-      console.error("이미지 생성 실패:", error);
-      alert("이미지 생성 중 문제가 발생했습니다.");
+      toast.error("Failed to generate image");
     }
   };
 
   return (
     <>
-      {/* 버튼 패널 */}
+      {/* Button */}
       <Panel position="top-right">
         <button
           onClick={handleGenerateImage}
-          style={{
-            padding: "8px 16px",
-            backgroundColor: "#4f46e5",
-            color: "white",
-            borderRadius: "4px",
-            border: "none",
-            cursor: "pointer",
-          }}>
-          Generate Image
+          className="
+          px-4 py-2              
+          bg-violet-600          
+          text-white           
+          rounded               
+          border-none          
+          cursor-pointer       
+          hover:bg-violet-700
+          transition-colors
+        ">
+          Show Flow Image
         </button>
       </Panel>
 
-      {/* 이미지 표시 영역 */}
+      {/* Image */}
       {generatedImage && (
         <div
           style={{

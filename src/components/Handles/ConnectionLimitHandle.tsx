@@ -23,6 +23,7 @@ const ConnectionLimitHandle = ({
       type={type}
       position={position}
       isConnectable={connections.length < connectionCount}
+      className="w-1 h-3/4 !bg-violet-200 border border-violet-100 rounded-full"
     />
   );
 };
