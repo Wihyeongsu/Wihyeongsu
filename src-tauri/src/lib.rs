@@ -31,8 +31,8 @@ async fn anthropic_request(payload: Payload) -> Result<CommandResponse, String> 
     // println!("{system_prompt:#?}");
 
     let request = MessageRequestBuilder::new()
-        .model("claude-3-sonnet-20240229")
-        .max_tokens(4000)
+        .model("claude-3-5-sonnet-latest")
+        .max_tokens(8000)
         .messages(vec![Message {
             role: "user".to_owned(),
             content: vec![

@@ -1,16 +1,31 @@
-import exportFlowToJson from "@/utils/exportFlowToJson";
-import { fetchAnthropicResponse } from "@/utils/fetchAnthropic";
-import { generateFlowImage } from "@/utils/generateFlowImage";
+import useAnthropicResponseStore from "@/store/anthropicResponseStore";
 import { useReactFlow } from "@xyflow/react";
 import { useEffect, useRef, useState } from "react";
 
-const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
+// 애니메이션 상태를 관리하는 상수
+const ANIMATION_TIMING = {
+  BUTTON_SHRINK: 300, // 버튼 축소 애니메이션 시간
+  BUTTON_EXPAND: 300, // 버튼 확장 애니메이션 시간
+  TRANSITION: 1000, // API 호출 전 전환 시간
+} as const;
+
+// 애니메이션 딜레이를 위한 유틸리티 함수
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const AnimatedSubmitButton = ({
+  apikey,
+  onSuccess,
+}: {
+  apikey: string;
+  onSuccess: () => void;
+}) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isTextVisible, setIsTextVisible] = useState(true);
   const [isImageVisible, setIsImageVisible] = useState(false);
   const [length, setLength] = useState(40);
 
   const reactFlowInstance = useReactFlow();
+  const anthropicInstance = useAnthropicResponseStore();
 
   // 실제 DOM 요소를 참조하기 위한 ref
   const buttonContainerRef = useRef<HTMLDivElement>(null);
@@ -40,21 +55,38 @@ const AnimatedSubmitButton = ({ apikey }: { apikey: string }) => {
     };
   }, []);
 
-  const handleClick = () => {
-    // 애니메이션 중이라면 추가 클릭을 무시
+  const handleClick = async () => {
+    // 이미 애니메이션 중이라면 추가 클릭 방지
     if (isAnimating) return;
 
-    const responseContent = fetchAnthropicResponse(reactFlowInstance, apikey);
+    try {
+      setIsAnimating(true);
 
-    setIsAnimating(true);
+      // 첫 번째 애니메이션 단계: 텍스트 페이드아웃과 버튼 축소
+      setIsTextVisible(false);
+      await delay(ANIMATION_TIMING.BUTTON_SHRINK);
 
-    // 텍스트 페이드아웃을 버튼 축소 시작과 함께 진행
-    setIsTextVisible(false);
-
-    // 아이콘은 버튼이 완전히 축소된 후에 표시
-    setTimeout(() => {
+      // 두 번째 애니메이션 단계: 로딩 아이콘 표시
       setIsImageVisible(true);
-    }, 300); // 버튼 축소 애니메이션의 절반 시점에 아이콘을 표시
+
+      // 자연스러운 전환을 위한 딜레이
+      await delay(ANIMATION_TIMING.TRANSITION);
+
+      // API 호출
+      anthropicInstance.fetchResponse(reactFlowInstance, apikey);
+
+      // 성공 애니메이션 시작
+      await delay(ANIMATION_TIMING.BUTTON_EXPAND);
+      onSuccess();
+    } catch (error) {
+      console.error("Failed to generate code:", error);
+      // 에러 발생 시 애니메이션 초기화
+      setIsTextVisible(true);
+      setIsImageVisible(false);
+    } finally {
+      // 모든 처리가 끝난 후 애니메이션 상태 초기화
+      setIsAnimating(false);
+    }
   };
 
   return (

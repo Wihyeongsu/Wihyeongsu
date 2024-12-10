@@ -3,16 +3,16 @@ import { toPng } from "html-to-image";
 import { parse } from "path";
 
 // 이미지 다운로드
-function downloadImage(dataUrl: string) {
+const downloadImage = (dataUrl: string) => {
   const a = document.createElement("a");
 
   a.setAttribute("download", "reactflow.png");
   a.setAttribute("href", dataUrl);
   a.click();
-}
+};
 
 export const parseBase64 = (dataUrl: string) => {
-  // "data:image/png;base64," 부분을 제거하고 순수 base64 데이터만 반환합니다
+  // "data:image/png;base64,": data 추출
   return dataUrl.split(",")[1];
 };
 
