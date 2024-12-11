@@ -10,11 +10,10 @@ type CodeViewerProps = {
   onClose: () => void;
 };
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+// const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const CodeViewer = ({ onClose }: CodeViewerProps) => {
-  const { response, isLoading, error, clearResponse } =
-    useAnthropicResponseStore();
+  const { response, isLoading, error } = useAnthropicResponseStore();
   const [code, setCode] = useState<string | null>(null);
   const [usage, setUsage] = useState<{
     input_token: number;
@@ -60,7 +59,6 @@ const CodeViewer = ({ onClose }: CodeViewerProps) => {
       }, 100);
     }
 
-    // 클린업 함수
     return () => {
       console.log("CodeViewer unmounted");
       setIsContentVisible(false);
@@ -141,17 +139,18 @@ const CodeViewer = ({ onClose }: CodeViewerProps) => {
                   <div
                     className="flex justify-start gap-8 text-xl font-semibold text-slate-700 mb-2
                     transition-all duration-300 transform">
+                    {/* 추후에 token usage 출력 기능 추가 */}
                     <div className="flex items-center space-x-2">
-                      <span>Input token:</span>
+                      {/* <span>Input token:</span>
                       <span className="text-violet-600">
                         {usage.input_token}
-                      </span>
+                      </span> */}
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span>Output token:</span>
+                      {/* <span>Output token:</span>
                       <span className="text-violet-600">
                         {usage.output_token}
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                   {/* Code Systax Highlighter*/}
