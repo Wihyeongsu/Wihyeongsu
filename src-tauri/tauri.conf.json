@@ -9,6 +9,7 @@
     "beforeBuildCommand": "npm run build",
     "frontendDist": "../dist"
   },
+
   "app": {
     "windows": [
       {
@@ -24,7 +25,20 @@
   "bundle": {
     "active": true,
     "targets": ["msi"],
-    "icon": ["icons/icon.ico", "src/assets/images/ai-architect.svg"],
+    "resources": ["../public/*"],
+    "icon": [
+      "./icons/ai-architect.ico",
+      "./icons/ai-architect.svg",
+      "./icons/github.svg",
+      "./icons/react.svg",
+      "./icons/tauri.svg",
+      "./icons/typescript.svg",
+      "./icons/rust.svg",
+      "./icons/tailwind.svg",
+      "./icons/vite.svg",
+      "./icons/zustand.svg"
+    ],
+
     "publisher": "Wihyeongsu",
     "copyright": "Copyright © 2024",
     "windows": {
