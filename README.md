@@ -35,8 +35,8 @@ This combination of technologies allows us to create a desktop application that 
 ## Table of Contents
 
 - [AI-architect](#ai-architect)
-  - [Frontend](#frontend)
-  - [Backend](#backend)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
   - [Table of Contents](#table-of-contents)
   - [Getting Started](#getting-started)
     - [System Requirements](#system-requirements)
@@ -130,7 +130,20 @@ ai-architect/
 
 ## License
 
-AI-architect is released under the MIT License.
+AI-architect is released under the MIT License, which means you can freely use, modify, distribute, and even use the code commercially. The only requirement is to include the original copyright notice and license text.
+
+```
+MIT License
+Copyright (c) 2024 Wihyeongsu
+```
+
+See the [LICENSE.md](LICENSE.md) file for the full license text.
+
+This license was chosen to:
+- Allow maximum freedom for developers and users
+- Enable commercial use of the software
+- Maintain simplicity in licensing terms
+- Promote widespread adoption of the project
 
 ## References
 
