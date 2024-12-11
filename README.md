@@ -44,8 +44,8 @@ This combination of technologies allows us to create a desktop application that 
   - [Development](#development)
     - [Project Structure](#project-structure)
   - [Usage](#usage)
-  - [Contributing](#contributing)
   - [License](#license)
+  - [References](#references)
   - [Contact](#contact)
 
 ## Getting Started
@@ -117,7 +117,7 @@ ai-architect/
    │  │  ├── message_request.rs
    │  │  └── anthropic.rs
    │  ├── lib.rs
-   │  ├── main.rs
+   │  └── main.rs
    ├── build.rs
    ├── Cargo.lock
    ├── Cargo.toml
@@ -128,22 +128,30 @@ ai-architect/
 
 [Previous usage section content remains the same...]
 
-## Contributing
-
-[Previous contributing section content remains the same...]
-
 ## License
 
-AI-architect is released under the MIT License. See the [LICENSE.md](LICENSE.md) file for full details.
+AI-architect is released under the MIT License.
+
+## References
+
+- [Typescript](https://www.typescriptlang.org/)
+- [React](https://react.dev/)
+- [ReactFlow](https://reactflow.dev/)
+- [Prism](https://prismjs.com/)
+- [Zustand](https://zustand-demo.pmnd.rs/)
+- [Tailwind css](https://tailwindcss.com/)
+- [Shadcn/ui](https://ui.shadcn.com/)
+- [Rust](https://www.rust-lang.org/)
+- [Tauri](https://v2.tauri.app/)
+- [Pytorch](https://pytorch.org/docs/stable/nn.html)
+- [Css Animation](https://blog.hubspot.com/website/css-animation-examples)
+- [Anthroppic API](https://docs.anthropic.com/en/api/getting-started)
 
 ## Contact
 
-We're here to help! Reach out to us through these channels:
-
-- GitHub Issues: Submit bug reports and feature requests
-- Email: support@ai-architect.com
-- Discord: Join our [AI-architect Community](https://discord.gg/ai-architect)
-- Documentation: Visit our [Official Documentation](https://docs.ai-architect.com)
+<a href="https://github.com/Wihyeongsu/Wihyeongsu" target="_blank">
+    <img src="src/assets/images/github.svg" alt="GitHub" width="20">
+</a>
 
 ---
 
