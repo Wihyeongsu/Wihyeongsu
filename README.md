@@ -46,6 +46,19 @@ This combination of technologies allows us to create a desktop application that 
   - [Development](#development)
     - [Project Structure](#project-structure)
   - [Usage](#usage)
+    - [0. Get Anthropic apikey](#0-get-anthropic-apikey)
+    - [1. Set nodes](#1-set-nodes)
+    - [2. Connect](#2-connect)
+    - [3. Set value](#3-set-value)
+    - [4. Check flow image](#4-check-flow-image)
+    - [5. Enter anthropic apikey](#5-enter-anthropic-apikey)
+    - [6. Generate code](#6-generate-code)
+    - [7. Copy \& paste](#7-copy--paste)
+    - [Features](#features)
+      - [Sidebar](#sidebar)
+      - [ContextMenu](#contextmenu)
+      - [Connection validation](#connection-validation)
+      - [](#)
   - [License](#license)
   - [References](#references)
   - [Contact](#contact)
@@ -128,7 +141,35 @@ ai-architect/
 
 ## Usage
 
-https://github.com/[Wihyeongsu]/[Wihyeongsu]/Demo/Demo_total.mp4
+### 0. Get Anthropic apikey
+
+[Get apikey](https://console.anthropic.com/settings/keys)
+
+### 1. Set nodes
+
+### 2. Connect
+
+### 3. Set value
+
+### 4. Check flow image
+
+![AI Architect 로고](Demo/Demo_flow.png)
+
+### 5. Enter anthropic apikey
+
+### 6. Generate code
+
+### 7. Copy & paste
+
+### Features
+
+#### Sidebar
+
+#### ContextMenu
+
+#### Connection validation
+
+####
 
 ## License
 
