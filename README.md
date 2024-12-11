@@ -15,6 +15,8 @@ AI-architect is a modern desktop application that revolutionizes the way you des
 <details><summary><h2>Technology Stack</h2></summary>
 AI-architect is built using a modern, robust technology stack that ensures high performance, type safety, and an excellent developer experience:
 
+---
+
 ### Frontend
 
 - **React 18**: Powers our responsive and interactive user interface
@@ -35,8 +37,8 @@ This combination of technologies allows us to create a desktop application that 
 ## Table of Contents
 
 - [AI-architect](#ai-architect)
-    - [Frontend](#frontend)
-    - [Backend](#backend)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
   - [Table of Contents](#table-of-contents)
   - [Getting Started](#getting-started)
     - [System Requirements](#system-requirements)
@@ -126,7 +128,7 @@ ai-architect/
 
 ## Usage
 
-[Previous usage section content remains the same...]
+https://github.com/[Wihyeongsu]/[Wihyeongsu]/Demo/Demo_total.mp4
 
 ## License
 
@@ -140,6 +142,7 @@ Copyright (c) 2024 Wihyeongsu
 See the [LICENSE.md](LICENSE.md) file for the full license text.
 
 This license was chosen to:
+
 - Allow maximum freedom for developers and users
 - Enable commercial use of the software
 - Maintain simplicity in licensing terms
@@ -155,6 +158,7 @@ This license was chosen to:
 - [Tailwind css](https://tailwindcss.com/)
 - [Shadcn/ui](https://ui.shadcn.com/)
 - [Rust](https://www.rust-lang.org/)
+- [reqwest](https://docs.rs/reqwest/0.12.9/reqwest/)
 - [Tauri](https://v2.tauri.app/)
 - [Pytorch](https://pytorch.org/docs/stable/nn.html)
 - [Css Animation](https://blog.hubspot.com/website/css-animation-examples)

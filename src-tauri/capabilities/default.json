@@ -3,21 +3,5 @@
   "identifier": "default",
   "description": "Capability for the main window",
   "windows": ["main"],
-  "permissions": [
-    "core:default",
-    "shell:allow-open",
-    "store:default",
-    "http:default",
-    "stronghold:default",
-    "window-state:default",
-    "fs:default",
-    {
-      "identifier": "fs:allow-exists",
-      "allow": [{ "path": "$APPDATA/*" }]
-    },
-    {
-      "identifier": "fs:allow-write",
-      "allow": [{ "path": "$DOWNLOAD/*" }, { "path": "$DOCUMENT/*" }]
-    }
-  ]
+  "permissions": ["core:default", "shell:allow-open", "window-state:default"]
 }
