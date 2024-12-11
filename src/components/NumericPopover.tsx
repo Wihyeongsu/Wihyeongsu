@@ -2,7 +2,6 @@ import { useInput } from "@/hooks/useInput";
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useEffect } from "react";
-import { useReactFlow } from "@xyflow/react";
 
 type NumericPopoverProps = {
   initialValue: number;

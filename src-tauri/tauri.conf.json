@@ -24,7 +24,7 @@
   "bundle": {
     "active": true,
     "targets": ["msi"],
-    "icon": ["/src/assets/images/ai-architect.svg"],
+    "icon": ["icons/icon.ico", "src/assets/images/ai-architect.svg"],
     "publisher": "Wihyeongsu",
     "copyright": "Copyright © 2024",
     "windows": {

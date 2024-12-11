@@ -1,9 +1,16 @@
 [package]
 name = "ai-architect"
 version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
+description = "[2024-2 Open Source Software Term Project] AI-architect "
+authors = ["Wihyeongsu <wibrother2@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/Wihyeongsu/Wihyeongsu"
 edition = "2021"
+
+[package.metadata.windows]
+# Windows 특정 메타데이터
+company-name = "WiCorp"
+product-name = "AI Architect"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -26,10 +33,6 @@ serde_json = "1.0.133"
 reqwest = { version = "0.12.9", features = ["json"] }
 tokio = { version = "1.41.1", features = ["full"] }
 thiserror = "2.0.3"
-tauri-plugin-store = "2"
-tauri-plugin-http = "2"
-tauri-plugin-stronghold = "2"
-tauri-plugin-fs = "2"
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-window-state = "2"
