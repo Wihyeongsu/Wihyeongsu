@@ -155,7 +155,7 @@ ai-architect/
 
 ### 4. Check flow image
 
-<img src="Demo/Demo_flow.png" width="100" alt="이미지 설명">
+<img src="Demo/Demo_flow.png" width="400" alt="이미지 설명">
 
 ### 5. Enter anthropic apikey
 
