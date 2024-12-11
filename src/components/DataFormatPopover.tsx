@@ -23,12 +23,12 @@ export const DataFormatPopover = ({
         <Button
           variant="ghost"
           size="sm"
-          className="h-6 px-2 gap-2 text-xs hover:bg-slate-100">
+          className="h-6 px-2 gap-2 text-xs hover:bg-violet-200 text-slate-950 font-semibold border border-violet-700 border-opacity-80">
           <FontAwesomeIcon icon={faArrowsRotate} className="h-3 w-3" />
           {currentFormat}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="bg-slate-200 rounded-xl">
+      <PopoverContent className="bg-violet-50 rounded-xl border-2 border-violet-700 border-opacity-80 shadow-md">
         <div className="flex flex-col gap-1">
           {[
             { label: DataFormats[0], description: "N" },
@@ -40,7 +40,7 @@ export const DataFormatPopover = ({
               onClick={() => {
                 setDataFormat(format.label as DataFormat);
               }}
-              className="w-full justify-between text-xs hover:bg-slate-100">
+              className="w-full justify-between text-xs hover:bg-violet-200 text-slate-950 font-semibold">
               <span>{format.label}</span>
               <span className="text-xs text-muted-foreground">
                 [{format.description}]

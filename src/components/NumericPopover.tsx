@@ -31,16 +31,18 @@ const NumericPopover = ({
     <Popover>
       <PopoverTrigger
         asChild
-        className="hover:bg-slate-100 rounded-xl h-4 text-xs ">
+        className="hover:bg-violet-200 rounded-xl h-4 text-xs">
         <Button
           variant="ghost"
-          className="border border-gray-200 hover:border-slate-300">
+          className="border border-violet-700 border-opacity-80 hover:bg-violet-200 text-slate-950 font-semibold">
           {label}: {value}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="bg-slate-200 w-1/2 rounded-xl">
+      <PopoverContent className="bg-violet-50 w-1/2 rounded-xl border-2 border-violet-700 border-opacity-80 shadow-md">
         <div className="max-w-full">
-          <label htmlFor={"shape"}>{label}</label>
+          <label htmlFor={"shape"} className="text-slate-950 font-semibold">
+            {label}
+          </label>
           <input
             id={"shape"}
             type="text"
@@ -49,7 +51,7 @@ const NumericPopover = ({
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
               handleValueChange(e);
             }}
-            className="no-spinner max-w-full bg-slate-200"
+            className="no-spinner max-w-full bg-violet-100 rounded-lg text-slate-950"
           />
         </div>
       </PopoverContent>

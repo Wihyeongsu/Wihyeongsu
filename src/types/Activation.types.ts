@@ -5,7 +5,7 @@ export type Activation =
   | "tanh"
   | "softmax"
   | "leaky relu";
-export const ActivationList = [
+export const ActivationList: Activation[] = [
   "none",
   "relu",
   "sigmoid",

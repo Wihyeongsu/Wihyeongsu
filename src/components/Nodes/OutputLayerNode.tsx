@@ -20,7 +20,7 @@ import { DataFormat } from "@/types/DataFormat.types";
 const OutputLayerNodeComponent = ({
   data,
   id,
-  selected,
+  selected = false,
 }: OutputLayerNodeProps) => {
   // 입력 형태를 관리하는 상태들
   const [length, setLength] = useState<number>(1);
@@ -92,9 +92,11 @@ const OutputLayerNodeComponent = ({
       if (dataFormat === "1D") {
         setLength(1);
       } else {
-        setInputHeight(data.inputShape[0]);
-        setInputWidth(data.inputShape[1]);
-        setInputChannels(data.inputShape[2]);
+        if (Array.isArray(data.inputShape)) {
+          setInputHeight(data.inputShape[0]);
+          setInputWidth(data.inputShape[1]);
+          setInputChannels(data.inputShape[2]);
+        }
       }
     }
   }, [connectedNodesData, dataFormat, data.inputShape]);

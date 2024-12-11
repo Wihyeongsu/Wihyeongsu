@@ -1,4 +1,11 @@
-export default ({ fromX, fromY, toX, toY }) => {
+interface ConnectionLineProps {
+  fromX: number;
+  fromY: number;
+  toX: number;
+  toY: number;
+}
+
+export default ({ fromX, fromY, toX, toY }: ConnectionLineProps) => {
   return (
     <g>
       <path

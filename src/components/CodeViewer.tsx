@@ -10,18 +10,33 @@ type CodeViewerProps = {
   onClose: () => void;
 };
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const CodeViewer = ({ onClose }: CodeViewerProps) => {
   const { response, isLoading, error, clearResponse } =
     useAnthropicResponseStore();
   const [code, setCode] = useState<string | null>(null);
-  const [isContentVisible, setIsContentVisible] = useState(false);
-  const [tokens, setTokens] = useState<{
-    input: number;
-    output: number;
+  const [usage, setUsage] = useState<{
+    input_token: number;
+    output_token: number;
   } | null>(null);
+  const [isContentVisible, setIsContentVisible] = useState(false);
 
+  // Token usage update
   useEffect(() => {
-    // API response update
+    if (response?.usage) {
+      setUsage(response.usage);
+      console.log("Token usage received:", response.usage);
+    }
+  }, [response]);
+
+  // Token usage monitoring
+  useEffect(() => {
+    console.log("Token usage updated:", usage);
+  }, [usage]);
+
+  // API response update
+  useEffect(() => {
     if (response?.content && !code) {
       setCode(response.content);
       // Animation delay
@@ -31,26 +46,31 @@ const CodeViewer = ({ onClose }: CodeViewerProps) => {
       console.log(code);
       toast.success("Code generated successfully");
     }
-
-    // Token usage update
-    if (response?.usage) {
-      setTokens({
-        input: response.usage.input_token,
-        output: response.usage.output_token,
-      });
-      console.log("Token usage updated:", response.usage); // 디버깅을 위한 로그
-    }
-  }, [response, code, isLoading]);
+  }, [response, code]);
 
   // Clear store state on unmount
   useEffect(() => {
-    return () => {
-      clearResponse(); // store 상태도 초기화
-      setIsContentVisible(false);
-      setCode(null);
-    };
-  }, []);
+    // 이전 상태가 있다면 그대로 사용
+    if (response?.content) {
+      setCode(response.content);
+      setUsage(response.usage);
+      // 약간의 지연 후 컨텐츠를 표시
+      setTimeout(() => {
+        setIsContentVisible(true);
+      }, 100);
+    }
 
+    // 클린업 함수
+    return () => {
+      console.log("CodeViewer unmounted");
+      setIsContentVisible(false);
+      // 상태 초기화는 하되, store의 response는 유지
+      setCode(null);
+      setUsage(null);
+    };
+  }, [response]);
+
+  // Error handling
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -116,18 +136,22 @@ const CodeViewer = ({ onClose }: CodeViewerProps) => {
                     ? "opacity-100 scale-100"
                     : "opacity-0 scale-95"
                 }`}>
-              {!isLoading && code && tokens && (
+              {!isLoading && code && usage && (
                 <div className="space-y-4">
                   <div
                     className="flex justify-start gap-8 text-xl font-semibold text-slate-700 mb-2
                     transition-all duration-300 transform">
                     <div className="flex items-center space-x-2">
                       <span>Input token:</span>
-                      <span className="text-violet-600">{tokens.input}</span>
+                      <span className="text-violet-600">
+                        {usage.input_token}
+                      </span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <span>Output token:</span>
-                      <span className="text-violet-600">{tokens.output}</span>
+                      <span className="text-violet-600">
+                        {usage.output_token}
+                      </span>
                     </div>
                   </div>
                   {/* Code Systax Highlighter*/}

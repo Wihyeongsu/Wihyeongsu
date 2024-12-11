@@ -21,6 +21,10 @@ import { GithubSvg } from "./icons/github";
 import { ReactSvg } from "./icons/react";
 import { TauriSvg } from "./icons/tauri";
 import { AiArchitectSvg } from "./icons/ai-architect";
+import { TailwindSvg } from "./icons/tailwind";
+import { ZustandSvg } from "./icons/zustand";
+import { TypescriptSvg } from "./icons/typescript";
+import { RustSvg } from "./icons/rust";
 
 const bgStyle = { backgroundColor: "#737373" };
 
@@ -90,10 +94,14 @@ export function AppSidebar() {
           <SidebarFooter className="rounded-xl flex flex-col gap-2">
             <GenerateCodeDialog />
             <div
-              className="flex  justify-around bg-neutral-400 p-2 rounded-xl 
+              className="grid grid-cols-4 justify-around bg-neutral-400 p-2 rounded-xl 
             border-2 border-violet-700 border-opacity-80
             shadow-md">
               <ReactSvg />
+              <TypescriptSvg />
+              <TailwindSvg />
+              <ZustandSvg />
+              <RustSvg />
               <TauriSvg />
               <GithubSvg />
               <AiArchitectSvg />
