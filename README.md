@@ -59,11 +59,6 @@ https://github.com/Wihyeongsu/Wihyeongsu/issues/1#issue-2733157028
     - [5. Enter anthropic apikey](#5-enter-anthropic-apikey)
     - [6. Generate code](#6-generate-code)
     - [7. Copy \& paste](#7-copy--paste)
-    - [Features](#features)
-      - [Sidebar](#sidebar)
-      - [ContextMenu](#contextmenu)
-      - [Connection validation](#connection-validation)
-      - [](#)
   - [License](#license)
   - [References](#references)
   - [Contact](#contact)
@@ -165,16 +160,6 @@ ai-architect/
 ### 6. Generate code
 
 ### 7. Copy & paste
-
-### Features
-
-#### Sidebar
-
-#### ContextMenu
-
-#### Connection validation
-
-####
 
 ## License
 
