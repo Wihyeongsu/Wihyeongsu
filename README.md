@@ -1,11 +1,13 @@
 # AI-architect
 
+<img src="src/assets/images/ai-architect.svg" alt="AI-architect" width="300">
+
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Rust](https://img.shields.io/badge/Rust-1.82.0-orange)
 ![React](https://img.shields.io/badge/React-18-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.2.2-blue)
+![Rust](https://img.shields.io/badge/Rust-1.82.0-orange)
 ![Tauri](https://img.shields.io/badge/Tauri-2.1.0-yellow)
 
 AI-architect is a modern desktop application that revolutionizes the way you design and implement AI model architectures. Through an intuitive graphical interface, you can create complex deep learning model flows using nodes and edges, which automatically generate corresponding PyTorch code. Built with a powerful stack of modern technologies, it combines the performance of Rust with the flexibility of React to provide a seamless user experience.
@@ -33,8 +35,8 @@ This combination of technologies allows us to create a desktop application that 
 ## Table of Contents
 
 - [AI-architect](#ai-architect)
-  - [Frontend](#frontend)
-  - [Backend](#backend)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
   - [Table of Contents](#table-of-contents)
   - [Getting Started](#getting-started)
     - [System Requirements](#system-requirements)
@@ -42,8 +44,8 @@ This combination of technologies allows us to create a desktop application that 
   - [Development](#development)
     - [Project Structure](#project-structure)
   - [Usage](#usage)
-  - [Contributing](#contributing)
   - [License](#license)
+  - [References](#references)
   - [Contact](#contact)
 
 ## Getting Started
@@ -115,7 +117,7 @@ ai-architect/
    │  │  ├── message_request.rs
    │  │  └── anthropic.rs
    │  ├── lib.rs
-   │  ├── main.rs
+   │  └── main.rs
    ├── build.rs
    ├── Cargo.lock
    ├── Cargo.toml
@@ -126,22 +128,43 @@ ai-architect/
 
 [Previous usage section content remains the same...]
 
-## Contributing
-
-[Previous contributing section content remains the same...]
-
 ## License
 
-AI-architect is released under the MIT License. See the [LICENSE.md](LICENSE.md) file for full details.
+AI-architect is released under the MIT License, which means you can freely use, modify, distribute, and even use the code commercially. The only requirement is to include the original copyright notice and license text.
+
+```
+MIT License
+Copyright (c) 2024 Wihyeongsu
+```
+
+See the [LICENSE.md](LICENSE.md) file for the full license text.
+
+This license was chosen to:
+- Allow maximum freedom for developers and users
+- Enable commercial use of the software
+- Maintain simplicity in licensing terms
+- Promote widespread adoption of the project
+
+## References
+
+- [Typescript](https://www.typescriptlang.org/)
+- [React](https://react.dev/)
+- [ReactFlow](https://reactflow.dev/)
+- [Prism](https://prismjs.com/)
+- [Zustand](https://zustand-demo.pmnd.rs/)
+- [Tailwind css](https://tailwindcss.com/)
+- [Shadcn/ui](https://ui.shadcn.com/)
+- [Rust](https://www.rust-lang.org/)
+- [Tauri](https://v2.tauri.app/)
+- [Pytorch](https://pytorch.org/docs/stable/nn.html)
+- [Css Animation](https://blog.hubspot.com/website/css-animation-examples)
+- [Anthroppic API](https://docs.anthropic.com/en/api/getting-started)
 
 ## Contact
 
-We're here to help! Reach out to us through these channels:
-
-- GitHub Issues: Submit bug reports and feature requests
-- Email: support@ai-architect.com
-- Discord: Join our [AI-architect Community](https://discord.gg/ai-architect)
-- Documentation: Visit our [Official Documentation](https://docs.ai-architect.com)
+<a href="https://github.com/Wihyeongsu/Wihyeongsu" target="_blank">
+    <img src="src/assets/images/github.svg" alt="GitHub" width="20">
+</a>
 
 ---
 
