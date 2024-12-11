@@ -34,6 +34,8 @@ This combination of technologies allows us to create a desktop application that 
 
 </details>
 
+## Demo
+
 https://github.com/Wihyeongsu/Wihyeongsu/issues/1#issue-2733157028
 
 ## Table of Contents
@@ -41,6 +43,7 @@ https://github.com/Wihyeongsu/Wihyeongsu/issues/1#issue-2733157028
 - [AI-architect](#ai-architect)
   - [Frontend](#frontend)
   - [Backend](#backend)
+  - [Demo](#demo)
   - [Table of Contents](#table-of-contents)
   - [Getting Started](#getting-started)
     - [System Requirements](#system-requirements)
