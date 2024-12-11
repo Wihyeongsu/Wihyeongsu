@@ -85,9 +85,9 @@ For Windows users:
 
 - ~~Download the `.dmg` file~~
 
-For Linux users:
+(Unsupported)~~For Linux users:~~
 
-- Download the `.deb` file
+~~- Download the `.deb` file~~
 
 After installation, you can launch AI-architect from your system's application menu.
 
