@@ -34,7 +34,7 @@ This combination of technologies allows us to create a desktop application that 
 
 </details>
 
-https://github.com/user-attachments/assets/20370f04-e339-4d11-9561-28d60f12eca2/Demo_total.mp4
+https://github.com/user-attachments/assets/20370f04-e339-4d11-9561-28d60f12eca2/Demo.mp4
 
 ## Table of Contents
 
