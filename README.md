@@ -3,7 +3,7 @@
 <img src="src/assets/images/ai-architect.svg" alt="AI-architect" width="300">
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-0.1.1-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![React](https://img.shields.io/badge/React-18-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.2.2-blue)
@@ -36,13 +36,13 @@ This combination of technologies allows us to create a desktop application that 
 
 ## Demo
 
-https://github.com/Wihyeongsu/Wihyeongsu/issues/1#issue-2733157028
+https://github.com/Wihyeongsu/Wihyeongsu/Demo/Demo_total.mp4
 
 ## Table of Contents
 
 - [AI-architect](#ai-architect)
-  - [Frontend](#frontend)
-  - [Backend](#backend)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
   - [Demo](#demo)
   - [Table of Contents](#table-of-contents)
   - [Getting Started](#getting-started)
