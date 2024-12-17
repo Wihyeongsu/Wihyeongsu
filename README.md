@@ -36,7 +36,7 @@ This combination of technologies allows us to create a desktop application that 
 
 ## Demo
 
-https://github.com/Wihyeongsu/Wihyeongsu/blob/4c7815a4a075812cd6fbd24a5fb5736f2aa15e1f/Demo/Demo_total.mp4
+https://github.com/user-attachments/assets/e59f1850-4179-47dd-8baa-6ce2a5a03f99
 
 ## Table of Contents
 
