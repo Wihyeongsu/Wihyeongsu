@@ -56,9 +56,8 @@ https://github.com/user-attachments/assets/e59f1850-4179-47dd-8baa-6ce2a5a03f99
     - [2. Connect](#2-connect)
     - [3. Set value](#3-set-value)
     - [4. Check flow image](#4-check-flow-image)
-    - [5. Enter anthropic apikey](#5-enter-anthropic-apikey)
-    - [6. Generate code](#6-generate-code)
-    - [7. Copy \& paste](#7-copy--paste)
+    - [5. Enter anthropic apikey \& Generate code](#5-enter-anthropic-apikey--generate-code)
+    - [6. Copy \& paste](#6-copy--paste)
   - [License](#license)
   - [References](#references)
   - [Contact](#contact)
@@ -147,19 +146,27 @@ ai-architect/
 
 ### 1. Set nodes
 
+https://github.com/user-attachments/assets/89de0915-b4a8-4e61-9cd1-f10dbb42a644
+
 ### 2. Connect
+
+https://github.com/user-attachments/assets/c6f11410-901e-479e-a25f-edc8d8e6f495
 
 ### 3. Set value
 
+https://github.com/user-attachments/assets/f522642e-65fb-41dc-9579-3298d9097ef2
+
 ### 4. Check flow image
 
-<img src="Demo/Demo_flow.png" width="400" alt="이미지 설명">
+https://github.com/user-attachments/assets/4a3698dd-5a88-47c4-bf9b-f4867363d913
 
-### 5. Enter anthropic apikey
+### 5. Enter anthropic apikey & Generate code
 
-### 6. Generate code
+https://github.com/user-attachments/assets/3b17d701-33c2-476a-8aef-e08ebfbd3a5b
 
-### 7. Copy & paste
+### 6. Copy & paste
+
+https://github.com/user-attachments/assets/7ddd7298-d6ae-42bd-9aa5-6a4420e13971
 
 ## License
 
