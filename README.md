@@ -5,10 +5,13 @@
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Version](https://img.shields.io/badge/version-0.1.1-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
+
 ![React](https://img.shields.io/badge/React-18-61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.2.2-3178C6)
+
 ![Rust](https://img.shields.io/badge/Rust-1.82.0-B7410E)
 ![Tauri](https://img.shields.io/badge/Tauri-2.1.0-FFC131)
+
 ![Windows](https://img.shields.io/badge/Windows-supported-00A4EF)
 ![Linux](https://img.shields.io/badge/Linux-soon-FCC624)
 
