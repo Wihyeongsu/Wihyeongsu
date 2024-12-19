@@ -1,6 +1,6 @@
 # AI-architect
 
-<img src="src/assets/images/ai-architect.svg" alt="AI-architect" width="300">
+![ai-architect](https://github.com/user-attachments/assets/96747cda-dcc2-4522-bf82-a737fe73ac0a)
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Version](https://img.shields.io/badge/version-0.1.1-blue)
