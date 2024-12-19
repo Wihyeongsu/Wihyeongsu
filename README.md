@@ -2,17 +2,15 @@
 
 <img src="src/assets/images/ai-architect.svg" alt="AI-architect" width="300">
 
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-green)
+![Windows](https://img.shields.io/badge/Windows-0.1.1-00A4EF)
+![Linux](https://img.shields.io/badge/Linux-soon-FCC624)
 
 ![React](https://img.shields.io/badge/React-18-61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.2.2-3178C6)
 
 ![Rust](https://img.shields.io/badge/Rust-1.82.0-B7410E)
 ![Tauri](https://img.shields.io/badge/Tauri-2.1.0-FFC131)
-
-![Windows](https://img.shields.io/badge/Windows-0.1.1-00A4EF)
-![Linux](https://img.shields.io/badge/Linux-soon-FCC624)
 
 AI-architect is a modern desktop application that revolutionizes the way you design and implement AI model architectures. Through an intuitive graphical interface, you can create complex deep learning model flows using nodes and edges, which automatically generate corresponding PyTorch code. Built with a powerful stack of modern technologies, it combines the performance of Rust with the flexibility of React to provide a seamless user experience.
 
