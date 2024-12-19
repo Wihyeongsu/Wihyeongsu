@@ -16,7 +16,7 @@ AI-architect is a modern desktop application that revolutionizes the way you des
 
 ## Architecture
 
-![Ai-architect drawio](https://github.com/user-attachments/assets/62ee4b24-0c46-4d71-952e-034094a5566e)
+![Ai-architect drawio](https://github.com/user-attachments/assets/8ab0e02a-a899-44bf-b232-a4288dc90b04)
 
 AI-architect is built using a modern, robust technology stack that ensures high performance, type safety, and an excellent developer experience:
 
