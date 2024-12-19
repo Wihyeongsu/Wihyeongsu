@@ -24,8 +24,6 @@ AI-architect is built using a modern, robust technology stack that ensures high 
 
 ### Frontend
 
-### Frontend
-
 - **React**: Powers our responsive and interactive user interface
 - **TypeScript**: Ensures type safety and improves code maintainability
 - **Tailwind CSS**: Provides utility-first styling for consistent and maintainable design
@@ -52,7 +50,6 @@ https://github.com/user-attachments/assets/e59f1850-4179-47dd-8baa-6ce2a5a03f99
 - [AI-architect](#ai-architect)
   - [Architecture](#architecture)
     - [Frontend](#frontend)
-    - [Frontend](#frontend-1)
     - [Backend](#backend)
   - [Demo](#demo)
   - [Table of Contents](#table-of-contents)
