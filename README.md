@@ -13,6 +13,7 @@
 AI-architect is a modern desktop application that revolutionizes the way you design and implement AI model architectures. Through an intuitive graphical interface, you can create complex deep learning model flows using nodes and edges, which automatically generate corresponding PyTorch code. Built with a powerful stack of modern technologies, it combines the performance of Rust with the flexibility of React to provide a seamless user experience.
 
 <details><summary><h2>Technology Stack</h2></summary>
+
 ## Architecture
 
 ![Ai-architect drawio](https://github.com/user-attachments/assets/30845eba-0376-48fb-a835-619cebaecd4b)
