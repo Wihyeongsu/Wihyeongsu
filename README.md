@@ -183,7 +183,7 @@ MIT License
 Copyright (c) 2024 Wihyeongsu
 ```
 
-See the [LICENSE.md](LICENSE.md) file for the full license text.
+See the [LICENSE](LICENSE) file for the full license text.
 
 This license was chosen to:
 
