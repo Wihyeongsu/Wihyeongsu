@@ -12,6 +12,10 @@
 
 AI-architect is a modern desktop application that revolutionizes the way you design and implement AI model architectures. Through an intuitive graphical interface, you can create complex deep learning model flows using nodes and edges, which automatically generate corresponding PyTorch code. Built with a powerful stack of modern technologies, it combines the performance of Rust with the flexibility of React to provide a seamless user experience.
 
+## Demo
+
+https://github.com/user-attachments/assets/e59f1850-4179-47dd-8baa-6ce2a5a03f99
+
 <details><summary><h2>Technology Stack</h2></summary>
 
 ## Architecture
@@ -41,17 +45,13 @@ This combination of technologies allows us to create a desktop application that 
 
 </details>
 
-## Demo
-
-https://github.com/user-attachments/assets/e59f1850-4179-47dd-8baa-6ce2a5a03f99
-
 ## Table of Contents
 
 - [AI-architect](#ai-architect)
+  - [Demo](#demo)
   - [Architecture](#architecture)
     - [Frontend](#frontend)
     - [Backend](#backend)
-  - [Demo](#demo)
   - [Table of Contents](#table-of-contents)
   - [Getting Started](#getting-started)
     - [System Requirements](#system-requirements)
@@ -207,13 +207,16 @@ This license was chosen to:
 - [reqwest](https://docs.rs/reqwest/0.12.9/reqwest/)
 - [Tauri](https://v2.tauri.app/)
 - [Pytorch](https://pytorch.org/docs/stable/nn.html)
-- [Css Animation](https://blog.hubspot.com/website/css-animation-examples)
+- [CSS Animation](https://blog.hubspot.com/website/css-animation-examples)
 - [Anthroppic API](https://docs.anthropic.com/en/api/getting-started)
 
 ## Contact
 
 <a href="https://github.com/Wihyeongsu/Wihyeongsu" target="_blank">
-    <img src="src/assets/images/github.svg" alt="GitHub" width="20">
+  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+</a>
+<a href="https://www.instagram.com/we_shape_us/">
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
 </a>
 
 ---
