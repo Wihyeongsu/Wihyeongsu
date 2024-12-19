@@ -1,6 +1,6 @@
 # AI-architect
 
-![ai-architect](https://github.com/user-attachments/assets/96747cda-dcc2-4522-bf82-a737fe73ac0a)
+<img src="src/assets/images/ai-architect.svg" alt="AI-architect" width="300">
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Version](https://img.shields.io/badge/version-0.1.1-blue)
@@ -16,7 +16,7 @@ AI-architect is a modern desktop application that revolutionizes the way you des
 
 ## Architecture
 
-![Ai-architect drawio(1)](https://github.com/user-attachments/assets/fe430119-a342-44bc-a7da-b5c5b400e986)
+![Ai-architect drawio(2)](https://github.com/user-attachments/assets/a40fc425-b1f6-4aaa-a84b-e135a24b5009)
 
 AI-architect is built using a modern, robust technology stack that ensures high performance, type safety, and an excellent developer experience:
 
