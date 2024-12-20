@@ -1,6 +1,6 @@
 # AI-architect
 
-<img src="src/assets/images/ai-architect.svg" alt="AI-architect" width="300">
+<img src="public/ai-architect.svg" alt="AI-architect" width="300">
 
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Windows](https://img.shields.io/badge/Windows-0.1.1-00A4EF)
