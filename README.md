@@ -214,6 +214,9 @@ This license was chosen to:
 
 ## Contact
 
+23101196
+Wihyeongsu
+
 <a href="https://github.com/Wihyeongsu/Wihyeongsu" target="_blank">
   <img src="Demo/github.svg" width=30/>
 </a>
