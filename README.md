@@ -19,18 +19,19 @@
 
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=docker)
 
-### 🛠 OS
+### Environment
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=arch,ubuntu,hyprland)
 
-
 ### 🛠 Development Tools
-Python
+#### Python
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=vscode)
-Rust
+
+#### Rust
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=zed)
-Web
+
+#### Web
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=neovim)
-Java
+##### Java
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=idea)
 
 
