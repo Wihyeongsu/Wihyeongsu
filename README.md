@@ -16,10 +16,9 @@
 ![Most Used Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Wihyeongsu&layout=compact&theme=radical)
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=wihyoungsu)](https://solved.ac/wihyoungsu)
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Wihyeongsu&show_icons=true&theme=radical)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Wihyeongsu&show_icons=true&theme=aura)
 
-[![GitHub Streak](https://streak-stats.demolab.com?user=Wihyeongsu&theme=blueberry&border_radius=5.5&date_format=%5BY%20%5DM%20j&background=75%2C737A88%2C6A389DC0&ring=EA523BCE&fire=80FFF6)](https://git.io/streak-stats)
-
+[![GitHub Streak](https://streak-stats.demolab.com?user=Wihyeongsu&theme=blueberry&border_radius=5.5&date_format=%5BY%20%5DM%20j&ring=EA523BEA&fire=80FFF6)](https://git.io/streak-stats)
 ---
 
 ## 🥞 Tech Stack
