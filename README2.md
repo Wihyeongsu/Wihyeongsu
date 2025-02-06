@@ -16,6 +16,7 @@
 ![Most Used Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Wihyeongsu&layout=compact&theme=dark)
 ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=Wihyeongsu&theme=dark)
 
+[![GitHub Streak](https://streak-stats.demolab.com?user=Wihyeongsu&theme=blueberry&border_radius=5.5&date_format=%5BY%20%5DM%20j&background=60%2C792A25DA%2C6A389D9A&ring=EF3420E0&fire=80FFF6)](https://git.io/streak-stats)
 ---
 
 ## 🛠 **Tech Stack**
