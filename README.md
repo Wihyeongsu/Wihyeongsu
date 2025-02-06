@@ -18,7 +18,7 @@
 
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Wihyeongsu&show_icons=true&theme=radical)
 
-[![GitHub Streak](https://streak-stats.demolab.com?user=Wihyeongsu&theme=blueberry&border_radius=5.5&date_format=%5BY%20%5DM%20j&background=60%2C792A25DA%2C6A389D9A&ring=EF3420E0&fire=80FFF6)](https://git.io/streak-stats)
+[![GitHub Streak](https://streak-stats.demolab.com?user=Wihyeongsu&theme=blueberry&border_radius=5.5&date_format=%5BY%20%5DM%20j&background=75%2C737A88%2C6A389DC0&ring=EA523BCE&fire=80FFF6)](https://git.io/streak-stats)
 ---
 
 ## 🥞 Tech Stack
