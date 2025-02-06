@@ -13,7 +13,7 @@
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=css,tailwindcss)
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=python,rust)
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=java)
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=tauri,nextjs)
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=tauri,nextjs&titles=true)
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=docker,podman)
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=arch,nix,ubuntu)
 
