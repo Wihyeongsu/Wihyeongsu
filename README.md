@@ -9,12 +9,12 @@
 ---
 
 ## 🛠 Tech Stack
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=typescript,react)
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=tailwindcss)
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=html,typescript,react,zustand)
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=css,tailwindcss)
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=python,rust)
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=java)
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=tauri,nextjs)
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=docker)
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=docker,podman)
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=arch,nix,ubuntu)
 
 
