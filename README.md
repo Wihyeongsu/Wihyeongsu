@@ -9,7 +9,7 @@
 
 ### 🌱 [My digital garden](https://digitalgarden-sand-one.vercel.app/)
 
-### ⚙️ [Environmnet Setup](https://github.com/Wihyeongsu/dotfiles)
+### ⚙️ [Environment Setup](https://github.com/Wihyeongsu/dotfiles)
 ---
 
 ### 📊 My Stats
