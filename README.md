@@ -13,7 +13,7 @@
 ---
 
 ### 📊 My Stats
-![Most Used Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Wihyeongsu&layout=compact&theme=radical)
+![Most Used Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Wihyeongsu&layout=compact&theme=aura)
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=wihyoungsu)](https://solved.ac/wihyoungsu)
 
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Wihyeongsu&show_icons=true&theme=aura)
