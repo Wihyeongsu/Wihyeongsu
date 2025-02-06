@@ -4,15 +4,14 @@
 ### 🚀 About Me
 - 🌱 I’m currently learning **Machine Learning & Web Development**
 - 💡 Passionate about **AI, Web Tech, and Open Source**
-- 🏆 Competitive Programmer (Check my Solved.ac profile below)
 
 ---
 
-## 📊 GitHub Stats
+## 📊 My Stats
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=wihyoungsu)](https://solved.ac/wihyoungsu)
+
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Wihyeongsu&show_icons=true&theme=radical)
 ![Most Used Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Wihyeongsu&layout=compact&theme=radical)
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=Wihyeongsu&theme=radical)
 
 ---
 
