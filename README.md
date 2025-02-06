@@ -17,7 +17,10 @@
 
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=tauri,nextjs)
 
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=docker,arch,ubuntu)
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=docker)
+
+### 🛠 OS
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=arch,ubuntu,hyprland)
 
 
 ### 🛠 Development Tools
