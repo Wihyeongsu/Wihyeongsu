@@ -21,7 +21,14 @@
 
 
 ### 🛠 Development Tools
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=vscode,zed,neovim,idea)
+Python
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=vscode)
+Rust
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=zed)
+Web
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=neovim)
+Java
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=idea)
 
 
 ---
