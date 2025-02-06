@@ -2,19 +2,21 @@
 
 ## 🚀 About Me
 
-### 🔥 I’m currently learning
+### 🔥 I’m interested in
 - **Machine Learning**
 - **Web Development**
+- **Math**
 
 ### 🌱 [My digital garden](https://digitalgarden-sand-one.vercel.app/)
-
+### [Environmnet Setup](https://github.com/Wihyeongsu/dotfiles)
 ---
 
 ### 📊 My Stats
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=wihyoungsu)](https://solved.ac/wihyoungsu)
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Wihyeongsu&show_icons=true&theme=radical)
 ![Most Used Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Wihyeongsu&layout=compact&theme=radical)
+
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Wihyeongsu&show_icons=true&theme=radical)
 
 ---
 
