@@ -1,4 +1,4 @@
-# 👋 Hi, I'm Wihyeongsu!
+# 📌 Profile
 
 ## 🚀 About Me
 
@@ -8,6 +8,7 @@
 - **Math**
 
 ### 🌱 [My digital garden](https://digitalgarden-sand-one.vercel.app/)
+
 ### [Environmnet Setup](https://github.com/Wihyeongsu/dotfiles)
 ---
 
