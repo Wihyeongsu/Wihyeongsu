@@ -23,7 +23,7 @@
 
 ## 🥞 Tech Stack
 ![My Skills](https://skillicons.dev/icons?i=html,typescript,react&theme=dark&perline=15)
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=zustand)
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=zustand&theme=dark)
 
 ![My Skills](https://skillicons.dev/icons?i=css,tailwindcss&theme=dark&perline=15)
 
@@ -35,7 +35,7 @@
 
 ### 🛠 Development Tools
 ![My Skills](https://skillicons.dev/icons?i=vscode,neovim,idea&theme=dark&perline=15)
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=zed)
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=zed&theme=dark)
 
 ---
 
