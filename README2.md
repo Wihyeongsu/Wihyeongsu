@@ -48,6 +48,7 @@
     <img src="https://img.shields.io/badge/-Arch Linux-black?style=for-the-badge&logoColor=white&logo=archlinux&color=1793D1" alt="Arch Linux" />
     <img src="https://img.shields.io/badge/-Ubuntu-black?style=for-the-badge&logoColor=white&logo=ubuntu&color=E95420" alt="Ubuntu" />
 </div>
+
 ### 🛠 Development Tools
 <div>
     <img src="https://img.shields.io/badge/-Vscode-black?style=for-the-badge&logoColor=white&logo=vscode&color=2496ED" alt="Vscode" />

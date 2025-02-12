@@ -22,19 +22,20 @@
 ---
 
 ## 🥞 Tech Stack
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=html,typescript,react,zustand)
+![My Skills](https://skillicons.dev/icons?i=html,typescript,react&theme=dark&perline=15)
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=zustand)
 
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=css,tailwindcss)
+![My Skills](https://skillicons.dev/icons?i=css,tailwindcss&theme=dark&perline=15)
 
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=java,python,rust)
+![My Skills](https://skillicons.dev/icons?i=java,python,rust&theme=dark&perline=15)
 
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=tauri,nextjs)
+![My Skills](https://skillicons.dev/icons?i=tauri,nextjs&theme=dark&perline=15)
 
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=docker,arch,ubuntu)
-
+![My Skills](https://skillicons.dev/icons?i=docker,arch,ubuntu&theme=dark&perline=15)
 
 ### 🛠 Development Tools
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=vscode,zed,neovim,idea)
+![My Skills](https://skillicons.dev/icons?i=vscode,neovim,idea&theme=dark&perline=15)
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=zed)
 
 ---
 
